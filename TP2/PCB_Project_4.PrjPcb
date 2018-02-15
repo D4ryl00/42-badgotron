@@ -155,6 +155,23 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
+[Document8]
+DocumentPath=PcbLib1.PcbLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=DXJTEHKA
+
 [GeneratedDocument1]
 DocumentPath=Project Outputs for Free Documents\BOM\Bill of Materials-PCB_Project_4.xlsx
 DItemRevisionGUID=
@@ -950,7 +967,7 @@ Type10=1
 Type11=2
 Type12=2
 Type13=2
-Type14=1
+Type14=0
 Type15=1
 Type16=1
 Type17=1
