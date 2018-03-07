@@ -106,7 +106,7 @@ GenerateClassCluster=0
 DocumentUniqueId=CFEOCAAP
 
 [Document5]
-DocumentPath=Power_bouton.SchDoc
+DocumentPath=Power.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -123,7 +123,7 @@ GenerateClassCluster=0
 DocumentUniqueId=XMEVHCDF
 
 [Document6]
-DocumentPath=Vumetre_Lecteur.SchDoc
+DocumentPath=HorsPCB.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
