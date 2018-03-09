@@ -1,0 +1,9 @@
+Added Component: Designator=J1(RJ12_90)
+Added Pin To Net: NetName=MCLR Pin=J1-1
+Added Pin To Net: NetName=MCLR Pin=J1-1
+Added Pin To Net: NetName=MCLR Pin=J1-1
+Added Pin To Net: NetName=V3P3 Pin=J1-2
+Added Pin To Net: NetName=GND Pin=J1-3
+Added Pin To Net: NetName=PGD Pin=J1-4
+Added Pin To Net: NetName=PGC Pin=J1-5
+Added Member To Class: ClassName=PIC Member=Component J1 Program / Debug

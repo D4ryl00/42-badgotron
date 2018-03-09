@@ -1,0 +1,12 @@
+Added Component: Designator=D4(LED 0805)
+Added Pin To Net: NetName=NetD4_1 Pin=D4-1
+Added Pin To Net: NetName=GND Pin=D4-2
+Added Member To Class: ClassName=POWER Member=Component D4 Green LED
+Added Member To Class: ClassName=Sheet4 Member=Component R1 1K
+Added Room: Name=LED0
+Added Room: Name=LED1
+Added Room: Name=LED2
+Added Room: Name=LED3
+Added Room: Name=PIC
+Added Room: Name=POWER
+Added Room: Name=Sheet4
