@@ -1,15 +1,13 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\bocal\Documents\GitHub\elec\TP2\PCB1.PcbDoc
 Date     : 3/12/2018
-Time     : 5:36:30 PM
+Time     : 6:01:42 PM
 
 Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
 Rule Violations :0
 
 Processing Rule : Un-Routed Net Constraint ( (All) )
-   Violation between Un-Routed Net Constraint: Net GND Between Pad C5-1 (38.8,27.5mm) And Track on layer Bottom Layer (41,27.5mm)
-   Violation between Un-Routed Net Constraint: Net GND Between Pad C2-1 (45.6,27.6mm) And Pad C1-1 (45.7,23.3mm)
-Rule Violations :2
+Rule Violations :0
 
 Processing Rule : Clearance Constraint (Gap=0.2mm) (All),(All)
 Rule Violations :0
@@ -33,32 +31,10 @@ Processing Rule : Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)
 Rule Violations :0
 
 Processing Rule : Silk To Solder Mask (Clearance=0.2mm) (IsPad),(All)
-   Violation between Text "C5" (37.5mm,29mm)  Top Overlay and 
-                     Pad Y1-2(33.5mm,29.7mm)  Top Layer
-   Violation between Text "U1" (28.393mm,35.955mm)  Top Overlay and 
-                     Pad C7-2(30.9mm,36mm)  Top Layer
-   Violation between Text "U2" (47.8mm,0.7mm)  Top Overlay and 
-                     Pad U2-4(49.9mm,5.3mm)  Top Layer
-   Violation between Text "R3" (13.749mm,3.523mm)  Top Overlay and 
-                     Pad J1-2(15.74mm,5.57mm)  Multi-Layer
-   Violation between Text "R3" (13.749mm,3.523mm)  Top Overlay and 
-                     Pad J1-1(13.2mm,4.3mm)  Multi-Layer
-   Violation between Track (55.1mm,30.9mm)(55.5mm,31.3mm)  Top Overlay and 
-                     Pad P1-2(56.6mm,31mm)  Multi-Layer
-   Violation between Text "D2" (51.713mm,35.113mm)  Top Overlay and 
-                     Pad P1-1(53.1mm,36mm)  Multi-Layer
-   Violation between Track (54.2mm,19.5mm)(54.6mm,19.9mm)  Top Overlay and 
-                     Pad P2-2(53.1mm,19.8mm)  Multi-Layer
-Rule Violations :8
+Rule Violations :0
 
 Processing Rule : Silk to Silk (Clearance=0.1mm) (All),(All)
-   Violation between Text "U1" (28.393mm,35.955mm)  Top Overlay and 
-                     Track (29.6mm,34.3mm)(29.6mm,36.1mm)  Top Overlay
-   Violation between Text "J1" (16.033mm,12.674mm)  Bottom Overlay and 
-                     Track (0.3mm,13.8mm)(18.2mm,13.8mm)  Bottom Overlay
-   Violation between Text "U1" (28.393mm,35.955mm)  Top Overlay and 
-                     Text "C7" (29.606mm,37.374mm)  Top Overlay
-Rule Violations :3
+Rule Violations :0
 
 Processing Rule : Silk primitive without silk layer
    Violation between Silk To Board Region Clearance (Out of silkscreen region) : Track (31mm,-3.9mm)(31mm,1mm)  Bottom Overlay
@@ -78,5 +54,5 @@ Processing Rule : Rule
 Rule Violations :0
 
 
-Violations Detected : 21
+Violations Detected : 8
 Time Elapsed        : 00:00:00
