@@ -197,6 +197,10 @@ DItemRevisionGUID=
 DocumentPath=Project Outputs for PCB_Project_4\BOM\Bill of Materials-PCB_Project_4.xlsx
 DItemRevisionGUID=
 
+[GeneratedDocument3]
+DocumentPath=Project Outputs for PCB_Project_4\Design Rule Check - PCB1.html
+DItemRevisionGUID=
+
 [Configuration1]
 Name=Default Configuration
 ParameterCount=0
