@@ -1,0 +1,39 @@
+Designator Footprint               Mid X         Mid Y         Ref X         Ref Y         Pad X         Pad Y TB      Rotation Comment        
+
+J1         RJ12_90            444.488mil    281.693mil    519.685mil    169.291mil    519.685mil    169.291mil  B         90.00 Program / Debug
+D4         LED_0805          2194.882mil   1027.559mil   2153.543mil   1027.559mil   2153.543mil   1027.559mil  T          0.00 Green LED      
+R1         PDB181-K415K-102A2   1141.732mil     196.85mil    944.882mil     196.85mil    944.882mil     196.85mil  B        360.00 1K             
+Y1         HC49/4H_SMX_Crystal    1131.89mil   1169.291mil    944.882mil   1169.291mil    944.882mil   1169.291mil  T        360.00 8MHz           
+U2         TD03B_N           2106.299mil    198.819mil   2248.032mil    110.236mil   2248.032mil    110.236mil  T         90.00 AP1117         
+U1         QFP50P1200X1200X120-64   1168.563mil    740.197mil    917.323mil    496.063mil   1020.787mil    521.732mil  T          0.00 PIC32MX764F128H-I/PT
+R4         RESC1608N         2198.819mil    893.701mil   2165.354mil    893.701mil   2165.354mil    893.701mil  T        360.00 470r           
+R3         RESC1608N          588.583mil     82.677mil    555.118mil     82.677mil    555.118mil     82.677mil  T        360.00 4.7k           
+R2         RESC1608N          496.063mil     828.74mil    496.063mil    795.276mil    496.063mil    795.276mil  T         90.00 330r           
+R2         RESC1608N          492.126mil    986.221mil    492.126mil    952.756mil    492.126mil    952.756mil  T         90.00 330r           
+R2         RESC1608N          488.189mil   1127.953mil    488.189mil   1094.488mil    488.189mil   1094.488mil  T         90.00 330r           
+R2         RESC1608N          488.189mil   1281.496mil    488.189mil   1248.032mil    488.189mil   1248.032mil  T         90.00 330r           
+P2         PHOENIX_1985195   2576.772mil     342.52mil   2645.669mil    244.095mil   2645.669mil    244.095mil  T          0.00 12V Battery    
+P1         PHOENIX_1985195   2151.575mil   1314.961mil   2082.677mil   1413.386mil   2082.677mil   1413.386mil  T        180.00 12V Main       
+FB1        INDC1608AN        1738.189mil    448.819mil   1767.716mil    448.819mil   1767.716mil    448.819mil  T        180.00 600r           
+D3         214AC_21           2236.22mil    749.016mil    2236.22mil    681.102mil    2236.22mil    681.102mil  T         90.00 GF1A           
+D2         214AC_21          1846.457mil   1495.079mil   1846.457mil   1562.992mil   1846.457mil   1562.992mil  T        270.00 GF1A           
+LED3       LED_0805           405.505mil    824.795mil    405.505mil    783.456mil    405.505mil    783.456mil  T         90.00 Green LED      
+LED2       LED_0805           409.442mil    978.339mil    409.442mil        937mil    409.442mil        937mil  T         90.00 Green LED      
+LED1       LED_0805           413.379mil   1127.946mil    413.379mil   1086.607mil    413.379mil   1086.607mil  T         90.00 Green LED      
+LED0       LED_0805           413.379mil   1277.553mil    413.379mil   1236.214mil    413.379mil   1236.214mil  T         90.00 Green LED      
+C15        CAPC1608N         1740.158mil    596.457mil   1740.158mil    629.921mil   1740.158mil    629.921mil  T        270.00 100nF          
+C14        CAPC1608N         1582.677mil    238.189mil   1582.677mil    204.724mil   1582.677mil    204.724mil  T         90.00 1uF            
+C13        CAPC2012N         1740.158mil    238.189mil   1740.158mil    200.787mil   1740.158mil    200.787mil  T         90.00 10uF           
+C12        CAPC2012N         1937.008mil    494.094mil   1937.008mil    456.693mil   1937.008mil    456.693mil  T         90.00 10uF           
+C11        CAPC2012N         1956.693mil    844.488mil   1956.693mil    807.087mil   1956.693mil    807.087mil  T         90.00 10uF           
+C10        CAPC1608N          791.339mil    679.134mil    791.339mil    645.669mil    791.339mil    645.669mil  T         90.00 1uF            
+C9         CAPC2012N          633.858mil    683.071mil    633.858mil    645.669mil    633.858mil    645.669mil  T         90.00 10uF           
+C8         CAPC1608N         1031.496mil   1391.732mil   1031.496mil   1358.268mil   1031.496mil   1358.268mil  T         90.00 20pF           
+C7         CAPC1608N         1216.535mil   1383.858mil   1216.535mil   1350.394mil   1216.535mil   1350.394mil  T         90.00 20pF           
+C6         CAPC1608N         1582.677mil    608.268mil   1582.677mil    641.732mil   1582.677mil    641.732mil  T        270.00 100nF          
+C4         CAPC1608N          1564.96mil    929.134mil   1531.496mil    929.134mil   1531.496mil    929.134mil  T        360.00 100nF          
+C2         CAPC1608N         1761.811mil   1086.614mil   1795.276mil   1086.614mil   1795.276mil   1086.614mil  T        180.00 100nF          
+C1         CAPC1608N         1765.748mil    917.323mil   1799.213mil    917.323mil   1799.213mil    917.323mil  T        180.00 100nF          
+C3         CAPC1608N         1653.543mil   1222.441mil   1653.543mil   1255.906mil   1653.543mil   1255.906mil  T        270.00 100nF          
+C5         CAPC1608N         1561.024mil   1082.677mil   1527.559mil   1082.677mil   1527.559mil   1082.677mil  T        360.00 100nF          
+
