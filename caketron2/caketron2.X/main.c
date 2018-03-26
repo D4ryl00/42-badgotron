@@ -15,29 +15,38 @@ int main(void)
     TRISFbits.TRISF1 = 0;
 
     /* Initialize Button */
-    TRISDbits.TRISD7 = 1;
+    TRISDbits.TRISD8 = 1;
 
-    /* Initialize Timer2*/
-    T2CONbits.ON = 0;
+    /* Initialize Timer1 */
+    T1CONbits.ON = 0;
     T1CONbits.TCS = 1;
-    T1CONbits.TSYNC = 1;
-    T2CONbits.TCKPS = 3;
-    TMR2 = 0;
-    PR2 = 128;
-    IPC2bits.IC2IP = 1;
-    IPC2bits.IC2IS = 1;
-    IFS0bits.T2IF = 0;
-    T2CONbits.ON = 1;
+    T1CONbits.TSYNC = 0;
+    TMR1 = 0;
+    T1CONbits.TCKPS = 0;
+    PR1 = 0x7000;
+    /* Interrupt configuration */
+    /*IFS0bits.T1IF = 0;
+    IPC1bits.IC1IP = 1;
+    IPC1bits.IC1IS = 1;
+    IEC0bits.T1IE = 1;*/
+    /* Enable Timer2 */
+    T1CONbits.ON = 1;
 
+    int divider = 1;
     while (1)
     {
-        while (!IFS0bits.T2IF);
-        LATFbits.LATF1 = 1;
-        IFS0bits.T2IF = 0;
-        while (!IFS0bits.T2IF);
-        LATFbits.LATF1 = 0;
-        IFS0bits.T2IF = 0;
+        if (!PORTDbits.RD8)
+        {
+            T1CONbits.ON = 0;
+            TMR1 = 0;
+            PR1 = 0x7000 / divider;
+            divider = divider == 16 ? 1 : divider * 2;
+            T1CONbits.ON = 1;
+            while (!PORTDbits.RD8);
+        }
+        if (TMR1 == PR1)
+            LATFINV = 2;
+        //IFS0bits.T2IF = 0;
     }
     return (0);
 }
-
