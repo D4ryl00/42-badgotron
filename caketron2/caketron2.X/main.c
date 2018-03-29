@@ -3,7 +3,7 @@
 #include <p32xxxx.h>
 #include <xc.h>
 #include <sys/attribs.h>
-#pragma config FSOSCEN = ON
+//#pragma config FSOSCEN = ON
 
 int divider = 1;
 /* Enable secondary oscillator */
@@ -38,8 +38,8 @@ int main(void)
     PR1 = 0x8000;
     /* Interrupt configuration */
     IFS0bits.T1IF = 0;
-    IPC1bits.IC1IP = 7;
-    IPC1bits.IC1IS = 0;
+    IPC1bits.T1IP = 7;
+    IPC1bits.T1IS = 0;
     IEC0bits.T1IE = 1;
     //int divider = 1;
     /* Set Interrupt Controller for multi-vector mode */
