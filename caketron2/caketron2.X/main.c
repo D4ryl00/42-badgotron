@@ -6,16 +6,22 @@
 //#pragma config FSOSCEN = ON
 
 int divider = 1;
+
 /* Enable secondary oscillator */
-void	__ISR	(_TIMER_1_VECTOR, IPL7) Fonction(void)
+void	__ISR	(_TIMER_2_VECTOR, IPL7) Int_LED(void)
 {
-    //T1CONbits.ON = 0;
-    //TMR1 = 0;
-    //PR1 = 0x8000 / divider;
-    //T1CONbits.ON = 1;
     LATFINV = 2;
-    IFS0bits.T1IF = 0;
+    IFS0bits.T2IF = 0;
 }
+
+void	__ISR	(_EXTERNAL_1_VECTOR, IPL7) Int_BUT(void)
+{
+    TMR2 = 0;
+    divider = divider == 32 ? 1 : divider * 2;
+    PR2 = 125000 / divider;
+    IFS0bits.INT1IF = 0;
+}
+
 int main(void)
 {
     /* Warm-up period */
@@ -28,46 +34,35 @@ int main(void)
     /* Initialize Button */
     TRISDbits.TRISD8 = 1;
 
-    /* Initialize Timer1 */
-    T1CONbits.TON = 0;
-    T1CONbits.ON = 0;
-    T1CONbits.TCS = 1;
-    T1CONbits.TSYNC = 1;
-    TMR1 = 0;
-    T1CONbits.TCKPS = 0;
-    PR1 = 0x8000;
-    /* Interrupt configuration */
-    IFS0bits.T1IF = 0;
-    IPC1bits.T1IP = 7;
-    IPC1bits.T1IS = 0;
-    IEC0bits.T1IE = 1;
-    //int divider = 1;
+    /* Initialize Timer2 */
+    T2CONbits.ON = 0;
+    TMR2 = 0;
+    T2CONbits.TCKPS = 4;
+    PR2 = 125000;
+
+    /* TIMER2 Interrupt configuration */
+    IEC0bits.T2IE = 0;
+    IFS0bits.T2IF = 0;
+    IPC2bits.T2IP = 7;
+    IPC2bits.T2IS = 0;
+    IEC0bits.T2IE = 1;
+
+    /* Button Interrupt config*/
+    IEC0bits.INT1IE = 0;
+    IFS0bits.INT1IF = 0;
+    IPC1bits.INT1IP = 7;
+    IPC1bits.INT1IS = 2;
+    IEC0bits.INT1IE = 1;
+
     /* Set Interrupt Controller for multi-vector mode */
     INTCONSET = _INTCON_MVEC_MASK;
     __builtin_enable_interrupts();
-        /* Enable Timer2 */
-    T1CONbits.ON = 1;
-    T1CONbits.TON = 1;
+   /* Enable Timer2 */
+    T2CONbits.ON = 1;
+
     while (1)
     {
-        if (!PORTDbits.RD8)
-        {
-            //T1CONbits.ON = 0;
-            TMR1 = 0;
-            PR1 = 0x8000 / divider;
-            divider = divider == 16 ? 1 : divider * 2;
-	    LATFINV = 2;
-            //T1CONbits.ON = 1;
-            while (!PORTDbits.RD8)
-	    {}
-	    LATFINV = 2;
-        }
-	else
-	{
-
-	}
-        //if (TMR1 == PR1)
-          //  LATFINV = 2;
+	WDTCONbits.WDTCLR = 1;
     }
     return (0);
 }
