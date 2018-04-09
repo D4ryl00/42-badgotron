@@ -8,6 +8,7 @@
 u8  divider = 1;
 u8  dimp = 1;
 s8  dim_dir = 1;
+u8  mode = 1;
 
 /* Enable secondary oscillator */
 void	__ISR	(_TIMER_2_VECTOR, IPL7) Int_LED(void)
@@ -19,6 +20,8 @@ void	__ISR	(_TIMER_2_VECTOR, IPL7) Int_LED(void)
 void	__ISR	(_EXTERNAL_1_VECTOR, IPL7) Int_BUT(void)
 {
     TMR2 = 0;
+    TMR5 = 0;
+    T5CONbits.ON = 1;
     divider = divider == 32 ? 1 : divider * 2;
     PR2 = 125000 / divider;
     IFS0bits.INT1IF = 0;
@@ -38,6 +41,18 @@ void	__ISR	(_TIMER_4_VECTOR, IPL7) Int_LED_DIM_CHANGE(void)
     if (dimp == 99 || dimp == 0)
         dim_dir *= -1;
     dimp += dim_dir;
+}
+
+void	__ISR	(_TIMER_5_VECTOR, IPL6) Int_CHANGE_MODE(void)
+{
+    IFS0bits.T5IF = 0;
+    dimp = 1;
+    dim_dir = 1;
+    divider = 1;
+    if (mode)
+	mode = 0;
+    else
+	mode = 1;
 }
 
 int main(void)
@@ -91,6 +106,19 @@ int main(void)
     IPC4bits.T4IS = 0;
     IEC0bits.T4IE = 1;
 
+    /* Initialize Timer5 */
+    T5CONbits.ON = 0;
+    TMR5 = 0;
+    T5CONbits.TCKPS = 0b100; // = /16
+    PR5 = 125000; // 2 s
+
+/* TIMER5 Interrupt configuration */
+    IEC0bits.T5IE = 0;
+    IFS0bits.T5IF = 0;
+    IPC5bits.T5IP = 6;
+    IPC5bits.T5IS = 0;
+    IEC0bits.T5IE = 1;
+
     /* Button Interrupt config*/
     IEC0bits.INT1IE = 0;
     IFS0bits.INT1IF = 0;
@@ -105,9 +133,26 @@ int main(void)
     T2CONbits.ON = 1;
     T3CONbits.ON = 1;
     T4CONbits.ON = 1;
-
-    while (1)
+    
+    while (42)
     {
+	if (PORTDbits.RD8 == 1)
+	{
+	    TMR5 = 0;
+	    T5CONbits.ON = 0;
+	}
+	if (mode == 1)
+	{
+	    IEC0bits.T2IE = 1;
+	    IEC0bits.T3IE = 0;
+	    IEC0bits.T4IE = 0;
+	}
+	else
+	{
+	    IEC0bits.T2IE = 0;
+	    IEC0bits.T3IE = 1;
+	    IEC0bits.T4IE = 1;
+	}
 	WDTCONbits.WDTCLR = 1;
     }
     return (0);
