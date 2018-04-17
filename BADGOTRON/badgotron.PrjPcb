@@ -173,7 +173,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document9]
-DocumentPath=Sheet1.SchDoc
+DocumentPath=vraimenthorspcb.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -187,7 +187,11 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=OAJEIWHQ
+DocumentUniqueId=PNCHWLTG
+
+[GeneratedDocument1]
+DocumentPath=Project Outputs for badgotron\BOM\Bill of Materials-badgotron.xlsx
+DItemRevisionGUID=
 
 [Configuration1]
 Name=Default Configuration
