@@ -14,7 +14,7 @@ void    msleep(u32 time)
     PR2 = 1000; // = 1 ms
     IFS0bits.T2IF = 0;
     T2CONbits.ON = 1;
-    while (time > cpt)
+    while (cpt < time)
     {
         if (IFS0bits.T2IF)
         {

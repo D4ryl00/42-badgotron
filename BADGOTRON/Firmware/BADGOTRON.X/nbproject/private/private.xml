@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/C:/Users/bocal/Desktop/elec/BADGOTRON/Firmware/BADGOTRON.X/types.h</file>
-        <file>file:/C:/Users/bocal/Desktop/elec/BADGOTRON/Firmware/BADGOTRON.X/main.c</file>
-        <file>file:/C:/Users/bocal/Desktop/elec/BADGOTRON/Firmware/BADGOTRON.X/sleep.c</file>
-        <file>file:/C:/Users/bocal/Desktop/elec/BADGOTRON/Firmware/BADGOTRON.X/struct.h</file>
-        <file>file:/C:/Users/bocal/Desktop/elec/BADGOTRON/Firmware/BADGOTRON.X/macros.h</file>
-        <file>file:/C:/Users/bocal/Desktop/elec/BADGOTRON/Firmware/BADGOTRON.X/configbits.c</file>
-        <file>file:/C:/Users/bocal/Desktop/elec/BADGOTRON/Firmware/BADGOTRON.X/poubelle.c</file>
-        <file>file:/C:/Users/bocal/Desktop/elec/BADGOTRON/Firmware/BADGOTRON.X/Interruptions.c</file>
-        <file>file:/C:/Users/bocal/Desktop/elec/BADGOTRON/Firmware/BADGOTRON.X/Init_All.c</file>
+        <file>file:/C:/Users/bocal/Documents/GitHub/elec/BADGOTRON/Firmware/BADGOTRON.X/display_init.c</file>
+        <file>file:/C:/Users/bocal/Documents/GitHub/elec/BADGOTRON/Firmware/BADGOTRON.X/main.c</file>
+        <file>file:/C:/Users/bocal/Documents/GitHub/elec/BADGOTRON/Firmware/BADGOTRON.X/pin_select.h</file>
+        <file>file:/C:/Users/bocal/Documents/GitHub/elec/BADGOTRON/Firmware/BADGOTRON.X/types.h</file>
+        <file>file:/C:/Users/bocal/Documents/GitHub/elec/BADGOTRON/Firmware/BADGOTRON.X/badgotron.h</file>
     </open-files>
 </project-private>

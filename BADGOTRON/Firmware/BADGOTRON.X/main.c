@@ -5,14 +5,16 @@
  * Created on May 9, 2018, 2:50 PM
  */
 
-#include <p32xxxx.h>
-#include <xc.h>
+#include "badgotron.h"
 
 /*
  * 
  */
 
+void    init_pins(void)
+{
 
+}
 
 
 int main(int argc, char** argv) {
