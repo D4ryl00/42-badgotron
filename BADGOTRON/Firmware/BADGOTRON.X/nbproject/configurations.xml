@@ -18,6 +18,9 @@
       <itemPath>main.c</itemPath>
       <itemPath>sleep.c</itemPath>
       <itemPath>configbits.c</itemPath>
+      <itemPath>poubelle.c</itemPath>
+      <itemPath>Interruptions.c</itemPath>
+      <itemPath>Init_All.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

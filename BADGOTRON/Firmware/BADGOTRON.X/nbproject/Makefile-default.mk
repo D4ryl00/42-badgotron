@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c sleep.c configbits.c
+SOURCEFILES_QUOTED_IF_SPACED=main.c sleep.c configbits.c poubelle.c Interruptions.c Init_All.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/poubelle.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/poubelle.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/Init_All.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o
+OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/poubelle.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o
 
 # Source Files
-SOURCEFILES=main.c sleep.c configbits.c
+SOURCEFILES=main.c sleep.c configbits.c poubelle.c Interruptions.c Init_All.c
 
 
 CFLAGS=
@@ -112,6 +112,24 @@ ${OBJECTDIR}/configbits.o: configbits.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/configbits.o 
 	@${FIXDEPS} "${OBJECTDIR}/configbits.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/configbits.o.d" -o ${OBJECTDIR}/configbits.o configbits.c   
 	
+${OBJECTDIR}/poubelle.o: poubelle.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/poubelle.o.d 
+	@${RM} ${OBJECTDIR}/poubelle.o 
+	@${FIXDEPS} "${OBJECTDIR}/poubelle.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/poubelle.o.d" -o ${OBJECTDIR}/poubelle.o poubelle.c   
+	
+${OBJECTDIR}/Interruptions.o: Interruptions.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Interruptions.o.d 
+	@${RM} ${OBJECTDIR}/Interruptions.o 
+	@${FIXDEPS} "${OBJECTDIR}/Interruptions.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Interruptions.o.d" -o ${OBJECTDIR}/Interruptions.o Interruptions.c   
+	
+${OBJECTDIR}/Init_All.o: Init_All.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Init_All.o.d 
+	@${RM} ${OBJECTDIR}/Init_All.o 
+	@${FIXDEPS} "${OBJECTDIR}/Init_All.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Init_All.o.d" -o ${OBJECTDIR}/Init_All.o Init_All.c   
+	
 else
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -130,6 +148,24 @@ ${OBJECTDIR}/configbits.o: configbits.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/configbits.o.d 
 	@${RM} ${OBJECTDIR}/configbits.o 
 	@${FIXDEPS} "${OBJECTDIR}/configbits.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/configbits.o.d" -o ${OBJECTDIR}/configbits.o configbits.c   
+	
+${OBJECTDIR}/poubelle.o: poubelle.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/poubelle.o.d 
+	@${RM} ${OBJECTDIR}/poubelle.o 
+	@${FIXDEPS} "${OBJECTDIR}/poubelle.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/poubelle.o.d" -o ${OBJECTDIR}/poubelle.o poubelle.c   
+	
+${OBJECTDIR}/Interruptions.o: Interruptions.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Interruptions.o.d 
+	@${RM} ${OBJECTDIR}/Interruptions.o 
+	@${FIXDEPS} "${OBJECTDIR}/Interruptions.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Interruptions.o.d" -o ${OBJECTDIR}/Interruptions.o Interruptions.c   
+	
+${OBJECTDIR}/Init_All.o: Init_All.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/Init_All.o.d 
+	@${RM} ${OBJECTDIR}/Init_All.o 
+	@${FIXDEPS} "${OBJECTDIR}/Init_All.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Init_All.o.d" -o ${OBJECTDIR}/Init_All.o Init_All.c   
 	
 endif
 
