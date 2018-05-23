@@ -12,6 +12,7 @@
 extern "C" {
 #endif
 
+#define DISPLAY_DELAY 10
 
 #ifdef	__cplusplus
 }

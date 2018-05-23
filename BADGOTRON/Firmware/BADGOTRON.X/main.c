@@ -7,26 +7,12 @@
 
 #include "badgotron.h"
 
-/*
- * 
- */
-
-void    init_pins(void)
+int main(int argc, char** argv)
 {
-
-}
-
-
-int main(int argc, char** argv) {
-
-    /* Initialize LED */
-    LATFbits.LATF1 = 0;
-    TRISFbits.TRISF1 = 0;
-
+	display_init();
     while (42)
     {
-        clock_sleep(10000);
-        LATFINV = 2;
+		WDTCONbits.WDTCLR = 1;
     }
     return (EXIT_SUCCESS);
 }

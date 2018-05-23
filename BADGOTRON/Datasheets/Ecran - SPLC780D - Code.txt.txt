@@ -1,0 +1,272 @@
+//*************************************************************************************
+//-----------------------------通用字符型LCM测试程序-----------------------------------
+//*************************************************************************************
+//MCU：			AT89C52
+//LCD Drive:	SPLC708D/S6A0069/KS0066U
+//实用范围：
+//		
+//-------------------------------------------------------------------------------------
+//创建时间：	2005.11.14
+//创建者：		FDZ81
+//--------------------------------------------------------------------------------------
+#include   	<reg51.h>
+//--------------------------------------------------------------------------------------
+//LCM I/O定义：
+sbit		RS			= P3^5;            	//;DEFINE LCM WDATA/INSTRUCTION PIN    
+sbit		RW			= P3^6;            	//;DEFINE LCM READ/WRITE PIN
+sbit		E			= P3^7;        		//;DEFINE LCM CHIP ENABLE PIN
+#define		KEY				P2				//按键
+#define		LCM_DATA   		P1				//;DEFINE LCM WDATA BUS PIN
+#define		DATA_TYPE_4BIT	0				//数据方式为4bit读写方式
+#define		DATA_TYPE_8BIT	1				//数据方式为8bit读写方式
+bit			biDataType;						//数据方式标志
+#define		DEALY			2
+//--------------------------------------------------------------------------------------
+//延时程序,cystal frequency = 12MHz
+void Delay10Ms(unsigned char d)
+{
+	unsigned int t;
+	while(d--)
+	{
+		t = 5000;
+		while(t--);
+	}
+}
+//======================================================================================
+//忙查询并等待空闲
+void LCMBusyCheck(void)
+{
+ 	LCM_DATA =0xff;
+	while (1)
+	{
+		RS = 0;
+		RW = 1;
+		E  = 1;
+		if ((LCM_DATA & 0x80) == 0x00) 	break;
+		E = 0;
+	}
+}
+//======================================================================================
+//写入指令
+void LCMWriteCommand(unsigned char d)
+{
+	char t = DEALY;
+
+	t = 10;
+	while(--t);
+// 	LCMBusyCheck();
+	RS = 0;		   						//选择指令寄存器
+	RW = 0;
+	LCM_DATA = d;		 				
+	while(--t);
+	E = 1;								//写入
+	E = 0;
+	if (biDataType == DATA_TYPE_4BIT)	//4位数据方式
+	{
+		RS = 0;							//选择指令寄存器
+		RW = 0;
+		LCM_DATA = (d << 4);
+		t = DEALY;
+		while(t--);
+		E = 1;							//写入
+		E = 0;
+	}
+}
+//======================================================================================
+//写入数据
+void LCMWriteData(unsigned char d)
+{
+	char t = DEALY;
+
+	t = 10;
+	while(--t);
+// 	LCMBusyCheck();
+	RS = 1;								//选择数据寄存器
+	RW = 0;
+	LCM_DATA = d;		 				
+	while(t--);
+	E = 1;								//写入
+	E = 0;
+	if (biDataType == DATA_TYPE_4BIT)	//4位数据方式
+	{
+		RS = 1;							//选择数据寄存器
+		RW = 0;
+		LCM_DATA = (d << 4);
+		t = DEALY;
+		while(t--);
+		E = 1;						   //写入
+		E = 0;
+	}
+}
+//=======================================================================================
+//上电时，不查询busy信号的写入指令方式
+void LCMWriteInitCommand(unsigned char d)
+{
+	char t = DEALY;
+
+	RS = 0;		   						//选择指令寄存器
+	RW = 0;
+	LCM_DATA = d;		 				
+	while(t--);
+	E = 1;								//写入
+	E = 0;
+	if (biDataType == DATA_TYPE_4BIT)	//4位数据方式
+	{
+		RS = 0;							//选择指令寄存器
+		RW = 0;
+		LCM_DATA = d << 4;
+		t = DEALY;
+		while(t--);
+		E = 1;							//写入
+		E = 0;
+	}
+}
+//======================================================================================
+//LCM初始化
+void LCMInit(void)
+{
+/*
+	Delay10Ms(3);						//等待30ms
+	LCMWriteInitCommand(0x30);			//不查询busy写入指令
+	Delay10Ms(3);						//等待30ms
+	LCMWriteCommand(0x30);				//8bit数据方式
+	Delay10Ms(3);						//等待30ms
+	LCMWriteCommand(0x38);				//8bit数据方式，2行显示
+	Delay10Ms(3);						//等待30ms
+	LCMWriteCommand(0x0c);				//display on,cursor off,blinks off
+	Delay10Ms(3);						//等待30ms
+	LCMWriteCommand(0x06);				//cursor shift = increment
+	Delay10Ms(3);						//等待30ms
+	LCMWriteCommand(0x01);				//clear display	   			
+	Delay10Ms(3);						//等待30ms
+*/
+	LCMWriteCommand(0x01);				//clear display	
+	Delay10Ms(1);						//等待10ms,等待清零结束，否则如果立即写入显示数据，会造成第一行前面的字没显示
+
+	if(!biDataType)
+	{
+		//4bit数据方式
+		LCMWriteInitCommand(0x20);		//不查询busy写入指令
+		Delay10Ms(1);					//等待30ms
+		LCMWriteInitCommand(0x20);		//不查询busy写入指令
+		Delay10Ms(1);					//等待30ms
+		LCMWriteCommand(0x20);	
+		Delay10Ms(1);					//等待30ms			
+		LCMWriteCommand(0x28);			//4bit数据方式，2行显示
+	}
+	else
+	{
+		//8bit数据方式
+		LCMWriteInitCommand(0x30);		//不查询busy写入指令
+		Delay10Ms(1);						//等待30ms
+		LCMWriteInitCommand(0x30);		//不查询busy写入指令
+		Delay10Ms(1);						//等待30ms
+		LCMWriteCommand(0x30);			
+		Delay10Ms(1);					//等待30ms			
+		LCMWriteCommand(0x38);			//8bit数据方式，2行显示
+	}
+	LCMWriteCommand(0x0c);				//display on,cursor off,blinks off
+	LCMWriteCommand(0x06);				//cursor shift = increment
+
+}
+//======================================================================================
+void LCMWriteExtendASIC(void)
+{
+	unsigned char i;
+
+	for(i = 0xc0;i != 0;i++)
+	{
+		LCMWriteData(i);
+	}
+}
+//======================================================================================
+//2个自定义字符的点阵数据写入CGRAM中
+void LCMWriteMyChar(void)
+{
+	unsigned char code disp1[8] = {0x1f,0x1f,0x1f,0x1f,0x1f,0x1f,0x1f,0x1f};
+	unsigned char code disp2[8] = {0x15,0x15,0x15,0x15,0x15,0x15,0x15,0x15};
+	unsigned char code disp3[8] = {0x1f,0x11,0x11,0x11,0x11,0x11,0x11,0x1f};
+
+	unsigned char i;
+
+	LCMWriteCommand(0x40);				//Set 第一个CGRAM address 
+	for(i = 0;i <8;i++)
+	{
+		LCMWriteData(disp1[i]);			//写入自定义的点阵数据
+	}
+	LCMWriteCommand(0x48);				//Set 第二个CGRAM address 
+	for(i = 0;i <8;i++)
+	{
+		LCMWriteData(disp2[i]);		   	//写入自定义的点阵数据
+	}
+	LCMWriteCommand(0x50);				//Set 第二个CGRAM address 
+	for(i = 0;i <8;i++)
+	{
+		LCMWriteData(disp3[i]);		   	//写入自定义的点阵数据
+	}
+//自定义符显示									   	
+//	LCMWriteCommand(0x80);				//Set DDRAM address 
+//	LCMWriteData(0);				   	//第一个自定义字符在显存DDRAM address = 0 中
+//	LCMWriteData(1);					//第二个自定义字符在显存DDRAM address = 1 中
+}
+//======================================================================================
+void main(void)
+{
+	unsigned char  i,j,d;
+	unsigned char  ucDisplay[]="  Midas DIsplays  ";
+	unsigned char  ucDiffrenceChar[] = {0x61,0x71,0x81,0x91,0xa1,0xb1,0xc1,0xd1};
+
+ 	biDataType = DATA_TYPE_8BIT;		//8位数据方式
+// 	biDataType = DATA_TYPE_4BIT;
+	LCMInit();
+	LCMWriteMyChar();					//自定义字符点阵数据写入CGRAM 
+	while(1)
+	{
+		//-----------------------------------------------
+		LCMWriteCommand(0x80);			//点全显		 
+		for(i=0;i<80;i++)			   
+		{
+			LCMWriteData(0);
+		}
+		Delay10Ms(11);
+		//-----------------------------------------------
+		LCMWriteCommand(0x01);			//clear display	   			
+		//
+		LCMWriteCommand(0x80);			//写入8个特别选择的特征字符，作为区别不同字库
+		for(j=10;j!=0;j--)
+		{
+			for(i=0;i<8;i++)			   
+			{
+				LCMWriteData(ucDiffrenceChar[i]);
+			}
+		}
+		Delay10Ms(11);
+		//-----------------------------------------------
+		LCMWriteCommand(0x80);			//全显示“#”	 
+		for(i=0;i<80;i++)			   
+		{
+			LCMWriteData('#');
+		}
+		Delay10Ms(11);
+		//-----------------------------------------------
+		LCMWriteCommand(0x80);			//全显示"$"		 
+		for(i=0;i<80;i++)			   
+		{
+			LCMWriteData('$');
+		}
+		Delay10Ms(11);
+		//-----------------------------------------------
+		LCMWriteCommand(0x01);			//clear display	   			
+		//
+		LCMWriteCommand(0x80);			//
+		LCMWriteExtendASIC();		   	//将扩展ASIC80个特征字符一次写入DDRAM
+		Delay10Ms(11);
+	}
+}
+
+
+
+
+
+
+
