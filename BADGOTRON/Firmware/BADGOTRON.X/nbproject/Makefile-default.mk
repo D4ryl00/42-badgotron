@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=main.c sleep.c configbits.c poubelle.c Interruptions.c Init_All.c display_init.c
+SOURCEFILES_QUOTED_IF_SPACED=display_init.c main.c sleep.c configbits.c poubelle.c Interruptions.c Init_All.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/poubelle.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o ${OBJECTDIR}/display_init.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/poubelle.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/Init_All.o.d ${OBJECTDIR}/display_init.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/display_init.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/poubelle.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/display_init.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/poubelle.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/Init_All.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/poubelle.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o ${OBJECTDIR}/display_init.o
+OBJECTFILES=${OBJECTDIR}/display_init.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/poubelle.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o
 
 # Source Files
-SOURCEFILES=main.c sleep.c configbits.c poubelle.c Interruptions.c Init_All.c display_init.c
+SOURCEFILES=display_init.c main.c sleep.c configbits.c poubelle.c Interruptions.c Init_All.c
 
 
 CFLAGS=
@@ -94,6 +94,12 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/display_init.o: display_init.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/display_init.o.d 
+	@${RM} ${OBJECTDIR}/display_init.o 
+	@${FIXDEPS} "${OBJECTDIR}/display_init.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/display_init.o.d" -o ${OBJECTDIR}/display_init.o display_init.c   
+	
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.o.d 
@@ -130,13 +136,13 @@ ${OBJECTDIR}/Init_All.o: Init_All.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/Init_All.o 
 	@${FIXDEPS} "${OBJECTDIR}/Init_All.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Init_All.o.d" -o ${OBJECTDIR}/Init_All.o Init_All.c   
 	
+else
 ${OBJECTDIR}/display_init.o: display_init.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/display_init.o.d 
 	@${RM} ${OBJECTDIR}/display_init.o 
-	@${FIXDEPS} "${OBJECTDIR}/display_init.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/display_init.o.d" -o ${OBJECTDIR}/display_init.o display_init.c   
+	@${FIXDEPS} "${OBJECTDIR}/display_init.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/display_init.o.d" -o ${OBJECTDIR}/display_init.o display_init.c   
 	
-else
 ${OBJECTDIR}/main.o: main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/main.o.d 
@@ -172,12 +178,6 @@ ${OBJECTDIR}/Init_All.o: Init_All.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/Init_All.o.d 
 	@${RM} ${OBJECTDIR}/Init_All.o 
 	@${FIXDEPS} "${OBJECTDIR}/Init_All.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Init_All.o.d" -o ${OBJECTDIR}/Init_All.o Init_All.c   
-	
-${OBJECTDIR}/display_init.o: display_init.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/display_init.o.d 
-	@${RM} ${OBJECTDIR}/display_init.o 
-	@${FIXDEPS} "${OBJECTDIR}/display_init.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/display_init.o.d" -o ${OBJECTDIR}/display_init.o display_init.c   
 	
 endif
 

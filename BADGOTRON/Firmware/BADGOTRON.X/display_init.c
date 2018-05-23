@@ -24,6 +24,7 @@ void    set_all_data_pins(u8 value)
 	DB7_WRITE = value & 0b10000000;
 }
 
+
 void    display_init(void)
 {
 	E_MODE = 0;
@@ -34,7 +35,22 @@ void    display_init(void)
 	RS_WRITE = 0;
 	set_all_data_pins(0);
 	set_mode_data_pins(0);
-	msleep(15);
+	msleep(16);
 	DB5_WRITE = 1;
-
+	DB4_WRITE = 1;
+	E_WRITE = 1;
+	msleep(5);
+	E_WRITE = 0;
+	msleep(1);
+	E_WRITE = 1;
+	msleep(1);
+	E_WRITE = 0;
+	msleep(1);
+	set_all_data_pins(0b00111100);
+	//init end
+	// test put A
+	RS_WRITE = 1;
+	RW_WRITE = 0;
+	set_all_data_pins(0b00000000);
+	E_WRITE = 1;
 }
