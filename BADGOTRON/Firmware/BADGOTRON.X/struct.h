@@ -12,6 +12,21 @@
 extern "C" {
 #endif
 
+union u_u8
+{
+    u8 allBits;
+    struct
+	{
+		u8	bit0    :1;
+		u8	bit1    :1;
+		u8	bit2    :1;
+		u8	bit3    :1;
+		u8	bit4    :1;
+		u8	bit5    :1;
+		u8	bit6    :1;
+		u8	bit7    :1;
+    };
+};
 
     typedef struct  s_nanotime
     {
