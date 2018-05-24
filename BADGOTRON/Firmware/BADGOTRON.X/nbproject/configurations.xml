@@ -19,7 +19,11 @@
                    projectFiles="true">
       <logicalFolder name="f1" displayName="Display" projectFiles="true">
         <itemPath>display_init.c</itemPath>
-        <itemPath>pin_select.h</itemPath>
+        <itemPath>display_pin_select.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="Servo" projectFiles="true">
+        <itemPath>servo.c</itemPath>
+        <itemPath>servo_pin_select.h</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>sleep.c</itemPath>

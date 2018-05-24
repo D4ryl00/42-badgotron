@@ -20,7 +20,8 @@ extern "C" {
 #include "struct.h"
 
 /* Display */
-#include "pin_select.h"
+#include "display_pin_select.h"
+#include "servo_pin_select.h"
 
 #ifdef	__cplusplus
 }

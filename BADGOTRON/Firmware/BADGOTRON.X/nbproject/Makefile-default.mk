@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=display_init.c main.c sleep.c configbits.c Interruptions.c Init_All.c
+SOURCEFILES_QUOTED_IF_SPACED=display_init.c main.c sleep.c configbits.c Interruptions.c Init_All.c servo.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/display_init.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/display_init.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/Init_All.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/display_init.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o ${OBJECTDIR}/servo.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/display_init.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/Init_All.o.d ${OBJECTDIR}/servo.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/display_init.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o
+OBJECTFILES=${OBJECTDIR}/display_init.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o ${OBJECTDIR}/servo.o
 
 # Source Files
-SOURCEFILES=display_init.c main.c sleep.c configbits.c Interruptions.c Init_All.c
+SOURCEFILES=display_init.c main.c sleep.c configbits.c Interruptions.c Init_All.c servo.c
 
 
 CFLAGS=
@@ -130,6 +130,12 @@ ${OBJECTDIR}/Init_All.o: Init_All.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/Init_All.o 
 	@${FIXDEPS} "${OBJECTDIR}/Init_All.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Init_All.o.d" -o ${OBJECTDIR}/Init_All.o Init_All.c   
 	
+${OBJECTDIR}/servo.o: servo.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/servo.o.d 
+	@${RM} ${OBJECTDIR}/servo.o 
+	@${FIXDEPS} "${OBJECTDIR}/servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/servo.o.d" -o ${OBJECTDIR}/servo.o servo.c   
+	
 else
 ${OBJECTDIR}/display_init.o: display_init.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -166,6 +172,12 @@ ${OBJECTDIR}/Init_All.o: Init_All.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/Init_All.o.d 
 	@${RM} ${OBJECTDIR}/Init_All.o 
 	@${FIXDEPS} "${OBJECTDIR}/Init_All.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Init_All.o.d" -o ${OBJECTDIR}/Init_All.o Init_All.c   
+	
+${OBJECTDIR}/servo.o: servo.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/servo.o.d 
+	@${RM} ${OBJECTDIR}/servo.o 
+	@${FIXDEPS} "${OBJECTDIR}/servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/servo.o.d" -o ${OBJECTDIR}/servo.o servo.c   
 	
 endif
 
