@@ -14,6 +14,7 @@ extern "C" {
 
 #include <p32xxxx.h>
 #include <xc.h>
+#include <sys/attribs.h>
 #include "types.h"
 #include "macros.h"
 #include "prototypes.h"
@@ -21,6 +22,7 @@ extern "C" {
 
 /* Display */
 #include "display_pin_select.h"
+/*SERVO*/
 #include "servo_pin_select.h"
 
 #ifdef	__cplusplus

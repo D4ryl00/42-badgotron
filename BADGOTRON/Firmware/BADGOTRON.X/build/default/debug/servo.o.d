@@ -1,5 +1,5 @@
-build/default/production/main.o:  \
-main.c  \
+build/default/debug/servo.o:  \
+servo.c  \
 badgotron.h  \
 types.h  \
 macros.h  \

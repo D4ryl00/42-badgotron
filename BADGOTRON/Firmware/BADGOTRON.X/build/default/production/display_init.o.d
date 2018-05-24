@@ -5,4 +5,5 @@ badgotron.h  \
 macros.h  \
 prototypes.h  \
 struct.h  \
-pin_select.h 
+display_pin_select.h  \
+ servo_pin_select.h 

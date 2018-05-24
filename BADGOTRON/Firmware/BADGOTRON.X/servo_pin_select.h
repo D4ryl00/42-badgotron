@@ -8,16 +8,8 @@
 #ifndef SERVO_PIN_SELECT_H
 #define	SERVO_PIN_SELECT_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
-
-
-
-
-#ifdef	__cplusplus
-}
-#endif
+#define PIN_SERVO_MODE TRISEbits.TRISE0
+#define PIN_SERVO_WRITE LATEbits.LATE0
 
 #endif	/* SERVO_PIN_SELECT_H */
 
