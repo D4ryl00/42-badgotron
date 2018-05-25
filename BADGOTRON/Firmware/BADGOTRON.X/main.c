@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 	 /* Set Interrupt Controller for multi-vector mode */
     INTCONSET = _INTCON_MVEC_MASK;
     __builtin_enable_interrupts();
-	actuate_servo(100);
+	init_uart_tx("salut gregoire ce projet est super");
     while (42)
     {
 		WDTCONbits.WDTCLR = 1;

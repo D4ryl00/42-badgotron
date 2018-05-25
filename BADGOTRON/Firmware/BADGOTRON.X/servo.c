@@ -4,7 +4,6 @@ void	__ISR(_TIMER_3_VECTOR, IPL7) Servo_PWM(void)
 {
 	PIN_SERVO_WRITE = 0;
 	IFS0bits.T3IF = 0;
-	return ;
 }
 
 void	init_servo(u8 servo_position_percent)
@@ -38,12 +37,12 @@ void	actuate_servo(u8 servo_position_percent)
 	int i;
 	
 	i = 0;
-	init_servo(servo_position_percent);
-	while (i < 5)
+	//init_servo(servo_position_percent);
+	while (i < 15)
 	{
 	init_servo(servo_position_percent);
 	msleep(20);
-	PIN_SERVO_WRITE = 1;
+	//PIN_SERVO_WRITE = 1;
 	i++;
 	}
 	end_servo();
