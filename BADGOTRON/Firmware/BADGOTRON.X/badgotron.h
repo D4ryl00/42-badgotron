@@ -16,9 +16,11 @@ extern "C" {
 #include <xc.h>
 #include <sys/attribs.h>
 #include "types.h"
-#include "macros.h"
-#include "prototypes.h"
 #include "struct.h"
+#include "prototypes.h"
+#include "macros.h"
+
+
 
 /* Display */
 #include "display_pin_select.h"

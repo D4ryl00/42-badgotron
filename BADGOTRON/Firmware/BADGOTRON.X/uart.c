@@ -16,8 +16,7 @@ void	uart_tx_putstr(u8 *string)
 	return ;
 }
 
-
-void	init_uart_tx(u8 *string)
+void	init_uart(void)
 {
 
 
@@ -26,10 +25,33 @@ void	init_uart_tx(u8 *string)
 	//BAUD RATE CALCULATION
 	// BAUD RATE = (PBCLK / (16 * (BaudRate)) -1
 	U1MODEbits.BRGH = 0;
-	U1BRG = ((1000000)/(16 * 1200)) - 1;
+	U1BRG = ((PBCLK)/(16 * 4800)) - 1;
 	U1MODEbits.PDSEL = 0;
 	U1MODEbits.STSEL = 0;
 	U1MODEbits.ON = 1;
 	U1STAbits.UTXEN = 1;
-	uart_tx_putstr(string);
+	U1STAbits.URXEN = 1;
+	t_uart_rx_buf	g_uart_rx_buf;
+	g_uart_rx_buf.index = 0;
+	/*INITIALISATION INTERRUPTION UARTRX*/
+	IPC6bits.U1IP = 7;
+	IPC6bits.U1IS = 3;
+	IFS0bits.U1RXIF = 0;
+	IEC0bits.U1RXIE = 1;
+	
+}
+
+u8	uart_rx(void)
+{
+	// ecrire dans g_RX_UART_CHAR[512]
+	u8	c;
+	c = 0;
+	//while(!U1STAbits.URXDA);
+	c = U1RXREG;
+	return (c);
+}
+
+void	uart_rx_parse(u8 c)
+{
+	g_uart_rx_buf.buffer[g_uart_rx_buf.index++] = c;
 }

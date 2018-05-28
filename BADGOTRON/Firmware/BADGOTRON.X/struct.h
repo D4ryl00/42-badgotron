@@ -38,6 +38,12 @@ union u_u8
     }               t_nanotime;
 
 
+typedef struct	s_uart_rx_buf
+{
+	u8			index;
+	u8			buffer[512];
+}				t_uart_rx_buf;
+
 #ifdef	__cplusplus
 }
 #endif

@@ -15,7 +15,8 @@ extern "C" {
 
 void    msleep(u32 time);
 void    clock_sleep(u32 time);
-
+void	uart_rx_parse(u8 c);
+void	init_uart(void);
 #ifdef	__cplusplus
 }
 #endif
