@@ -17,14 +17,13 @@
 
 void	__ISR(_UART_1_VECTOR, IPL7) Int_UART1(void)
 {
-	u8	c;
-	
-	while (U1STAbits.URXDA)
-	{
-		c = uart_rx();
-		uart_rx_parse(c);
-		if (c == '\n')
-			break ;
-	}
-	IFS0bits.U1RXIF = 0;
+    if (IFS0bits.U1RXIF) // Si l'interruption vient d'un RX
+    {
+       g_uart_rx_buf.buffer[g_uart_rx_buf.index] = U1RXREG;
+       g_uart_rx_buf.index++;
+       IFS0bits.U1RXIF = 0;
+    }
+    if (IFS0bits.U1TXIF) // Si l'interruption vient d'un TX
+        IFS0bits.U1TXIF = 0;
 }
+

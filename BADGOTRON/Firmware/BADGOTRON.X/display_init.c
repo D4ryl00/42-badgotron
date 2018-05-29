@@ -71,7 +71,7 @@ void	write_command(u8 d)
 	E_WRITE = 0;
 }
 
-void	write_data(u8 d)
+void	display_printchar(u8 d)
 {
 	char	t;
 
@@ -86,6 +86,15 @@ void	write_data(u8 d)
 	while (t--);
 	E_WRITE = 1;
 	E_WRITE = 0;
+        msleep(50);
+}
+
+void    display_putstr(u8 str[])
+{
+
+        int i = 0;
+        while (str[i])
+            display_printchar(str[i++]);
 }
 
 void    display_init(void)
@@ -114,12 +123,16 @@ void    display_init(void)
 	//init end
 
 	// test put A
-	u8 str[] = "Salut Gregoire, ce projet est trop cool mais c'est un peu compliqu";
-	int i = 0;
-	while (str[i])
-	{
-		write_data(str[i++]);
-	}
-	write_data(0xfc);
-	msleep(50);
+	//u8 str[] = "Salut Gregoire, ce projet est trop cool mais c'est un peu compliqu";
+        /*if (str)
+        {
+            int i = 0;
+            while (str[i])
+            {
+                display_printchar(str[i++]);
+            }
+            display_printchar(0xfc);
+            msleep(50);
+        }*/
 }
+

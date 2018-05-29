@@ -1,5 +1,19 @@
 #include "badgotron.h"
 
+void    uart_clear_buffer(void)
+{
+    int i = 0;
+    if (g_uart_rx_buf.index == 0)
+        return ;
+    while (i < g_uart_rx_buf.index + 5)
+    {
+        g_uart_rx_buf.buffer[i] = 0;
+        i++;
+    }
+    g_uart_rx_buf.index = 0;
+
+}
+
 void	uart_tx_putstr(u8 *string)
 {
 	u32 i;
@@ -25,7 +39,7 @@ void	init_uart(void)
 	//BAUD RATE CALCULATION
 	// BAUD RATE = (PBCLK / (16 * (BaudRate)) -1
 	U1MODEbits.BRGH = 0;
-	U1BRG = ((PBCLK)/(16 * 4800)) - 1;
+	U1BRG = ((PBCLK)/(16 * 1200)) - 1;
 	U1MODEbits.PDSEL = 0;
 	U1MODEbits.STSEL = 0;
 	U1MODEbits.ON = 1;
@@ -51,7 +65,8 @@ u8	uart_rx(void)
 	return (c);
 }
 
-void	uart_rx_parse(u8 c)
+void	uart_rx_addcharbuffer(u8 c)
 {
-	g_uart_rx_buf.buffer[g_uart_rx_buf.index++] = c;
+    g_uart_rx_buf.buffer[g_uart_rx_buf.index++] = c;
+    g_uart_rx_buf.buffer[g_uart_rx_buf.index] = 0;
 }
