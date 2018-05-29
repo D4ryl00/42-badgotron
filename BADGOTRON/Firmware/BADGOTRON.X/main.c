@@ -29,7 +29,7 @@ int main(int argc, char** argv)
     display_init();
     display_putstr("INIT OK");
     init_uart();
-    uart_tx_putstr("salut gregoire ce projet est super");
+    uart_tx_putstr("salut gregoire ce projet est super\n");
     while (42)
     {
         WDTCONbits.WDTCLR = 1;
