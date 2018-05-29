@@ -39,7 +39,7 @@ void	init_uart(void)
 	//BAUD RATE CALCULATION
 	// BAUD RATE = (PBCLK / (16 * (BaudRate)) -1
 	U1MODEbits.BRGH = 0;
-	U1BRG = ((PBCLK)/(16 * 1200)) - 1;
+	U1BRG = ((PBCLK)/(16 * 4800)) - 1;
 	U1MODEbits.PDSEL = 0;
 	U1MODEbits.STSEL = 0;
 	U1MODEbits.ON = 1;
