@@ -25,6 +25,9 @@
         <itemPath>servo.c</itemPath>
         <itemPath>servo_pin_select.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f4" displayName="SPI" projectFiles="true">
+        <itemPath>init_spi.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="f3" displayName="UART" projectFiles="true">
         <itemPath>uart.c</itemPath>
       </logicalFolder>
