@@ -9,14 +9,7 @@
 
 void    print_uartbuffer(void)
 {
-    int i = 0;
-    if (g_uart_rx_buf.index == 0)
-        return ;
-    while (i < g_uart_rx_buf.index)
-    {
-      display_printchar(g_uart_rx_buf.buffer[i]);
-        i++;
-    }
+	display_printstr(g_uart_rx_buf.buffer);
     uart_clear_buffer();
 }
 
@@ -27,13 +20,13 @@ int main(int argc, char** argv)
     INTCONSET = _INTCON_MVEC_MASK;
     __builtin_enable_interrupts();
     display_init();
-    display_putstr("INIT OK");
+    display_printstr("INIT OK");
     init_uart();
-    uart_tx_putstr("salut gregoire ce projet est super\n");
+    uart_putstr("salut gregoire ce projet est super\n");
     while (42)
     {
         WDTCONbits.WDTCLR = 1;
-        if (g_uart_rx_buf.index != 0)
+        if (g_uart_rx_buf.index)
              print_uartbuffer();
     }
     return (EXIT_SUCCESS);

@@ -86,15 +86,13 @@ void	display_printchar(u8 d)
 	while (t--);
 	E_WRITE = 1;
 	E_WRITE = 0;
-        msleep(50);
 }
 
-void    display_putstr(u8 str[])
+void    display_printstr(u8 str[])
 {
-
-        int i = 0;
-        while (str[i])
-            display_printchar(str[i++]);
+	int i = 0;
+	while (str[i])
+		display_printchar(str[i++]);
 }
 
 void    display_init(void)
