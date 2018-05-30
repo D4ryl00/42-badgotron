@@ -1,29 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   misctools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/30 11:29:48 by amordret          #+#    #+#             */
-/*   Updated: 2018/05/30 16:19:53 by amordret         ###   ########.fr       */
+/*   Created: 2018/05/30 16:00:58 by amordret          #+#    #+#             */
+/*   Updated: 2018/05/30 16:08:37 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raspi.h"
 
-int		main(void)
+char	*respond_getprefix(char *readbuffer)
 {
-	char	*readbuffer;
-	int		fd;
+	int		i;
+	char	*prefix;
 
-	fd = open_uart();
-	while (42)
+	i = 0;
+	if ((prefix = malloc(30)) == NULL)
+		error_and_exit("erreur malloc respondprefix");
+	while (readbuffer[i])
 	{
-		readbuffer = read_uart(fd);
-		ft_putendl(readbuffer);
-		respond(readbuffer, fd);
+		if (readbuffer[i] == '_')
+			break ;
+		prefix[i] = readbuffer[i];
+		i++;
 	}
-	close(fd);
-	return (0);
+	prefix[i] = '\0';
+	return (prefix);
+}
+
+void	respond_wtf(int fd)
+{
+	ft_putendl_fd("?", fd);
 }

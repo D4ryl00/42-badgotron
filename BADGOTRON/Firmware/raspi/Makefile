@@ -6,7 +6,7 @@
 #    By: amordret <amordret@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/30 15:31:03 by amordret          #+#    #+#              #
-#    Updated: 2018/05/30 13:28:55 by amordret         ###   ########.fr        #
+#    Updated: 2018/05/30 16:21:14 by amordret         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,9 @@ SRC = main.c\
 libft.c\
 error.c\
 time.c\
+misctools.c\
+respond.c\
+uart.c\
 
 FLAGS = -Wall -Wextra -Werror
 

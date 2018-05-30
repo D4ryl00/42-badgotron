@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 11:41:14 by amordret          #+#    #+#             */
-/*   Updated: 2018/05/30 15:26:44 by amordret         ###   ########.fr       */
+/*   Updated: 2018/05/30 16:20:31 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,22 @@
 void	ft_putchar(char c)
 {
 	write(1, &c, 1);
+}
+
+int		ft_strequ(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (0);
+		i++;
+	}
+	if ((s1[i] == 0 && s2[i] !=0) || (s1[i] != 0 && s2[i] == 0))
+		return (0);
+	return (1);
 }
 
 void	ft_putnbr(int c)

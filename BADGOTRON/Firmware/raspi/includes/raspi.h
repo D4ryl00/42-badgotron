@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 11:30:12 by amordret          #+#    #+#             */
-/*   Updated: 2018/05/30 15:27:14 by amordret         ###   ########.fr       */
+/*   Updated: 2018/05/30 16:21:24 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *str, int fd);
 void				ft_putendl_fd(char *str, int fd);
 void				ft_putnbr_fd(int c, int fd);
+int					ft_strequ(char *s1, char *s2);
 void				error_and_exit(char *str);
+int					open_uart(void);
 char				*read_uart(int fd);
 void				get_temps(t_temps *now);
-
-
-
-
-
+char				*respond_getprefix(char *readbuffer);
+void				respond(char *readbuffer, int fd);
+int					respond_time(char *readbuffer, int fd);
+void				respond_wtf(int fd);
 
 #endif
