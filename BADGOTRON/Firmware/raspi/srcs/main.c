@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 11:29:48 by amordret          #+#    #+#             */
-/*   Updated: 2018/05/30 15:29:01 by amordret         ###   ########.fr       */
+/*   Updated: 2018/05/30 15:37:01 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int		main(void)
 	ft_putnbr_fd(now.heure, fd);
 	ft_putchar_fd(':', fd);
 	ft_putnbr_fd(now.minute, fd);
+	ft_putchar_fd('\n', fd);
 	close(fd);
 	return (0);
 }
