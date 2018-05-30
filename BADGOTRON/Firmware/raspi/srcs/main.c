@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 11:29:48 by amordret          #+#    #+#             */
-/*   Updated: 2018/05/30 13:30:04 by amordret         ###   ########.fr       */
+/*   Updated: 2018/05/30 15:29:01 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		open_uart(void)
 {
 	int	fd;
 
-	if ((fd = open("/dev/ttyAMA0", O_RDONLY)) == -1)
+	if ((fd = open("/dev/ttyAMA0", O_RDWR)) == -1)
 		error_and_exit("could not open /dev/ttyAMA0");
 	return (fd);
 }
@@ -52,12 +52,23 @@ char	*read_uart(int fd)
 
 int		main(void)
 {
-	char	*readbuffer;
+	//char	*readbuffer;
 	int		fd;
+	t_temps	now;
 
 	fd = open_uart();
-	readbuffer = read_uart(fd);
-	ft_putendl(readbuffer);
+	//readbuffer = read_uart(fd);
+	//ft_putendl(readbuffer);
+	get_temps(&now);
+	ft_putnbr_fd(now.jour, fd);
+	ft_putchar_fd('/', fd);
+	ft_putnbr_fd(now.mois, fd);
+	ft_putchar_fd('/', fd);
+	ft_putnbr_fd(now.annee, fd);
+	ft_putchar_fd(' ', fd);
+	ft_putnbr_fd(now.heure, fd);
+	ft_putchar_fd(':', fd);
+	ft_putnbr_fd(now.minute, fd);
 	close(fd);
 	return (0);
 }
