@@ -21,6 +21,7 @@ IPATH = ./includes/
 SRC = main.c\
 libft.c\
 error.c\
+time.c\
 
 FLAGS = -Wall -Wextra -Werror
 
