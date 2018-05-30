@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:38:56 by amordret          #+#    #+#             */
-/*   Updated: 2018/05/30 16:23:02 by amordret         ###   ########.fr       */
+/*   Updated: 2018/05/30 16:35:28 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		respond_time(char *readbuffer, int fd)
 	}
 	if (ft_strequ(readbuffer, "time_year?"))
 	{
-		ft_putnbr_fd(now.mois, fd);
+		ft_putnbr_fd(now.annee, fd);
 		ft_putchar('\n');
 		return (1) ;
 	}

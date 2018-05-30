@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:44:52 by amordret          #+#    #+#             */
-/*   Updated: 2018/05/30 15:45:00 by amordret         ###   ########.fr       */
+/*   Updated: 2018/05/30 16:40:11 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ char	*read_uart(int fd)
 	while (c != '\n')
 	{
 		read(fd, &c, 1);
+		if (c == '\n')
+			break ;
 		str[i] = c;
-		if (c != '\n')
 			i++;
 	}
 	str[i] = '\0';
