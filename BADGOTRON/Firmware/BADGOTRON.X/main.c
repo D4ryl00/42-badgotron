@@ -16,6 +16,7 @@ void    print_uartbuffer(void)
 int main(int argc, char** argv)
 {
     u8	RX_UART_char;
+    u8	RX_SPI_char;
 
     INTCONSET = _INTCON_MVEC_MASK;
     __builtin_enable_interrupts();
@@ -24,12 +25,15 @@ int main(int argc, char** argv)
     init_uart();
     uart_putstr("salut gregoire ce projet est super\n");
 	init_spi();
-	spi_putstr("U5", FLASH);
+	flash_put_byte(0, 'U');
+	RX_SPI_char = flash_get_byte(0);
+	if (RX_SPI_char)
+		display_printchar(RX_SPI_char);
     while (42)
     {
         WDTCONbits.WDTCLR = 1;
         if (g_uart_rx_buf.index)
-             print_uartbuffer();
+			print_uartbuffer();
     }
     return (EXIT_SUCCESS);
 }

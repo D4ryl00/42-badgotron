@@ -4,6 +4,9 @@ void	init_spi(void)
 {
 	u32	rData;
 
+	PIN_FLASH_MODE = 0;
+	PIN_FLASH_WRITE = 1;
+
 	/* Disable SPI interrupt */
 	IEC1bits.SPI2EIE = 0;
 	IEC1bits.SPI2RXIE = 0;
@@ -38,11 +41,12 @@ void	spi_select_slave(enum e_spi_slave slave)
 void	spi_unselect_slave(enum e_spi_slave slave)
 {
 	if (slave == FLASH)
-		PIN_FLASH_WRITE = SELECTED;
+		PIN_FLASH_WRITE = UNSELECTED;
 }
 
 void	spi_put(u8 code)
 {
+	while (SPI2STATbits.SPIBUSY);
 	SPI2BUF = code;
 }
 
@@ -55,4 +59,10 @@ void	spi_putstr(u8 *str, enum e_spi_slave slave)
 		SPI2BUF = *str++;
 	}
 	spi_unselect_slave(FLASH);
+}
+
+u8		spi_get(void)
+{
+	while (!SPI2STATbits.SPIRBF);
+	return (SPI2BUF);
 }
