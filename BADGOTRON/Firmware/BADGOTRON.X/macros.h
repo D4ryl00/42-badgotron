@@ -14,7 +14,7 @@
 
 #define DISPLAY_DELAY 2
 #define PBCLK 1000000
-t_uart_rx_buf	g_uart_rx_buf;
+
 #ifdef	__cplusplus
 }
 #endif

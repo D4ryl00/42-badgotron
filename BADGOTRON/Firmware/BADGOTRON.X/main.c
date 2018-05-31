@@ -23,6 +23,8 @@ int main(int argc, char** argv)
     display_printstr("INIT OK");
     init_uart();
     uart_putstr("salut gregoire ce projet est super\n");
+	init_spi();
+	spi_putstr("U5", FLASH);
     while (42)
     {
         WDTCONbits.WDTCLR = 1;

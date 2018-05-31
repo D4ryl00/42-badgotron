@@ -21,15 +21,21 @@
         <itemPath>display_init.c</itemPath>
         <itemPath>display_pin_select.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f5" displayName="Flash" projectFiles="true">
+        <itemPath>flash.c</itemPath>
+        <itemPath>flash.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f2" displayName="Servo" projectFiles="true">
         <itemPath>servo.c</itemPath>
         <itemPath>servo_pin_select.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="SPI" projectFiles="true">
-        <itemPath>init_spi.c</itemPath>
+        <itemPath>spi.h</itemPath>
+        <itemPath>spi.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f3" displayName="UART" projectFiles="true">
         <itemPath>uart.c</itemPath>
+        <itemPath>uart.h</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>sleep.c</itemPath>

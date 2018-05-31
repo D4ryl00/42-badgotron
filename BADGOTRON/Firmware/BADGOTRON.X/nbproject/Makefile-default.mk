@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=display_init.c servo.c init_spi.c uart.c main.c sleep.c configbits.c Interruptions.c Init_All.c
+SOURCEFILES_QUOTED_IF_SPACED=display_init.c servo.c uart.c main.c sleep.c configbits.c Interruptions.c Init_All.c spi.c flash.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/display_init.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/init_spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/display_init.o.d ${OBJECTDIR}/servo.o.d ${OBJECTDIR}/init_spi.o.d ${OBJECTDIR}/uart.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/Init_All.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/display_init.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/flash.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/display_init.o.d ${OBJECTDIR}/servo.o.d ${OBJECTDIR}/uart.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/Init_All.o.d ${OBJECTDIR}/spi.o.d ${OBJECTDIR}/flash.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/display_init.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/init_spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o
+OBJECTFILES=${OBJECTDIR}/display_init.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/flash.o
 
 # Source Files
-SOURCEFILES=display_init.c servo.c init_spi.c uart.c main.c sleep.c configbits.c Interruptions.c Init_All.c
+SOURCEFILES=display_init.c servo.c uart.c main.c sleep.c configbits.c Interruptions.c Init_All.c spi.c flash.c
 
 
 CFLAGS=
@@ -106,12 +106,6 @@ ${OBJECTDIR}/servo.o: servo.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/servo.o 
 	@${FIXDEPS} "${OBJECTDIR}/servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/servo.o.d" -o ${OBJECTDIR}/servo.o servo.c   
 	
-${OBJECTDIR}/init_spi.o: init_spi.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/init_spi.o.d 
-	@${RM} ${OBJECTDIR}/init_spi.o 
-	@${FIXDEPS} "${OBJECTDIR}/init_spi.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/init_spi.o.d" -o ${OBJECTDIR}/init_spi.o init_spi.c   
-	
 ${OBJECTDIR}/uart.o: uart.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/uart.o.d 
@@ -148,6 +142,18 @@ ${OBJECTDIR}/Init_All.o: Init_All.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/Init_All.o 
 	@${FIXDEPS} "${OBJECTDIR}/Init_All.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Init_All.o.d" -o ${OBJECTDIR}/Init_All.o Init_All.c   
 	
+${OBJECTDIR}/spi.o: spi.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/spi.o.d 
+	@${RM} ${OBJECTDIR}/spi.o 
+	@${FIXDEPS} "${OBJECTDIR}/spi.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/spi.o.d" -o ${OBJECTDIR}/spi.o spi.c   
+	
+${OBJECTDIR}/flash.o: flash.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/flash.o.d 
+	@${RM} ${OBJECTDIR}/flash.o 
+	@${FIXDEPS} "${OBJECTDIR}/flash.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/flash.o.d" -o ${OBJECTDIR}/flash.o flash.c   
+	
 else
 ${OBJECTDIR}/display_init.o: display_init.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -160,12 +166,6 @@ ${OBJECTDIR}/servo.o: servo.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/servo.o.d 
 	@${RM} ${OBJECTDIR}/servo.o 
 	@${FIXDEPS} "${OBJECTDIR}/servo.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/servo.o.d" -o ${OBJECTDIR}/servo.o servo.c   
-	
-${OBJECTDIR}/init_spi.o: init_spi.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/init_spi.o.d 
-	@${RM} ${OBJECTDIR}/init_spi.o 
-	@${FIXDEPS} "${OBJECTDIR}/init_spi.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/init_spi.o.d" -o ${OBJECTDIR}/init_spi.o init_spi.c   
 	
 ${OBJECTDIR}/uart.o: uart.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -202,6 +202,18 @@ ${OBJECTDIR}/Init_All.o: Init_All.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/Init_All.o.d 
 	@${RM} ${OBJECTDIR}/Init_All.o 
 	@${FIXDEPS} "${OBJECTDIR}/Init_All.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Init_All.o.d" -o ${OBJECTDIR}/Init_All.o Init_All.c   
+	
+${OBJECTDIR}/spi.o: spi.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/spi.o.d 
+	@${RM} ${OBJECTDIR}/spi.o 
+	@${FIXDEPS} "${OBJECTDIR}/spi.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/spi.o.d" -o ${OBJECTDIR}/spi.o spi.c   
+	
+${OBJECTDIR}/flash.o: flash.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/flash.o.d 
+	@${RM} ${OBJECTDIR}/flash.o 
+	@${FIXDEPS} "${OBJECTDIR}/flash.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/flash.o.d" -o ${OBJECTDIR}/flash.o flash.c   
 	
 endif
 

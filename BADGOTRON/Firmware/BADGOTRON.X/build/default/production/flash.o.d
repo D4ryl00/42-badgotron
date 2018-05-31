@@ -1,5 +1,5 @@
-build/default/production/servo.o:  \
-servo.c  \
+build/default/production/flash.o:  \
+flash.c  \
 badgotron.h  \
 types.h  \
 struct.h  \

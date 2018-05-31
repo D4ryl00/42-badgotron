@@ -28,21 +28,14 @@ union u_u8
     };
 };
 
-    typedef struct  s_nanotime
-    {
-        u16 nano;
-        u16 micro;
-        u16 milli;
-        u8  second;
-        u8  minute;
-    }               t_nanotime;
-
-
-typedef struct	s_uart_rx_buf
+typedef struct  s_nanotime
 {
-    u8			index;
-    u8			buffer[512];
-}				t_uart_rx_buf;
+	u16 nano;
+	u16 micro;
+	u16 milli;
+	u8  second;
+	u8  minute;
+}               t_nanotime;
 
 #ifdef	__cplusplus
 }

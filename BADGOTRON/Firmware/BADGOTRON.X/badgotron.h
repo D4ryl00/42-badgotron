@@ -19,6 +19,9 @@ extern "C" {
 #include "struct.h"
 #include "prototypes.h"
 #include "macros.h"
+#include "uart.h"
+#include "spi.h"
+#include "flash.h"
 
 
 
