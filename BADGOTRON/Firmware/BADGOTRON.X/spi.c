@@ -44,38 +44,9 @@ void	spi_unselect_slave(enum e_spi_slave slave)
 		PIN_FLASH_WRITE = UNSELECTED;
 }
 
-void	spi_put(u8 code)
+void	spi_transfer(u8 tx_byte, u8* rx_byte)
 {
-	while (!SPI2STATbits.SPITBE);
-	SPI2BUF = code;
-	while(SPI2STATbits.SPIBUSY);
-}
-
-void	spi_putstr(u8 *str, enum e_spi_slave slave)
-{
-	spi_select_slave(FLASH);
-	while (*str)
-	{
-		while (SPI2STATbits.SPIBUSY);
-		SPI2BUF = *str++;
-	}
-	spi_unselect_slave(FLASH);
-}
-
-u8		spi_get(void)
-{
-	u8	data;
-	spi_put(0);
-	while (!SPI2STATbits.SPIRBF);
-	data = SPI2BUF;
-	return (data);
-}
-
-u8 spi_transfer(u8 txByte, u8* rxByte)
-{
-    u8 retVal = 0;
-    SPI2BUF = txByte;
+    SPI2BUF = tx_byte;
     while(!SPI2STATbits.SPIRBF);
-    *rxByte = SPI2BUF;
-    return retVal;
+    *rx_byte = SPI2BUF;
 }
