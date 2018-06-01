@@ -34,19 +34,21 @@ int main(int argc, char** argv)
     display_init();
     display_printstr("INIT OK");
     init_uart();
-    uart_putstr("salut gregoire ce projet est super\n");
 	init_spi();
+	uart_putstr("time_second?\n");
+
 	//flash_set_block_protection(0);
 	//print_bin(flash_get_status_register());
 	//flash_4k_erase(0x1000);
 	//flash_put_byte(0x1000, 'A');
-	//flash_put_byte(0x1001, 'V');
+	//flash_put_byte(0x1001, 'Y');
 	display_printchar(flash_get_byte(0x1000));
 	display_printchar(flash_get_byte(0x1001));
     while (42)
     {
         WDTCONbits.WDTCLR = 1;
-        if (g_uart_rx_buf.index)
+
+		if (g_uart_rx_buf.index)
 			print_uartbuffer();
     }
     return (EXIT_SUCCESS);
