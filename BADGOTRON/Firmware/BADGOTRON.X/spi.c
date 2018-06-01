@@ -46,8 +46,9 @@ void	spi_unselect_slave(enum e_spi_slave slave)
 
 void	spi_put(u8 code)
 {
-	while (SPI2STATbits.SPIBUSY);
+	while (!SPI2STATbits.SPITBE);
 	SPI2BUF = code;
+	while(SPI2STATbits.SPIBUSY);
 }
 
 void	spi_putstr(u8 *str, enum e_spi_slave slave)
@@ -63,6 +64,18 @@ void	spi_putstr(u8 *str, enum e_spi_slave slave)
 
 u8		spi_get(void)
 {
+	u8	data;
+	spi_put(0);
 	while (!SPI2STATbits.SPIRBF);
-	return (SPI2BUF);
+	data = SPI2BUF;
+	return (data);
+}
+
+u8 spi_transfer(u8 txByte, u8* rxByte)
+{
+    u8 retVal = 0;
+    SPI2BUF = txByte;
+    while(!SPI2STATbits.SPIRBF);
+    *rxByte = SPI2BUF;
+    return retVal;
 }
