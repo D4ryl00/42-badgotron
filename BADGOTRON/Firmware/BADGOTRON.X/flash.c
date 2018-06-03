@@ -183,7 +183,6 @@ void		flash_put_multibytes(u32 addr, u8 *data, u16 size)
 	if (size < 2)
 		return ;
 	flash_set_block_protection(FLASH_BLOCK_UNPROTECTED);
-	display_printchar('Y');
 	flash_4k_erase(addr);
 	__builtin_disable_interrupts();
 	enable_hw_eow_detection();
