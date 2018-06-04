@@ -25,6 +25,10 @@
         <itemPath>flash.c</itemPath>
         <itemPath>flash.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f6" displayName="RTC" projectFiles="true">
+        <itemPath>rtc.c</itemPath>
+        <itemPath>rtc.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f2" displayName="Servo" projectFiles="true">
         <itemPath>servo.c</itemPath>
         <itemPath>servo_pin_select.h</itemPath>

@@ -201,11 +201,11 @@ void		flash_put_multibytes(u32 addr, u8 *data, u16 size)
 		spi_select_slave(FLASH);
 		spi_transfer(FLASH_AAI, &tmp);
 		spi_transfer(data[i++], &tmp);
-		spi_transfer(i == size ? 0 : data[i++], &tmp);
+		spi_transfer(i == size ? 0xff : data[i++], &tmp);
 		spi_unselect_slave(FLASH);
 		while(hw_busy());
 	}
-	/* Initialize end of protocol */
+	/* End of protocol */
 	write_disable();
 	disable_hw_eow_detection();
 	__builtin_enable_interrupts();

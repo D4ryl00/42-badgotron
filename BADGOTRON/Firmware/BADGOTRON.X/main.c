@@ -33,7 +33,7 @@ int main(int argc, char** argv)
     INTCONSET = _INTCON_MVEC_MASK;
     __builtin_enable_interrupts();
     display_init();
-    display_printstr("INIT OK");
+    display_printstr("Display OK_");
     init_uart();
 	init_spi();
 	uart_putstr("time_second?\n");
@@ -43,9 +43,9 @@ int main(int argc, char** argv)
 	flash_write(0x1000, 'A');
 	flash_write(0x1001, 'Y');
 	flash_write(0x1002, '!');
-	flash_set_block_protection(FLASH_BLOCK_PROTECTED);
-	//flash_put_byte(0x1002, '?');*/
-	flash_put_multibytes(0x1000, "salut", 5);
+	flash_set_block_protection(FLASH_BLOCK_PROTECTED);*/
+	//flash_put_byte(0x1002, '?');
+	//flash_put_multibytes(0x1000, "Flash OK_", sizeof("Flash OK_") - 1);
 	tmp = flash_get_byte_init(0x1000);
 	display_printchar(tmp);
 	while ((tmp = flash_get_byte_next()) != 0xff)

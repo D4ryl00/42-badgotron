@@ -18,9 +18,13 @@ extern "C" {
 #define PIN_FLASH_MODE TRISEbits.TRISE0
 #define PIN_FLASH_WRITE LATEbits.LATE0
 
+#define PIN_RTC_MODE TRISEbits.TRISE1
+#define PIN_RTC_WRITE LATEbits.LATE1
+
 enum	e_spi_slave
 {
-	FLASH
+	FLASH,
+	RTC
 };
 
 #ifdef	__cplusplus

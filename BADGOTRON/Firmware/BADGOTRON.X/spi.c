@@ -6,6 +6,8 @@ void	init_spi(void)
 
 	PIN_FLASH_MODE = 0;
 	PIN_FLASH_WRITE = 1;
+	PIN_RTC_MODE = 0;
+	PIN_RTC_WRITE = 1;
 
 	/* Disable SPI interrupt */
 	IEC1bits.SPI2EIE = 0;
@@ -36,12 +38,16 @@ void	spi_select_slave(enum e_spi_slave slave)
 {
 	if (slave == FLASH)
 		PIN_FLASH_WRITE = SELECTED;
+	if (slave == RTC)
+		PIN_RTC_WRITE = SELECTED;
 }
 
 void	spi_unselect_slave(enum e_spi_slave slave)
 {
 	if (slave == FLASH)
 		PIN_FLASH_WRITE = UNSELECTED;
+	if (slave == RTC)
+		PIN_RTC_WRITE = UNSELECTED;
 }
 
 void	spi_transfer(u8 tx_byte, u8* rx_byte)
