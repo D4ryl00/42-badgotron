@@ -1,0 +1,19 @@
+Removed Pin From Net: NetName=GND Pin=D2-1
+Removed Pin From Net: NetName=3.3VDC Pin=P2-4
+Removed Pin From Net: NetName=GND Pin=P4-2
+Removed Pin From Net: NetName=GND Pin=U4-9
+Removed Pin From Net: NetName=GND Pin=U5-9
+Added Pin To Net: NetName=3.3VDC Pin=C6-2
+Added Pin To Net: NetName=3.3VDC Pin=C7-2
+Added Pin To Net: NetName=3.3VDC Pin=C9-2
+Added Pin To Net: NetName=3.3VDC Pin=C11-2
+Added Pin To Net: NetName=3.3VDC Pin=P3-2
+Added Pin To Net: NetName=3.3VDC Pin=R8-1
+Added Pin To Net: NetName=3.3VDC Pin=R10-2
+Added Pin To Net: NetName=3.3VDC Pin=R14-2
+Added Pin To Net: NetName=3.3VDC Pin=R19-2
+Added Pin To Net: NetName=3.3VDC Pin=U1-1
+Added Pin To Net: NetName=3.3VDC Pin=U3-8
+Added Pin To Net: NetName=NetR13_1 Pin=U6-3
+Added Pin To Net: NetName=3.3VDC Pin=U7-10
+Change Net Name : Old Net Name=NetR13_1 New Net Name=U6_Vcc
