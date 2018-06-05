@@ -12,8 +12,8 @@
 extern "C" {
 #endif
 
-#define RTC_ADDRESS_SEC 
-
+#define RTC_ID_READ 0x33
+#define RTC_READ_STATUS_REGISTER 0x05
 
 #ifdef	__cplusplus
 }

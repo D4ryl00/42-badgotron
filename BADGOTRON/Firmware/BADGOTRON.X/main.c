@@ -51,6 +51,8 @@ int main(int argc, char** argv)
 	while ((tmp = flash_get_byte_next()) != 0xff)
 		display_printchar(tmp);
 	flash_get_byte_end();
+	tmp = rtc_get_status_register();
+	display_printchar(tmp);
     while (42)
     {
         WDTCONbits.WDTCLR = 1;

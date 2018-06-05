@@ -22,7 +22,7 @@ extern "C" {
 #include "uart.h"
 #include "spi.h"
 #include "flash.h"
-
+#include "rtc.h"
 
 
 /* Display */

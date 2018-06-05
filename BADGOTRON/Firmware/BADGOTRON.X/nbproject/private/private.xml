@@ -1,8 +1,28 @@
-<?xml version="1.0" encoding="UTF-8"?><project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1">
         <file>
             <url>spi.c</url>
             <line>0</line>
         </file>
     </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0">
+        <file>
+            <url>spi.c</url>
+            <bookmark id="0">
+                <name/>
+                <line>0</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/bocal/Documents/GitHub/elec/BADGOTRON/Firmware/BADGOTRON.X/main.c</file>
+            <file>file:/C:/Users/bocal/Documents/GitHub/elec/BADGOTRON/Firmware/BADGOTRON.X/rtc.h</file>
+            <file>file:/C:/Users/bocal/Documents/GitHub/elec/BADGOTRON/Firmware/BADGOTRON.X/rtc.c</file>
+            <file>file:/C:/Users/bocal/Documents/GitHub/elec/BADGOTRON/Firmware/BADGOTRON.X/spi.h</file>
+            <file>file:/C:/Users/bocal/Documents/GitHub/elec/BADGOTRON/Firmware/BADGOTRON.X/flash.c</file>
+        </group>
+    </open-files>
 </project-private>

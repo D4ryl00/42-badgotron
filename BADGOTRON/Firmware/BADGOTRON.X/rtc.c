@@ -1,8 +1,4 @@
-#include "types.h"
-#include "struct.h"
-#include "macros.h"
-#include <p32xxxx.h>
-#include <xc.h>
+#include "badgotron.h"
 
 /*static void write_enable_rtc()
 {
@@ -23,7 +19,7 @@ static void eewrite_rtc(u8 addr, u8 data)
 	spi_unselect_slave(RTC);
 }
 
-static void get_time(
+static void get_time();
 
 static void init_rtc()
 {
@@ -45,5 +41,33 @@ static void init_rtc()
 {
 	write_enable_rtc();
 	init_rtc();
+}*/
+
+u8  rtc_get_id(void)
+{
+	u8	data = 0;
+	u8	addr = 0;
+
+	__builtin_disable_interrupts();
+	spi_select_slave(RTC);
+	spi_transfer(RTC_ID_READ, &data);
+	spi_transfer(addr, &data);
+	spi_transfer(0, &data);
+	spi_unselect_slave(RTC);
+	__builtin_enable_interrupts();
+	return (data);
 }
-*/
+
+u8  rtc_get_status_register(void)
+{
+	u8	data = 0;
+
+	__builtin_disable_interrupts();
+	spi_select_slave(RTC);
+	spi_transfer(RTC_READ_STATUS_REGISTER, &data);
+	msleep(10);
+	spi_transfer(0, &data);
+	spi_unselect_slave(RTC);
+	__builtin_enable_interrupts();
+	return (data);
+}
