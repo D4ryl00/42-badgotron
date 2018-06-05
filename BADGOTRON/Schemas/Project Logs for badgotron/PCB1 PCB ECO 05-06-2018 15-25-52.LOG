@@ -1,0 +1,10 @@
+Added Component: Designator=D1(DiodeZin)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Fabricant"; Value = "ON SEMICONDUCTOR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Fournisseur"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fabricant"; Value = "MM3Z15VB"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fournisseur"; Value = "2453991"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=12VDC Pin=D1-1
+Added Pin To Net: NetName=GND Pin=D1-3
+Added Member To Class: ClassName=Power Member=Component D1 Diode 10TQ035
+Added Room: Name=Power

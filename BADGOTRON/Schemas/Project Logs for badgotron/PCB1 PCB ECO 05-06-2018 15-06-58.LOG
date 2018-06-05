@@ -1,0 +1,7 @@
+Added Pin To Net: NetName=NetF1_1 Pin=P4-1
+Added Pin To Net: NetName=GND Pin=P4-3
+Added Member To Class: ClassName=Power Member=Component C9 0.1uF
+Added Member To Class: ClassName=Power Member=Component C10 0.1uF
+Added Member To Class: ClassName=Power Member=Component C11 0.1uF
+Added Member To Class: ClassName=Power Member=Component C12 0.1uF
+Added Room: Name=Power

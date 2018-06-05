@@ -1,0 +1,8 @@
+Added Pin To Net: NetName=NetC15_1 Pin=U4-1
+Added Pin To Net: NetName=12VDC Pin=U4-2
+Added Pin To Net: NetName=12VDC Pin=U4-3
+Added Pin To Net: NetName=NetR12_1 Pin=U4-4
+Added Pin To Net: NetName=5VDC Pin=U4-5
+Added Pin To Net: NetName=GND Pin=U4-7
+Added Pin To Net: NetName=NetC15_2 Pin=U4-8
+Added Room: Name=Power

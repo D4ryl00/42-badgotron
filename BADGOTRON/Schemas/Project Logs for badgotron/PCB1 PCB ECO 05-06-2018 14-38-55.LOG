@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=VPIC1 Pin=C10-2
+Removed Pin From Net: NetName=VPIC2 Pin=C12-1
+Added Pin To Net: NetName=NetC7_1 Pin=C7-1
+Added Pin To Net: NetName=NetC7_1 Pin=C8-2
+Added Member To Class: ClassName=Power Member=Component C7 0.1uF
+Added Member To Class: ClassName=Power Member=Component C8 0.1uF
+Added Room: Name=Power
