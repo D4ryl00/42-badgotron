@@ -15,7 +15,7 @@ extern "C" {
 
 void    msleep(u32 time);
 void    clock_sleep(u32 time);
-
+void	print_bin(u8 byte);
 
 #ifdef	__cplusplus
 }

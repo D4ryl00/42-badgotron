@@ -46,6 +46,7 @@
       <itemPath>configbits.c</itemPath>
       <itemPath>Interruptions.c</itemPath>
       <itemPath>Init_All.c</itemPath>
+      <itemPath>real_time.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -78,8 +79,6 @@
           <parseOnProdLoad>false</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
         </loading>
-        <subordinates>
-        </subordinates>
       </compileType>
       <makeCustomizationType>
         <makeCustomizationPreStepEnabled>false</makeCustomizationPreStepEnabled>

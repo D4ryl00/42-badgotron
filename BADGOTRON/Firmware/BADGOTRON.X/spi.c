@@ -38,7 +38,7 @@ void	spi_select_slave(enum e_spi_slave slave)
 {
 	if (slave == FLASH)
 		PIN_FLASH_WRITE = SELECTED;
-	if (slave == RTC)
+	else if (slave == RTC)
 		PIN_RTC_WRITE = SELECTED;
 }
 
@@ -46,7 +46,7 @@ void	spi_unselect_slave(enum e_spi_slave slave)
 {
 	if (slave == FLASH)
 		PIN_FLASH_WRITE = UNSELECTED;
-	if (slave == RTC)
+	else if (slave == RTC)
 		PIN_RTC_WRITE = UNSELECTED;
 }
 

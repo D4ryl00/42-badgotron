@@ -95,6 +95,12 @@ void    display_printstr(u8 str[])
 		display_printchar(str[i++]);
 }
 
+void	display_clear(void)
+{
+	write_command(0x01); // Display clear
+	msleep(2);
+}
+
 void    display_init(void)
 {
 	E_WRITE = 0;

@@ -37,6 +37,22 @@ typedef struct  s_nanotime
 	u8  minute;
 }               t_nanotime;
 
+/*
+** It's a BCD format:
+** seconds = 10 SECONDS for 4 first bits + SECONDS for 4 last bits
+** e.g. 18 seconds -> 0x18
+*/
+typedef struct	s_rtc_time
+{
+	u8	seconds;
+	u8	minutes;
+	u8	hour;
+	u8	day;
+	u8	date;
+	u8	month;
+	u8	year;
+}				t_rtc_time;
+
 #ifdef	__cplusplus
 }
 #endif
