@@ -31,6 +31,12 @@ int		respond_time(char *readbuffer, int fd)
 	t_temps	now;
 
 	get_temps(&now);
+	if (ft_strequ(readbuffer, "time_wday?"))
+	{
+		ft_putnbr_fd(now.joursem, fd);
+		ft_putchar('\n');
+		return (1) ;
+	}
 	if (ft_strequ(readbuffer, "time_day?"))
 	{
 		if (now.jour < 10)

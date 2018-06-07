@@ -25,6 +25,7 @@ typedef struct tm	temps;
 typedef struct	s_temps
 {
 	char		jour;
+	char		joursem;
 	char		mois;
 	char		annee;
 	char		heure;

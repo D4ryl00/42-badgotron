@@ -30,6 +30,7 @@ void	get_temps(t_temps *now)
 	if ((localti = (localtime(&epoch))) == NULL)
 		error_and_exit("error calling localtime()");
 	now->jour = localti->tm_mday;
+	now->joursem = localti->tm_wday;
 	now->mois = localti->tm_mon + 1;
 	now->annee = localti->tm_year - 100;
 	now->heure = localti->tm_hour;
