@@ -1,0 +1,16 @@
+Added Component: Designator=U7(MICROCHIP MSOP-10 UN)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Fabricant"; Value = "Microchip"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Fournisseur"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fabricant"; Value = "MCP79510-I/MS"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fournisseur"; Value = "2361124"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=X1 Pin=U7-1
+Added Pin To Net: NetName=X2 Pin=U7-2
+Added Pin To Net: NetName=Vbat Pin=U7-3
+Added Pin To Net: NetName=RTC_CS Pin=U7-4
+Added Pin To Net: NetName=GND Pin=U7-5
+Added Pin To Net: NetName=SPI_SO Pin=U7-6
+Added Pin To Net: NetName=SPI_SI Pin=U7-7
+Added Pin To Net: NetName=SPI_SCK Pin=U7-8
+Added Pin To Net: NetName=NetR19_1 Pin=U7-9
+Added Pin To Net: NetName=3.3VDC Pin=U7-10

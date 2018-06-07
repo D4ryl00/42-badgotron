@@ -1,0 +1,3 @@
+Added Pin To Net: NetName=SPI_SO Pin=U3-5
+Added Pin To Net: NetName=SPI_SCK Pin=U3-6
+Added Pin To Net: NetName=FLSH_HOLD Pin=U3-7

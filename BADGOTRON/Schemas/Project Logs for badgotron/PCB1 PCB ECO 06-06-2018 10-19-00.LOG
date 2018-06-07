@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=GND Pin=D2-1
+Removed Pin From Net: NetName=GND Pin=P4-2
+Removed Pin From Net: NetName=GND Pin=U4-9
+Removed Pin From Net: NetName=GND Pin=U5-9
+Added Pin To Net: NetName=3.3VDC Pin=U3-3
+Added Pin To Net: NetName=3.3VDC Pin=U3-7
+Added Member To Class: ClassName=PIC Member=Component U7 MCP79510-I/MS
+Added Room: Name=Designator
+Added Room: Name=Power
