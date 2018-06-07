@@ -1,0 +1,26 @@
+Added Component: Designator=U4(CONVERTTENSIONTEXAS)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Fabricant"; Value = "TEXAS INSTRUMENTS"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Fournisseur"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fabricant"; Value = "LM2576HVT-5.0/NOPB"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fournisseur"; Value = "1469176"; VariantName = "[No Variations]"
+Added Component: Designator=U5(CONVERTTENSIONTEXAS)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Fabricant"; Value = "TEXAS INSTRUMENTS"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Fournisseur"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fabricant"; Value = "LM2576T-3.3/NOPB"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fournisseur"; Value = "2382916"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=S_E Pin=U2-43
+Added Pin To Net: NetName=12VDC Pin=U4-1
+Added Pin To Net: NetName=NetD2_1 Pin=U4-2
+Added Pin To Net: NetName=GND Pin=U4-3
+Added Pin To Net: NetName=5VDC Pin=U4-4
+Added Pin To Net: NetName=GND Pin=U4-5
+Added Pin To Net: NetName=12VDC Pin=U5-1
+Added Pin To Net: NetName=NetD3_1 Pin=U5-2
+Added Pin To Net: NetName=GND Pin=U5-3
+Added Pin To Net: NetName=5VDC Pin=U5-4
+Added Pin To Net: NetName=GND Pin=U5-5
+Added Pin To Net: NetName=S_E Pin=XDS1-6
+Added Member To Class: ClassName=Power Member=Component U4 LM2576HVT-5.0/NOPB
+Added Member To Class: ClassName=Power Member=Component U5 LM2576T-3.3/NOPB
