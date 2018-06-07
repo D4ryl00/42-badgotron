@@ -1,0 +1,6 @@
+Added Component: Designator=P3(RJ12)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Fabricant"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Fournisseur"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fabricant"; Value = "90512-001LF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fournisseur"; Value = "1097914"; VariantName = "[No Variations]"
