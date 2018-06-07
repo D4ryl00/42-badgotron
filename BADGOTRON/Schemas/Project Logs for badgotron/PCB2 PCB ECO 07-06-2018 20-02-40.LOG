@@ -1,0 +1,11 @@
+Removed Pin From Net: NetName=5VDC Pin=C17-2
+Removed Pin From Net: NetName=5VDC Pin=L2-2
+Removed Pin From Net: NetName=GND Pin=P4-2
+Removed Pin From Net: NetName=5VDC Pin=U5-4
+Added Pin To Net: NetName=3.3VDC Pin=C17-2
+Added Pin To Net: NetName=3.3VDC Pin=L2-2
+Added Pin To Net: NetName=3.3VDC Pin=U5-4
+Added Room: Name=Ecran
+Added Room: Name=OTHER
+Added Room: Name=PIC
+Added Room: Name=Power

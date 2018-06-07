@@ -28,7 +28,7 @@ DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
 FSMCodingStyle=eFMSDropDownList_OneProcess
 FSMEncodingStyle=eFMSDropDownList_OneHot
-OutputPath=
+OutputPath=Project Outputs for badgotron
 LogFolderPath=
 ManagedProjectGUID=
 LinkedManagedProjectGUID=
@@ -674,6 +674,10 @@ DItemRevisionGUID=
 DocumentPath=Project Outputs for badgotron\Design Rule Check - PCB1.html
 DItemRevisionGUID=
 
+[GeneratedDocument3]
+DocumentPath=Project Outputs for badgotron\Design Rule Check - PCB2.html
+DItemRevisionGUID=
+
 [Configuration1]
 Name=Default Configuration
 ParameterCount=0
@@ -684,7 +688,7 @@ OutputJobsCount=0
 ContentTypeGUID=
 
 [Generic_EDE]
-OutputDir=
+OutputDir=Project Outputs for badgotron
 
 [OutputGroup1]
 Name=Netlist Outputs
