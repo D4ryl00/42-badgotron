@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=GND Pin=P4-2
+Added Pin To Net: NetName=RG_LED0 Pin=U2-30
+Added Pin To Net: NetName=RG_LED1 Pin=U2-31
+Added Member To Class: ClassName=OTHER Member=Component R17 60.4
+Added Member To Class: ClassName=PIC Member=Component U2 PIC32MX110F016D-I/PT
+Added Room: Name=Ecran
+Added Room: Name=OTHER
+Added Room: Name=PIC
+Added Room: Name=Power
