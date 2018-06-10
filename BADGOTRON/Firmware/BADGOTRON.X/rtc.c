@@ -66,18 +66,22 @@ static void	write_byte(u8 addr, u8 data)
 	spi_transfer(addr, &tmp);
 	spi_transfer(data, &tmp);
 	spi_unselect_slave(RTC);
-	while (busy());
+	//msleep(1000);
+	//while (busy());
+	/*	if (addr == 0x01)
+	{
+		print_bin(data);
+		display_printchar('_');
+	}
 	/*if (addr == 0x02)
 	{
 		print_bin(data);
 		display_printchar('_');
-		print_bin(g_rtc_time.minutes);
 	}
 	if (addr == 0x03)
 	{
 		print_bin(data);
 		display_printchar('_');
-		print_bin(g_rtc_time.hour);
 	}*/
 }
 
@@ -90,6 +94,21 @@ static u8	read_byte(u8 addr)
 	spi_transfer(addr, &data);
 	spi_transfer(0, &data);
 	spi_unselect_slave(RTC);
+	/*if (addr == 0x01)
+	{
+		print_bin(data);
+		display_printchar('s');
+	}
+	if (addr == 0x02)
+	{
+		print_bin(data);
+		display_printchar('m');
+	}
+	if (addr == 0x03)
+	{
+		print_bin(data);
+		display_printchar('h');
+	}*/
 	return (data);
 }
 
@@ -110,26 +129,32 @@ void init_rtc(t_rtc_time time)
 {
 	u8 tmp;
 
-	// hundredths of seconds
-	write_byte(0x00, 0x00);
-	// seconds
-	write_byte(0x01, 0x80 | time.seconds);
-	// minutes
-	write_byte(0x02, time.minutes);
-	// hour = CALSGN + 12/24=0 + 10 HOUR + 10 HOUR + HOUR
-	write_byte(0x03, 0x3F & time.hour);
-	// day = - - - VBAT=1 VBATEN=0 DAY
-	write_byte(0x04, 0x04 | time.day);
-	// date = - - 10 DATE + DATE
-	write_byte(0x05, time.date);
-	// month = LP + 10 MONTH + MONTH
-	write_byte(0x06, time.month);
-	// year = 10 YEAR + YEAR
-	write_byte(0x07, time.year);
 	// Configuration bits
 	write_byte(0x08, 0x00);
 	// Calibration
 	write_byte(0x09, 0x00);
+
+	// Disable Oscillator and wait
+	write_byte(0x01, 0x00);
+	while (read_byte(0x04) & 0x20);
+	print_bin(rtc_oscillator_status());
+	// day = - - - VBAT=1 VBATEN=0 DAY
+	write_byte(0x04, 0x08);
+
+	// year = 10 YEAR + YEAR
+	/*write_byte(0x07, time.year);
+	// month = LP + 10 MONTH + MONTH
+	write_byte(0x06, time.month);
+	// date = - - 10 DATE + DATE
+	write_byte(0x05, time.date);*/
+	// hour = CALSGN + 12/24=0 + 0 + 10 HOUR + HOUR
+	write_byte(0x03, time.hour);
+	// minutes
+	write_byte(0x02, time.minutes);
+	// seconds
+	write_byte(0x01, 0x00);
+	// hundredths of seconds
+	//write_byte(0x00, 0x00);
 }
 
 u8  rtc_get_id(void)
@@ -162,20 +187,22 @@ u8  rtc_get_status_register(void)
 
 void	rtc_update_time(void)
 {
-	__builtin_disable_interrupts();
-	g_rtc_time.seconds = read_byte(0x01) & 0x7f;
-	g_rtc_time.minutes = read_byte(0x02) & 0x7f;
-	g_rtc_time.hour = read_byte(0x03) & 0x3f;
-	g_rtc_time.day = read_byte(0x04) & 0x0f;
-	g_rtc_time.date = read_byte(0x05) & 0x3f;
+	print_bin(g_rtc_time.hour);
+	display_printchar('h');
+	g_rtc_time.hour = read_byte(0x03);
+	print_bin(g_rtc_time.hour);
+	display_printchar('h');
+	g_rtc_time.minutes = read_byte(0x02);
+	/*g_rtc_time.seconds = read_byte(0x01) & 0x7f;
+	//g_rtc_time.day = read_byte(0x04) & 0x0f;
+	g_rtc_time.date = read_byte(0x05);
 	g_rtc_time.month = read_byte(0x06) & 0x1f;
-	g_rtc_time.year = read_byte(0x07);
-	__builtin_enable_interrupts();
+	g_rtc_time.year = read_byte(0x07);*/
 }
 
 u8	rtc_oscillator_status(void)
 {
-	return ((read_byte(0x01) & 0x80) | (read_byte(0x04) & 0x20));
-	//return ((read_byte(0x04) & 0x20));
+	//return ((read_byte(0x01) & 0x80) | (read_byte(0x04) & 0x20));
+	return ((read_byte(0x04) & 0x20));
 	//return (read_byte(0x01) & 0x80);
 }
