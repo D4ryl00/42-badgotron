@@ -125,7 +125,7 @@ void	rtc_srwrite(u8 data)
 	while (busy());
 }
 
-void init_rtc(t_rtc_time time)
+void init_rtc(void)
 {
 	u8 tmp;
 
@@ -142,19 +142,20 @@ void init_rtc(t_rtc_time time)
 
 	// Settting time
 	// year = 10 YEAR + YEAR
-	write_byte(0x07, time.year);
+	write_byte(0x07, g_rtc_time.year);
 	// month = LP + 10 MONTH + MONTH
-	write_byte(0x06, time.month);
+	write_byte(0x06, g_rtc_time.month);
 	// date = - - 10 DATE + DATE
-	write_byte(0x05, time.date);
+	write_byte(0x05, g_rtc_time.date);
 	// hour = CALSGN + 12/24=0 + 0 + 10 HOUR + HOUR
-	write_byte(0x03, time.hour);
+	write_byte(0x03, g_rtc_time.hour);
 	// minutes
-	write_byte(0x02, time.minutes);
+	write_byte(0x02, g_rtc_time.minutes);
 	// seconds
-	write_byte(0x01, 0x00);
+	write_byte(0x01, 0x80);
 	// hundredths of seconds
 	//write_byte(0x00, 0x00);
+	print_bin(rtc_oscillator_status());
 }
 
 u8  rtc_get_id(void)

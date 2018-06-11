@@ -23,7 +23,7 @@ void	init_spi(void)
 	SPI2STATbits.SPIROV = 0;
 	/* Set settings */
 	/* Set Clock Edge */
-	SPI2CONbits.CKE = 0;
+	SPI2CONbits.CKE = 1;
 	SPI2CONbits.CKP = 0;
 	/* 8 bits communication */
 	SPI2CONbits.MODE32 = 0;

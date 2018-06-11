@@ -53,32 +53,15 @@ int main(int argc, char** argv)
 	//rtc_eewrite(0x00, 'U');
 	//rtc_srwrite(0);
 	conv_rasp_time();
-	/*print_bin(rtc_oscillator_status());
-	display_printchar('_');*/
-	init_rtc(g_rtc_time);
-	/*print_bin(rtc_oscillator_status());
-	display_printchar('_');*/
-	//msleep(1000);
-	rtc_update_time();
-	msleep(1000);
-	print_time();
-	/*print_bin(rtc_get_status_register());
-	display_printchar('_');
-	print_bin(rtc_oscillator_status());
-	display_printchar('_');
-	rtc_update_time();
-	msleep(1000);
-	print_time();*/
+	init_rtc();
+	msleep(2000);
     while (42)
     {
         WDTCONbits.WDTCLR = 1;
-		/*rtc_update_time();
+		rtc_update_time();
 		display_clear();
-		msleep(500);
-		print_bin(rtc_oscillator_status());
-		display_printchar('_');
 		print_time();
-		msleep(2000);*/
+		msleep(1000);
 		/*if (g_uart_rx_buf.index)
 			print_uartbuffer();*/
     }
