@@ -137,16 +137,16 @@ void init_rtc(t_rtc_time time)
 	// Disable Oscillator and wait
 	write_byte(0x01, 0x00);
 	while (read_byte(0x04) & 0x20);
-	print_bin(rtc_oscillator_status());
-	// day = - - - VBAT=1 VBATEN=0 DAY
+	// day = VBAT=0 VBATEN=1 DAY
 	write_byte(0x04, 0x08);
 
+	// Settting time
 	// year = 10 YEAR + YEAR
-	/*write_byte(0x07, time.year);
+	write_byte(0x07, time.year);
 	// month = LP + 10 MONTH + MONTH
 	write_byte(0x06, time.month);
 	// date = - - 10 DATE + DATE
-	write_byte(0x05, time.date);*/
+	write_byte(0x05, time.date);
 	// hour = CALSGN + 12/24=0 + 0 + 10 HOUR + HOUR
 	write_byte(0x03, time.hour);
 	// minutes
@@ -187,22 +187,18 @@ u8  rtc_get_status_register(void)
 
 void	rtc_update_time(void)
 {
-	print_bin(g_rtc_time.hour);
-	display_printchar('h');
-	g_rtc_time.hour = read_byte(0x03);
-	print_bin(g_rtc_time.hour);
-	display_printchar('h');
-	g_rtc_time.minutes = read_byte(0x02);
-	/*g_rtc_time.seconds = read_byte(0x01) & 0x7f;
-	//g_rtc_time.day = read_byte(0x04) & 0x0f;
-	g_rtc_time.date = read_byte(0x05);
+	g_rtc_time.year = read_byte(0x07);
 	g_rtc_time.month = read_byte(0x06) & 0x1f;
-	g_rtc_time.year = read_byte(0x07);*/
+	g_rtc_time.date = read_byte(0x05);
+	g_rtc_time.hour = read_byte(0x03);
+	g_rtc_time.minutes = read_byte(0x02);
+	g_rtc_time.seconds = read_byte(0x01) & 0x7f;
+	g_rtc_time.day = read_byte(0x04) & 0x0f;
 }
 
 u8	rtc_oscillator_status(void)
 {
-	//return ((read_byte(0x01) & 0x80) | (read_byte(0x04) & 0x20));
-	return ((read_byte(0x04) & 0x20));
+	return ((read_byte(0x01) & 0x80) | (read_byte(0x04) & 0x20));
+	//return ((read_byte(0x04) & 0x20));
 	//return (read_byte(0x01) & 0x80);
 }

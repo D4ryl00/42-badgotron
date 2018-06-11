@@ -37,17 +37,29 @@ void	init_spi(void)
 void	spi_select_slave(enum e_spi_slave slave)
 {
 	if (slave == FLASH)
+	{
+		PIN_FLASH_WRITE = UNSELECTED;
 		PIN_FLASH_WRITE = SELECTED;
+	}
 	else if (slave == RTC)
+	{
+		PIN_RTC_WRITE = UNSELECTED;
 		PIN_RTC_WRITE = SELECTED;
+	}
 }
 
 void	spi_unselect_slave(enum e_spi_slave slave)
 {
 	if (slave == FLASH)
+	{
+		PIN_FLASH_WRITE = SELECTED;
 		PIN_FLASH_WRITE = UNSELECTED;
+	}
 	else if (slave == RTC)
+	{
+		PIN_RTC_WRITE = SELECTED;
 		PIN_RTC_WRITE = UNSELECTED;
+	}
 }
 
 void	spi_transfer(u8 tx_byte, u8* rx_byte)
