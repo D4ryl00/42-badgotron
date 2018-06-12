@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=display_init.c flash.c rtc.c servo.c spi.c uart.c main.c sleep.c configbits.c Interruptions.c Init_All.c real_time.c
+SOURCEFILES_QUOTED_IF_SPACED=badge.c display_init.c flash.c rtc.c servo.c spi.c uart.c main.c sleep.c configbits.c Interruptions.c real_time.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/display_init.o ${OBJECTDIR}/flash.o ${OBJECTDIR}/rtc.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o ${OBJECTDIR}/real_time.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/display_init.o.d ${OBJECTDIR}/flash.o.d ${OBJECTDIR}/rtc.o.d ${OBJECTDIR}/servo.o.d ${OBJECTDIR}/spi.o.d ${OBJECTDIR}/uart.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/Init_All.o.d ${OBJECTDIR}/real_time.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/badge.o ${OBJECTDIR}/display_init.o ${OBJECTDIR}/flash.o ${OBJECTDIR}/rtc.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/real_time.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/badge.o.d ${OBJECTDIR}/display_init.o.d ${OBJECTDIR}/flash.o.d ${OBJECTDIR}/rtc.o.d ${OBJECTDIR}/servo.o.d ${OBJECTDIR}/spi.o.d ${OBJECTDIR}/uart.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/real_time.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/display_init.o ${OBJECTDIR}/flash.o ${OBJECTDIR}/rtc.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/Init_All.o ${OBJECTDIR}/real_time.o
+OBJECTFILES=${OBJECTDIR}/badge.o ${OBJECTDIR}/display_init.o ${OBJECTDIR}/flash.o ${OBJECTDIR}/rtc.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/real_time.o
 
 # Source Files
-SOURCEFILES=display_init.c flash.c rtc.c servo.c spi.c uart.c main.c sleep.c configbits.c Interruptions.c Init_All.c real_time.c
+SOURCEFILES=badge.c display_init.c flash.c rtc.c servo.c spi.c uart.c main.c sleep.c configbits.c Interruptions.c real_time.c
 
 
 CFLAGS=
@@ -94,6 +94,12 @@ endif
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/badge.o: badge.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/badge.o.d 
+	@${RM} ${OBJECTDIR}/badge.o 
+	@${FIXDEPS} "${OBJECTDIR}/badge.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/badge.o.d" -o ${OBJECTDIR}/badge.o badge.c   
+	
 ${OBJECTDIR}/display_init.o: display_init.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/display_init.o.d 
@@ -154,12 +160,6 @@ ${OBJECTDIR}/Interruptions.o: Interruptions.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/Interruptions.o 
 	@${FIXDEPS} "${OBJECTDIR}/Interruptions.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Interruptions.o.d" -o ${OBJECTDIR}/Interruptions.o Interruptions.c   
 	
-${OBJECTDIR}/Init_All.o: Init_All.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Init_All.o.d 
-	@${RM} ${OBJECTDIR}/Init_All.o 
-	@${FIXDEPS} "${OBJECTDIR}/Init_All.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Init_All.o.d" -o ${OBJECTDIR}/Init_All.o Init_All.c   
-	
 ${OBJECTDIR}/real_time.o: real_time.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/real_time.o.d 
@@ -167,6 +167,12 @@ ${OBJECTDIR}/real_time.o: real_time.c  nbproject/Makefile-${CND_CONF}.mk
 	@${FIXDEPS} "${OBJECTDIR}/real_time.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/real_time.o.d" -o ${OBJECTDIR}/real_time.o real_time.c   
 	
 else
+${OBJECTDIR}/badge.o: badge.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/badge.o.d 
+	@${RM} ${OBJECTDIR}/badge.o 
+	@${FIXDEPS} "${OBJECTDIR}/badge.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/badge.o.d" -o ${OBJECTDIR}/badge.o badge.c   
+	
 ${OBJECTDIR}/display_init.o: display_init.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/display_init.o.d 
@@ -226,12 +232,6 @@ ${OBJECTDIR}/Interruptions.o: Interruptions.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/Interruptions.o.d 
 	@${RM} ${OBJECTDIR}/Interruptions.o 
 	@${FIXDEPS} "${OBJECTDIR}/Interruptions.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Interruptions.o.d" -o ${OBJECTDIR}/Interruptions.o Interruptions.c   
-	
-${OBJECTDIR}/Init_All.o: Init_All.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/Init_All.o.d 
-	@${RM} ${OBJECTDIR}/Init_All.o 
-	@${FIXDEPS} "${OBJECTDIR}/Init_All.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/Init_All.o.d" -o ${OBJECTDIR}/Init_All.o Init_All.c   
 	
 ${OBJECTDIR}/real_time.o: real_time.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 

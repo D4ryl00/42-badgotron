@@ -1,5 +1,5 @@
-build/default/debug/real_time.o:  \
-real_time.c  \
+build/default/debug/badge.o:  \
+badge.c  \
 badgotron.h  \
 types.h  \
 struct.h  \

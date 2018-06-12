@@ -23,7 +23,7 @@ extern "C" {
 #include "spi.h"
 #include "flash.h"
 #include "rtc.h"
-
+#include "badge.h"
 
 /* Display */
 #include "display_pin_select.h"

@@ -54,6 +54,7 @@ int main(int argc, char** argv)
 	//rtc_srwrite(0);
 	conv_rasp_time();
 	init_rtc();
+	init_badge();
 	msleep(2000);
     while (42)
     {
@@ -61,7 +62,7 @@ int main(int argc, char** argv)
 		rtc_update_time();
 		display_clear();
 		print_time();
-		msleep(1000);
+		msleep(500);
 		/*if (g_uart_rx_buf.index)
 			print_uartbuffer();*/
     }

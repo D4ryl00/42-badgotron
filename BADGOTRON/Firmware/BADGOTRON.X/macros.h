@@ -15,6 +15,9 @@
 #define DISPLAY_DELAY 2
 #define PBCLK 1000000
 
+#define PIN_MODE_OUTPUT 0
+#define PIN_MODE_INPUT 1
+
 #ifdef	__cplusplus
 }
 #endif
