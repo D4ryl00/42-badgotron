@@ -138,7 +138,7 @@ void init_rtc(void)
 	write_byte(0x01, 0x00);
 	while (read_byte(0x04) & 0x20);
 	// day = VBAT=0 VBATEN=1 DAY
-	write_byte(0x04, 0x08);
+	write_byte(0x04, 0x08 | (g_rtc_time.day & 0x07));
 
 	// Settting time
 	// year = 10 YEAR + YEAR
@@ -152,7 +152,7 @@ void init_rtc(void)
 	// minutes
 	write_byte(0x02, g_rtc_time.minutes);
 	// seconds
-	write_byte(0x01, 0x80);
+	write_byte(0x01, 0x80 | g_rtc_time.seconds);
 	// hundredths of seconds
 	//write_byte(0x00, 0x00);
 	print_bin(rtc_oscillator_status());
@@ -194,7 +194,7 @@ void	rtc_update_time(void)
 	g_rtc_time.hour = read_byte(0x03);
 	g_rtc_time.minutes = read_byte(0x02);
 	g_rtc_time.seconds = read_byte(0x01) & 0x7f;
-	g_rtc_time.day = read_byte(0x04) & 0x0f;
+	g_rtc_time.day = read_byte(0x04) & 0x07;
 }
 
 u8	rtc_oscillator_status(void)
