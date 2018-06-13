@@ -1,0 +1,44 @@
+Added Component: Designator=S1(SPST-2)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Fabricant"; Value = "RAFI"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Fournisseur"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fabricant"; Value = "1.10.001.001/0205"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fournisseur"; Value = "9927360"; VariantName = "[No Variations]"
+Added Component: Designator=U1(TRANS)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Fabricant"; Value = "ON SEMICONDUCTOR"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Fournisseur"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fabricant"; Value = "74LVX4245MTCX"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fournisseur"; Value = "1467357"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=S1-2
+Added Pin To Net: NetName=5VDC Pin=U1-1
+Added Pin To Net: NetName=TS_TR Pin=U1-2
+Added Pin To Net: NetName=TS_D0 Pin=U1-3
+Added Pin To Net: NetName=TS_D1 Pin=U1-4
+Added Pin To Net: NetName=TS_D2 Pin=U1-5
+Added Pin To Net: NetName=TS_D3 Pin=U1-6
+Added Pin To Net: NetName=TS_D4 Pin=U1-7
+Added Pin To Net: NetName=TS_D5 Pin=U1-8
+Added Pin To Net: NetName=TS_D6 Pin=U1-9
+Added Pin To Net: NetName=TS_D7 Pin=U1-10
+Added Pin To Net: NetName=GND Pin=U1-11
+Added Pin To Net: NetName=GND Pin=U1-12
+Added Pin To Net: NetName=GND Pin=U1-13
+Added Pin To Net: NetName=S_D7 Pin=U1-14
+Added Pin To Net: NetName=S_D6 Pin=U1-15
+Added Pin To Net: NetName=S_D5 Pin=U1-16
+Added Pin To Net: NetName=S_D4 Pin=U1-17
+Added Pin To Net: NetName=S_D3 Pin=U1-18
+Added Pin To Net: NetName=S_D2 Pin=U1-19
+Added Pin To Net: NetName=S_D1 Pin=U1-20
+Added Pin To Net: NetName=S_D0 Pin=U1-21
+Added Pin To Net: NetName=GND Pin=U1-22
+Added Pin To Net: NetName=3.3VDC Pin=U1-23
+Added Pin To Net: NetName=3.3VDC Pin=U1-24
+Added Member To Class: ClassName=VRAIMENTHORSPCB Member=Component S1 Bouton Status
+Added Member To Class: ClassName=Ecran Member=Component U1 74LVX4245MTCX
+Added Room: Name=Ecran
+Added Room: Name=OTHER
+Added Room: Name=PIC
+Added Room: Name=Power
+Added Room: Name=VRAIMENTHORSPCB
