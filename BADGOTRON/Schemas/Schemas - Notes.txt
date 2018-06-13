@@ -1,0 +1,11 @@
+**** HIGH ***
+- Erreur d'attribution de la pin SCK pour le SPI (prendre la 14 ou 15).
+*************
+
+**** MEDIUM ****
+
+****************
+
+**** LOW ****
+
+*************

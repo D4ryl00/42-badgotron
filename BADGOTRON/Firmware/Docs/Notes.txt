@@ -1,0 +1,1 @@
+Mettre les pins non connectées en output et en low-level.
