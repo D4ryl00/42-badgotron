@@ -1,0 +1,34 @@
+Removed Pin From Net: NetName=GND Pin=P4-2
+Added Component: Designator=Q1(nouveau_mosfetN)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Fabricant"; Value = "Nexperia"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Fournisseur"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fabricant"; Value = "BUK7M42-60EX"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fournisseur"; Value = "2760371"; VariantName = "[No Variations]"
+Added Component: Designator=Q2(nouveau_mosfetN)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Fabricant"; Value = "Nexperia"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Fournisseur"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fabricant"; Value = "BUK7M42-60EX"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fournisseur"; Value = "2760371"; VariantName = "[No Variations]"
+Added Component: Designator=S1(SPST-2)
+Add component. Clean all parameters for all variants
+Add component (AddParameter): Name = "Fabricant"; Value = "RAFI"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Fournisseur"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fabricant"; Value = "1.10.001.001/0205"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Ref.Fournisseur"; Value = "9927360"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=CR_LED_R_CTRL Pin=Q1-1
+Added Pin To Net: NetName=CR_LED_R Pin=Q1-2
+Added Pin To Net: NetName=GND Pin=Q1-3
+Added Pin To Net: NetName=CR_LED_G_CTRL Pin=Q2-1
+Added Pin To Net: NetName=CR_LED_G Pin=Q2-2
+Added Pin To Net: NetName=GND Pin=Q2-3
+Added Pin To Net: NetName=GND Pin=S1-2
+Added Member To Class: ClassName=OTHER Member=Component Q1 MOSFET-N
+Added Member To Class: ClassName=OTHER Member=Component Q2 MOSFET-N
+Added Member To Class: ClassName=VRAIMENTHORSPCB Member=Component S1 Bouton Status
+Added Room: Name=Ecran
+Added Room: Name=OTHER
+Added Room: Name=PIC
+Added Room: Name=Power
+Added Room: Name=VRAIMENTHORSPCB
