@@ -61,54 +61,26 @@ static void	write_byte(u8 addr, u8 data)
 {
 	u8	tmp = 0;
 
+	__builtin_disable_interrupts();
 	spi_select_slave(RTC);
 	spi_transfer(RTC_WRITE, &tmp);
 	spi_transfer(addr, &tmp);
 	spi_transfer(data, &tmp);
 	spi_unselect_slave(RTC);
-	//msleep(1000);
-	//while (busy());
-	/*	if (addr == 0x01)
-	{
-		print_bin(data);
-		display_printchar('_');
-	}
-	/*if (addr == 0x02)
-	{
-		print_bin(data);
-		display_printchar('_');
-	}
-	if (addr == 0x03)
-	{
-		print_bin(data);
-		display_printchar('_');
-	}*/
+	__builtin_enable_interrupts();
 }
 
 static u8	read_byte(u8 addr)
 {
 	u8	data = 0;
 
+	__builtin_disable_interrupts();
 	spi_select_slave(RTC);
 	spi_transfer(RTC_READ, &data);
 	spi_transfer(addr, &data);
 	spi_transfer(0, &data);
 	spi_unselect_slave(RTC);
-	/*if (addr == 0x01)
-	{
-		print_bin(data);
-		display_printchar('s');
-	}
-	if (addr == 0x02)
-	{
-		print_bin(data);
-		display_printchar('m');
-	}
-	if (addr == 0x03)
-	{
-		print_bin(data);
-		display_printchar('h');
-	}*/
+	__builtin_enable_interrupts();
 	return (data);
 }
 
@@ -125,15 +97,29 @@ void	rtc_srwrite(u8 data)
 	while (busy());
 }
 
-void init_rtc(void)
+void	get_power_up_time(t_rtc_time *time)
 {
-	u8 tmp;
+	time->month = read_byte(0x1f) & 0x1f;
+	time->date = read_byte(0x1e);
+	time->hour = read_byte(0x1d & 0x3f);
+	time->minutes = read_byte(0x1c);
+	time->day = (read_byte(0x1f) & 0xe0) >> 5;
+}
 
-	// Configuration bits
-	write_byte(0x08, 0x00);
-	// Calibration
-	write_byte(0x09, 0x00);
+/* We don't test the seconds */
+u8	is_on_time(t_rtc_time power_up, t_rtc_time real_time)
+{
+	if ((power_up.month != real_time.month)
+			|| (power_up.date != real_time.date)
+			|| (power_up.hour != real_time.hour)
+			|| (power_up.minutes != real_time.minutes)
+			|| (power_up.day != real_time.day))
+		return (0);
+	return (1);
+}
 
+void	rtc_set_time(void)
+{
 	// Disable Oscillator and wait
 	write_byte(0x01, 0x00);
 	while (read_byte(0x04) & 0x20);
@@ -153,9 +139,6 @@ void init_rtc(void)
 	write_byte(0x02, g_rtc_time.minutes);
 	// seconds
 	write_byte(0x01, 0x80 | g_rtc_time.seconds);
-	// hundredths of seconds
-	//write_byte(0x00, 0x00);
-	print_bin(rtc_oscillator_status());
 }
 
 u8  rtc_get_id(void)
@@ -202,4 +185,20 @@ u8	rtc_oscillator_status(void)
 	return ((read_byte(0x01) & 0x80) | (read_byte(0x04) & 0x20));
 	//return ((read_byte(0x04) & 0x20));
 	//return (read_byte(0x01) & 0x80);
+}
+
+void init_rtc(void)
+{
+	t_rtc_time power_up_time;
+
+	conv_rasp_time();
+	// Configuration bits
+	write_byte(0x08, 0x00);
+	// Calibration
+	write_byte(0x09, 0x00);
+
+	// get power up time from the RTC to compare it with the real time (rasp)
+	get_power_up_time(&power_up_time);
+	if (!is_on_time(power_up_time, g_rtc_time))
+		rtc_set_time();
 }

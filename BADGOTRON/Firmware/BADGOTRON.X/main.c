@@ -52,7 +52,6 @@ int main(int argc, char** argv)
 	//tmp = rtc_get_id();
 	//rtc_eewrite(0x00, 'U');
 	//rtc_srwrite(0);
-	conv_rasp_time();
 	init_rtc();
 	init_badge();
 	msleep(2000);
