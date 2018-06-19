@@ -97,25 +97,9 @@ void	rtc_srwrite(u8 data)
 	while (busy());
 }
 
-void	get_power_up_time(t_rtc_time *time)
+static u8	is_on_time()
 {
-	time->month = read_byte(0x1f) & 0x1f;
-	time->date = read_byte(0x1e);
-	time->hour = read_byte(0x1d & 0x3f);
-	time->minutes = read_byte(0x1c);
-	time->day = (read_byte(0x1f) & 0xe0) >> 5;
-}
-
-/* We don't test the seconds */
-u8	is_on_time(t_rtc_time power_up, t_rtc_time real_time)
-{
-	if ((power_up.month != real_time.month)
-			|| (power_up.date != real_time.date)
-			|| (power_up.hour != real_time.hour)
-			|| (power_up.minutes != real_time.minutes)
-			|| (power_up.day != real_time.day))
-		return (0);
-	return (1);
+	return (read_byte(0x01) & 0x80);
 }
 
 void	rtc_set_time(void)
@@ -189,16 +173,15 @@ u8	rtc_oscillator_status(void)
 
 void init_rtc(void)
 {
-	t_rtc_time power_up_time;
-
-	conv_rasp_time();
 	// Configuration bits
 	write_byte(0x08, 0x00);
 	// Calibration
 	write_byte(0x09, 0x00);
 
-	// get power up time from the RTC to compare it with the real time (rasp)
-	get_power_up_time(&power_up_time);
-	if (!is_on_time(power_up_time, g_rtc_time))
+	if (!is_on_time())
+	{
+		conv_rasp_time();
 		rtc_set_time();
+		g_set_time = 1;
+	}
 }

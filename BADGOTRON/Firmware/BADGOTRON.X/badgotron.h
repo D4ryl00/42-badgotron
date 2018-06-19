@@ -30,6 +30,8 @@ extern "C" {
 /*SERVO*/
 #include "servo_pin_select.h"
 
+extern u8 g_set_time;
+
 #ifdef	__cplusplus
 }
 #endif

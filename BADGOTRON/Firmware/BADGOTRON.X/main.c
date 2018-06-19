@@ -6,7 +6,7 @@
  */
 
 #include "badgotron.h"
-
+u8	g_set_time;
 void    print_uartbuffer(void)
 {
 	display_printstr(g_uart_rx_buf.buffer);
@@ -52,6 +52,7 @@ int main(int argc, char** argv)
 	//tmp = rtc_get_id();
 	//rtc_eewrite(0x00, 'U');
 	//rtc_srwrite(0);
+	g_set_time = 0;
 	init_rtc();
 	init_badge();
 	msleep(2000);
@@ -61,6 +62,8 @@ int main(int argc, char** argv)
 		rtc_update_time();
 		display_clear();
 		print_time();
+		display_printchar('_');
+		print_bin(g_set_time);
 		msleep(500);
 		/*if (g_uart_rx_buf.index)
 			print_uartbuffer();*/

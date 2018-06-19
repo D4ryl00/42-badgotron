@@ -22,7 +22,6 @@ void    msleep(u32 time)
             IFS0bits.T2IF = 0;
         }
     }
-    T2CONbits.ON = 0;
 }
 
 void    clock_sleep(u32 time)
