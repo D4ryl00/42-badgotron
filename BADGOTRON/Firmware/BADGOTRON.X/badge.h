@@ -23,7 +23,7 @@ typedef struct	s_wiegand_buf
     u8			buffer[44];
 }				t_wiegand_buf;
 
-t_wiegand_buf	g_wiegand_buf;
+extern t_wiegand_buf	g_wiegand_buf;
 
 #ifdef	__cplusplus
 }

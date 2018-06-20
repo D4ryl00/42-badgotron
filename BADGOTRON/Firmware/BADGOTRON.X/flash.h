@@ -19,6 +19,7 @@ extern "C" {
 #define FLASH_AAI 0xAD
 //#define FLASH_READ_ID 0x90
 #define FLASH_READ_ID 0xAB
+#define	FLASH_CHIPERASE 0x60
 #define FLASH_DBSY 0x80
 #define FLASH_EBSY 0x70
 #define FLASH_ENABLE_WRITE_STATUS_REGISTER 0x50
@@ -39,6 +40,7 @@ void	flash_put_byte(u32 addr, u8 data);
 u8		flash_get_byte_init(u32 addr);
 u8		flash_get_byte_next(void);
 u8		flash_get_byte_end(void);
+void	flash_chiperase(void);
 
 #ifdef	__cplusplus
 }

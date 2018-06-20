@@ -211,3 +211,18 @@ void		flash_put_multibytes(u32 addr, u8 *data, u16 size)
 	__builtin_enable_interrupts();
 	flash_set_block_protection(FLASH_BLOCK_PROTECTED);
 }
+
+void	flash_chiperase(void)
+{
+	u8	tmp = 0;
+
+	flash_set_block_protection(FLASH_BLOCK_UNPROTECTED);
+	__builtin_disable_interrupts();
+	write_enable();
+	spi_select_slave(FLASH);
+	spi_transfer(FLASH_CHIPERASE, &tmp);
+	spi_unselect_slave(FLASH);
+	__builtin_enable_interrupts();
+	while(busy());
+	flash_set_block_protection(FLASH_BLOCK_PROTECTED);
+}

@@ -1,9 +1,11 @@
 #include "badgotron.h"
 
+t_wiegand_buf	g_wiegand_buf;
+
 void	init_badge(void)
 {
 	u8	tmp = 0;
-
+	
 	// Init buffer
 	g_wiegand_buf.index = 0;
 	__builtin_disable_interrupts(); // Desativer les interrupts partout

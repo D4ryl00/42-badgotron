@@ -88,6 +88,12 @@ void	display_printchar(u8 d)
 	E_WRITE = 0;
 }
 
+void	display_returnhome(void)
+{
+	write_command(0x02); // Display clear
+	msleep(2);
+}
+
 void    display_printstr(u8 str[])
 {
 	int i = 0;

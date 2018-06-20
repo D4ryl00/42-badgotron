@@ -7,6 +7,7 @@
 
 #include "badgotron.h"
 u8	g_set_time;
+
 void    print_uartbuffer(void)
 {
 	display_printstr(g_uart_rx_buf.buffer);
@@ -44,10 +45,11 @@ int main(int argc, char** argv)
 	flash_set_block_protection(FLASH_BLOCK_PROTECTED);*/
 	//flash_put_byte(0x1002, '?');
 	//flash_put_multibytes(0x1000, "Flash OK_", sizeof("Flash OK_") - 1);
-	tmp = flash_get_byte_init(0x1000);
+	//flash_chiperase();
+	/*tmp = flash_get_byte_init(0x1000);
 	display_printchar(tmp);
 	while ((tmp = flash_get_byte_next()) != 0xff)
-		display_printchar(tmp);
+		display_printchar(tmp);*/
 	flash_get_byte_end();
 	//tmp = rtc_get_id();
 	//rtc_eewrite(0x00, 'U');
@@ -60,11 +62,11 @@ int main(int argc, char** argv)
     {
         WDTCONbits.WDTCLR = 1;
 		rtc_update_time();
-		display_clear();
+		display_returnhome();
 		print_time();
 		display_printchar('_');
 		print_bin(g_set_time);
-		msleep(500);
+		msleep(10);
 		/*if (g_uart_rx_buf.index)
 			print_uartbuffer();*/
     }

@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=badge.c display_init.c flash.c rtc.c servo.c spi.c uart.c main.c sleep.c configbits.c Interruptions.c real_time.c
+SOURCEFILES_QUOTED_IF_SPACED=badge.c display_init.c flash.c rtc.c servo.c spi.c uart.c main.c sleep.c configbits.c Interruptions.c real_time.c db_users.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/badge.o ${OBJECTDIR}/display_init.o ${OBJECTDIR}/flash.o ${OBJECTDIR}/rtc.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/real_time.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/badge.o.d ${OBJECTDIR}/display_init.o.d ${OBJECTDIR}/flash.o.d ${OBJECTDIR}/rtc.o.d ${OBJECTDIR}/servo.o.d ${OBJECTDIR}/spi.o.d ${OBJECTDIR}/uart.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/real_time.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/badge.o ${OBJECTDIR}/display_init.o ${OBJECTDIR}/flash.o ${OBJECTDIR}/rtc.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/real_time.o ${OBJECTDIR}/db_users.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/badge.o.d ${OBJECTDIR}/display_init.o.d ${OBJECTDIR}/flash.o.d ${OBJECTDIR}/rtc.o.d ${OBJECTDIR}/servo.o.d ${OBJECTDIR}/spi.o.d ${OBJECTDIR}/uart.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/real_time.o.d ${OBJECTDIR}/db_users.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/badge.o ${OBJECTDIR}/display_init.o ${OBJECTDIR}/flash.o ${OBJECTDIR}/rtc.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/real_time.o
+OBJECTFILES=${OBJECTDIR}/badge.o ${OBJECTDIR}/display_init.o ${OBJECTDIR}/flash.o ${OBJECTDIR}/rtc.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/real_time.o ${OBJECTDIR}/db_users.o
 
 # Source Files
-SOURCEFILES=badge.c display_init.c flash.c rtc.c servo.c spi.c uart.c main.c sleep.c configbits.c Interruptions.c real_time.c
+SOURCEFILES=badge.c display_init.c flash.c rtc.c servo.c spi.c uart.c main.c sleep.c configbits.c Interruptions.c real_time.c db_users.c
 
 
 CFLAGS=
@@ -166,6 +166,12 @@ ${OBJECTDIR}/real_time.o: real_time.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/real_time.o 
 	@${FIXDEPS} "${OBJECTDIR}/real_time.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/real_time.o.d" -o ${OBJECTDIR}/real_time.o real_time.c   
 	
+${OBJECTDIR}/db_users.o: db_users.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/db_users.o.d 
+	@${RM} ${OBJECTDIR}/db_users.o 
+	@${FIXDEPS} "${OBJECTDIR}/db_users.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/db_users.o.d" -o ${OBJECTDIR}/db_users.o db_users.c   
+	
 else
 ${OBJECTDIR}/badge.o: badge.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -238,6 +244,12 @@ ${OBJECTDIR}/real_time.o: real_time.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/real_time.o.d 
 	@${RM} ${OBJECTDIR}/real_time.o 
 	@${FIXDEPS} "${OBJECTDIR}/real_time.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/real_time.o.d" -o ${OBJECTDIR}/real_time.o real_time.c   
+	
+${OBJECTDIR}/db_users.o: db_users.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/db_users.o.d 
+	@${RM} ${OBJECTDIR}/db_users.o 
+	@${FIXDEPS} "${OBJECTDIR}/db_users.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/db_users.o.d" -o ${OBJECTDIR}/db_users.o db_users.c   
 	
 endif
 
