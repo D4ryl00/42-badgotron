@@ -1,0 +1,24 @@
+Removed Pin From Net: NetName=Net*_2 Pin=1-1
+Removed Pin From Net: NetName=Net*_6 Pin=1-2
+Removed Pin From Net: NetName=Net*_2 Pin=2-2
+Removed Pin From Net: NetName=Net*_4 Pin=5-2
+Removed Pin From Net: NetName=Net*_4 Pin=9-2
+Added Pin To Net: NetName=3.3VDC Pin=2-1
+Added Pin To Net: NetName=3.3VDC Pin=3-1
+Added Pin To Net: NetName=3.3VDC Pin=4-1
+Added Pin To Net: NetName=3.3VDC Pin=5-1
+Added Pin To Net: NetName=Net*_2 Pin=10-1
+Added Pin To Net: NetName=Net*_6 Pin=10-2
+Added Pin To Net: NetName=3.3VDC Pin=11-1
+Added Pin To Net: NetName=Net*_2 Pin=11-2
+Added Pin To Net: NetName=3.3VDC Pin=12-1
+Added Pin To Net: NetName=3.3VDC Pin=13-1
+Added Pin To Net: NetName=3.3VDC Pin=14-1
+Added Pin To Net: NetName=Net*_4 Pin=14-2
+Added Pin To Net: NetName=Net*_4 Pin=18-2
+Added Pin To Net: NetName=3.3VDC Pin=P1-2
+Added Pin To Net: NetName=3.3VDC Pin=R1-1
+Added Pin To Net: NetName=3.3VDC Pin=U1-1
+Added Pin To Net: NetName=3.3VDC Pin=XDS1-2
+Added Pin To Net: NetName=3.3VDC Pin=XDS1-15
+Change Net Name : Old Net Name=3.3VDC New Net Name=VOUT

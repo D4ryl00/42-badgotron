@@ -1,0 +1,18 @@
+Added Component: Designator=XDS1(HDR1X16)
+Added Pin To Net: NetName=GND Pin=XDS1-1
+Added Pin To Net: NetName=VOUT5 Pin=XDS1-2
+Added Pin To Net: NetName=POT_CONTRASTE Pin=XDS1-3
+Added Pin To Net: NetName=S_RS Pin=XDS1-4
+Added Pin To Net: NetName=S_RW Pin=XDS1-5
+Added Pin To Net: NetName=S_E Pin=XDS1-6
+Added Pin To Net: NetName=TS_D0 Pin=XDS1-7
+Added Pin To Net: NetName=TS_D1 Pin=XDS1-8
+Added Pin To Net: NetName=TS_D2 Pin=XDS1-9
+Added Pin To Net: NetName=TS_D3 Pin=XDS1-10
+Added Pin To Net: NetName=TS_D4 Pin=XDS1-11
+Added Pin To Net: NetName=TS_D5 Pin=XDS1-12
+Added Pin To Net: NetName=TS_D6 Pin=XDS1-13
+Added Pin To Net: NetName=TS_D7 Pin=XDS1-14
+Added Pin To Net: NetName=VOUT5 Pin=XDS1-15
+Added Pin To Net: NetName=GND Pin=XDS1-16
+Added Member To Class: ClassName=Ecran Member=Component XDS1 1-826629-6

@@ -1,0 +1,110 @@
+Removed Pin From Net: NetName=12VDC Pin=C14-1
+Removed Pin From Net: NetName=GND Pin=C14-2
+Removed Pin From Net: NetName=GND Pin=C15-1
+Removed Pin From Net: NetName=5VDC Pin=C15-2
+Removed Pin From Net: NetName=12VDC Pin=C16-1
+Removed Pin From Net: NetName=GND Pin=C16-2
+Removed Pin From Net: NetName=GND Pin=C17-1
+Removed Pin From Net: NetName=3.3VDC Pin=C17-2
+Removed Pin From Net: NetName=GND Pin=D2-1
+Removed Pin From Net: NetName=GND Pin=D3-1
+Removed Pin From Net: NetName=5VDC Pin=L1-2
+Removed Pin From Net: NetName=3.3VDC Pin=L2-2
+Removed Pin From Net: NetName=12VDC Pin=U4-1
+Removed Pin From Net: NetName=GND Pin=U4-3
+Removed Pin From Net: NetName=5VDC Pin=U4-4
+Removed Pin From Net: NetName=GND Pin=U4-5
+Removed Pin From Net: NetName=12VDC Pin=U5-1
+Removed Pin From Net: NetName=GND Pin=U5-3
+Removed Pin From Net: NetName=3.3VDC Pin=U5-4
+Removed Pin From Net: NetName=GND Pin=U5-5
+Removed Member From Class: ClassName=Power Member=C14
+Removed Member From Class: ClassName=Power Member=C15
+Removed Member From Class: ClassName=Power Member=C16
+Removed Member From Class: ClassName=Power Member=C17
+Removed Member From Class: ClassName=Power Member=D2
+Removed Member From Class: ClassName=Power Member=D3
+Removed Member From Class: ClassName=Power Member=L2
+Removed Member From Class: ClassName=Power Member=U4
+Removed Member From Class: ClassName=Power Member=U5
+Change Component Footprint: Designator=L1 Old Footprint=BOBINEDEMERDE_5v New Footprint=Bobine Traversante 4.7
+Change Component Comment : Designator=L1 Old Comment=100uH New Comment=4.7uH
+Change Component Designator: OldDesignator=L1 NewDesignator=2
+Change Component Designator: OldDesignator=Z? NewDesignator=Z1
+Added Component: Designator=1(0603)
+Added Component: Designator=3(0603)
+Added Component: Designator=4(0603)
+Added Component: Designator=5(0603)
+Added Component: Designator=6(0603)
+Added Component: Designator=7(0603)
+Added Component: Designator=8(0603)
+Added Component: Designator=9(0603)
+Added Component: Designator=10(0603)
+Added Component: Designator=11(Bobine Traversante 4.7)
+Added Component: Designator=12(0603)
+Added Component: Designator=13(0603)
+Added Component: Designator=14(0603)
+Added Component: Designator=15(0603)
+Added Component: Designator=16(0603)
+Added Component: Designator=17(0603)
+Added Component: Designator=18(0603)
+Added Component: Designator=S1(SPST-2)
+Added Pin To Net: NetName=GND Pin=3-2
+Added Pin To Net: NetName=GND Pin=4-2
+Added Pin To Net: NetName=12VDC Pin=6-1
+Added Pin To Net: NetName=GND Pin=6-2
+Added Pin To Net: NetName=12VDC Pin=7-1
+Added Pin To Net: NetName=GND Pin=7-2
+Added Pin To Net: NetName=12VDC Pin=8-1
+Added Pin To Net: NetName=GND Pin=8-2
+Added Pin To Net: NetName=GND Pin=9-1
+Added Pin To Net: NetName=GND Pin=12-2
+Added Pin To Net: NetName=GND Pin=13-2
+Added Pin To Net: NetName=12VDC Pin=15-1
+Added Pin To Net: NetName=GND Pin=15-2
+Added Pin To Net: NetName=12VDC Pin=16-1
+Added Pin To Net: NetName=GND Pin=16-2
+Added Pin To Net: NetName=12VDC Pin=17-1
+Added Pin To Net: NetName=GND Pin=17-2
+Added Pin To Net: NetName=GND Pin=18-1
+Added Pin To Net: NetName=GND Pin=S1-2
+Added Pin To Net: NetName=Net*_2 Pin=1-1
+Added Pin To Net: NetName=Net*_2 Pin=2-2
+Added Net: Name=Net*_2
+Added Pin To Net: NetName=Net*_4 Pin=5-2
+Added Pin To Net: NetName=Net*_4 Pin=9-2
+Added Net: Name=Net*_4
+Added Pin To Net: NetName=Net*_6 Pin=1-2
+Added Net: Name=Net*_6
+Added Pin To Net: NetName=VOUT Pin=2-1
+Added Pin To Net: NetName=VOUT Pin=3-1
+Added Pin To Net: NetName=VOUT Pin=4-1
+Added Pin To Net: NetName=VOUT Pin=5-1
+Added Pin To Net: NetName=VOUT Pin=11-1
+Added Pin To Net: NetName=VOUT Pin=12-1
+Added Pin To Net: NetName=VOUT Pin=13-1
+Added Pin To Net: NetName=VOUT Pin=14-1
+Added Net: Name=VOUT
+Added Member To Class: ClassName=Power Member=Component 1 0.1uF
+Added Member To Class: ClassName=Power Member=Component 3 22uF
+Added Member To Class: ClassName=Power Member=Component 4 22uF
+Added Member To Class: ClassName=Power Member=Component 5 54.9K
+Added Member To Class: ClassName=Power Member=Component 6 10uF
+Added Member To Class: ClassName=Power Member=Component 7 10uF
+Added Member To Class: ClassName=Power Member=Component 8 0.1uF
+Added Member To Class: ClassName=Power Member=Component 9 10K
+Added Member To Class: ClassName=Power Member=Component 10 0.1uF
+Added Member To Class: ClassName=Power Member=Component 11 3.3uH
+Added Member To Class: ClassName=Power Member=Component 12 22uF
+Added Member To Class: ClassName=Power Member=Component 13 22uF
+Added Member To Class: ClassName=Power Member=Component 14 33.2K
+Added Member To Class: ClassName=Power Member=Component 15 10uF
+Added Member To Class: ClassName=Power Member=Component 16 10uF
+Added Member To Class: ClassName=Power Member=Component 17 0.1uF
+Added Member To Class: ClassName=Power Member=Component 18 10K
+Added Member To Class: ClassName=VRAIMENTHORSPCB Member=Component S1 Bouton Status
+Added Room: Name=Ecran
+Added Room: Name=OTHER
+Added Room: Name=PIC
+Added Room: Name=Power
+Added Room: Name=VRAIMENTHORSPCB
