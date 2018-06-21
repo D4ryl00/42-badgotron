@@ -1,0 +1,16 @@
+Added Component: Designator=L1(BOBINEDEMERDE_5v)
+Added Component: Designator=L2(BOBINEDEMERDE_5v)
+Added Component: Designator=S1(SPST-2)
+Added Pin To Net: NetName=NetD2_2 Pin=L1-1
+Added Pin To Net: NetName=5VDC Pin=L1-2
+Added Pin To Net: NetName=NetD3_2 Pin=L2-1
+Added Pin To Net: NetName=3.3VDC Pin=L2-2
+Added Pin To Net: NetName=GND Pin=S1-2
+Added Member To Class: ClassName=Power Member=Component L1 100uH
+Added Member To Class: ClassName=Power Member=Component L2 100uH
+Added Member To Class: ClassName=VRAIMENTHORSPCB Member=Component S1 Bouton Status
+Added Room: Name=Ecran
+Added Room: Name=OTHER
+Added Room: Name=PIC
+Added Room: Name=Power
+Added Room: Name=VRAIMENTHORSPCB
