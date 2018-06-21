@@ -1,0 +1,67 @@
+Removed Pin From Net: NetName=VOUT3.3 Pin=R19-2
+Removed Member From Class: ClassName=PIC Member=R19
+Added Component: Designator=S1(SPST-2)
+Added Component: Designator=U7(rtc)
+Added Component: Designator=Z?(TQFP-44_L)
+Added Pin To Net: NetName=GND Pin=S1-2
+Added Pin To Net: NetName=X1 Pin=U7-1
+Added Pin To Net: NetName=X2 Pin=U7-2
+Added Pin To Net: NetName=VBAT Pin=U7-3
+Added Pin To Net: NetName=RTC_CS Pin=U7-4
+Added Pin To Net: NetName=GND Pin=U7-5
+Added Pin To Net: NetName=SPI_SO Pin=U7-6
+Added Pin To Net: NetName=SPI_SI Pin=U7-7
+Added Pin To Net: NetName=SPI_SCK Pin=U7-8
+Added Pin To Net: NetName=VOUT3.3 Pin=U7-10
+Added Pin To Net: NetName=S_D0 Pin=Z?-1
+Added Pin To Net: NetName=S_D1 Pin=Z?-2
+Added Pin To Net: NetName=S_D2 Pin=Z?-3
+Added Pin To Net: NetName=S_D3 Pin=Z?-4
+Added Pin To Net: NetName=S_D4 Pin=Z?-5
+Added Pin To Net: NetName=GND Pin=Z?-6
+Added Pin To Net: NetName=NetC3_1 Pin=Z?-7
+Added Pin To Net: NetName=S_D5 Pin=Z?-8
+Added Pin To Net: NetName=RTC_CS Pin=Z?-11
+Added Pin To Net: NetName=FLSH_CE Pin=Z?-12
+Added Pin To Net: NetName=SPI_SI Pin=Z?-13
+Added Pin To Net: NetName=SPI_SCK Pin=Z?-14
+Added Pin To Net: NetName=SPI_SO Pin=Z?-15
+Added Pin To Net: NetName=GND Pin=Z?-16
+Added Pin To Net: NetName=VOUT3.3 Pin=Z?-17
+Added Pin To Net: NetName=MCLR Pin=Z?-18
+Added Pin To Net: NetName=POWEROK Pin=Z?-19
+Added Pin To Net: NetName=GND Pin=Z?-20
+Added Pin To Net: NetName=PGED1 Pin=Z?-21
+Added Pin To Net: NetName=PGEC1 Pin=Z?-22
+Added Pin To Net: NetName=RG_LED0 Pin=Z?-23
+Added Pin To Net: NetName=RG_LED1 Pin=Z?-24
+Added Pin To Net: NetName=CR_DATA0_3V Pin=Z?-25
+Added Pin To Net: NetName=CR_DATA1_3V Pin=Z?-26
+Added Pin To Net: NetName=CR_LED_R Pin=Z?-27
+Added Pin To Net: NetName=VOUT3.3 Pin=Z?-28
+Added Pin To Net: NetName=GND Pin=Z?-29
+Added Pin To Net: NetName=CR_LED_G Pin=Z?-30
+Added Pin To Net: NetName=CMD_SERVO Pin=Z?-31
+Added Pin To Net: NetName=STATUS_BTN Pin=Z?-32
+Added Pin To Net: NetName=PIC_RASPI_RXD Pin=Z?-33
+Added Pin To Net: NetName=PIC_RASPI_TXD Pin=Z?-34
+Added Pin To Net: NetName=S_D6 Pin=Z?-37
+Added Pin To Net: NetName=S_D7 Pin=Z?-38
+Added Pin To Net: NetName=GND Pin=Z?-39
+Added Pin To Net: NetName=VOUT3.3 Pin=Z?-40
+Added Pin To Net: NetName=TS_TR Pin=Z?-41
+Added Pin To Net: NetName=S_RS Pin=Z?-42
+Added Pin To Net: NetName=S_RW Pin=Z?-43
+Added Pin To Net: NetName=S_E Pin=Z?-44
+Added Pin To Net: NetName=RTC_MFP Pin=U7-9
+Added Pin To Net: NetName=RTC_MFP Pin=Z?-10
+Added Net: Name=RTC_MFP
+Added Member To Class: ClassName=VRAIMENTHORSPCB Member=Component S1 Bouton Status
+Added Member To Class: ClassName=Power Member=Component U2 TPS562201DDCT
+Added Member To Class: ClassName=PIC Member=Component U7 MCP79510-I/MS
+Added Member To Class: ClassName=PIC Member=Component Z? PIC32MX170F256D-I/PT
+Added Room: Name=Ecran
+Added Room: Name=OTHER
+Added Room: Name=PIC
+Added Room: Name=Power
+Added Room: Name=VRAIMENTHORSPCB
