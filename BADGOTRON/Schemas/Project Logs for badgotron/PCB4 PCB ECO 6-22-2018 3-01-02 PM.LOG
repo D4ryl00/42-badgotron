@@ -1,0 +1,10 @@
+Added Component: Designator=S1(SPST-2)
+Added Pin To Net: NetName=GND Pin=S1-2
+Added Pin To Net: NetName=12VDC Pin=U4-5
+Added Member To Class: ClassName=VRAIMENTHORSPCB Member=Component S1 Bouton Status
+Added Member To Class: ClassName=Power Member=Component U4 TPS562201DDCT
+Added Room: Name=Ecran
+Added Room: Name=OTHER
+Added Room: Name=PIC
+Added Room: Name=Power
+Added Room: Name=VRAIMENTHORSPCB

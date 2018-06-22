@@ -1,0 +1,14 @@
+Added Component: Designator=P1(HDR2X5)
+Added Component: Designator=S1(SPST-2)
+Added Pin To Net: NetName=5VDC Pin=P1-2
+Added Pin To Net: NetName=GND Pin=P1-6
+Added Pin To Net: NetName=PIC_RASPI_RXD Pin=P1-8
+Added Pin To Net: NetName=PIC_RASPI_TXD Pin=P1-10
+Added Pin To Net: NetName=GND Pin=S1-2
+Added Member To Class: ClassName=OTHER Member=Component P1 61304021121
+Added Member To Class: ClassName=VRAIMENTHORSPCB Member=Component S1 Bouton Status
+Added Room: Name=Ecran
+Added Room: Name=OTHER
+Added Room: Name=PIC
+Added Room: Name=Power
+Added Room: Name=VRAIMENTHORSPCB

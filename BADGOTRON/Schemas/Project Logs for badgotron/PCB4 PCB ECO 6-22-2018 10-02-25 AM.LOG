@@ -1,0 +1,9 @@
+Change Component Designator: OldDesignator=Z? NewDesignator=Z1
+Added Component: Designator=S1(SPST-2)
+Added Pin To Net: NetName=GND Pin=S1-2
+Added Member To Class: ClassName=VRAIMENTHORSPCB Member=Component S1 Bouton Status
+Added Room: Name=Ecran
+Added Room: Name=OTHER
+Added Room: Name=PIC
+Added Room: Name=Power
+Added Room: Name=VRAIMENTHORSPCB

@@ -1,0 +1,898 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : sans-serif;
+			color : white;
+			background-color : #21489e;
+			padding: 0.3em;
+		}
+		body {
+			font-family : verdana;
+		}
+		td, th {
+			padding: 0.5em;
+			text-align : center;
+			width : 18%;
+		}
+		th {
+			background-color : #A6CAF0;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+		}
+		
+		.DRC_summary_header {							
+			padding-bottom : 0.1em;
+			border : 0px solid black;							
+			width: 100%;
+                        align: right;
+                        
+		}
+
+		.DRC_summary_header_col1, 
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3
+		{
+			color : black;
+			font-size:150%;
+                        padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2: 0em;
+			border : 0px solid black;
+			width : auto;
+			vertical-align: top;
+			font-weight: bold;				
+		}
+		
+		.DRC_summary_header_col1 	
+		{		                       
+			text-align: right;
+                        width: auto;	
+		}
+
+		.DRC_summary_header_col2 	
+		{		
+			text-align: center;	
+		}
+
+		.DRC_summary_header_col3 	
+		{		
+			text-align: left;	
+		}
+
+
+		
+		.header_holder
+		{
+		Width = 100%;
+		border = 0px solid green;
+		padding = 0;
+		}
+		
+		
+		
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+                {
+			left:0;
+			top:0;
+			padding-top : 0.1em;			
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top
+
+		}
+		.front_matter {	
+			
+			margin-top: 5px;
+ 			margin-left: 0px;					 			
+ 			horizontal-align: left;
+		}
+				
+		
+		.front_matter_column1 {
+			width : 10em;	
+			text-align  : right;
+			padding-right:0.1em;
+			
+		}
+		
+		.front_matter_column2 {
+                        width: 0.1em;
+			align: center;
+			text-align : center;
+			margin-right  : 0.1em;	
+			margin-left   : 0.1em;
+		}
+		.front_matter_column3 {
+			width         : auto;  
+			text-align    : left;	
+			margin-right  : 0.5em;				
+		}
+		
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : right;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #EEEEE0 
+		}
+		tr.onmouseout_even { 
+			background-color : #F3F3E3   
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : lightYellow
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #008000 
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD14\Templates\AD-rgb_logo_223x64.gif
+		"><a href="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports" class="customize"><acronym title="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports">customize</acronym></a><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td Style="width:70%">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">6/22/2018</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">3:26:50 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3"><a href="file:///C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc" class="file"><acronym title="C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc">C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td Style="Width:30%">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">168</td></tr>
+</table>
+</td>
+</table>
+<hr><a name="IDSAVYLPK5ZHLLGXGYNVOKRK0G1H0HHJHSHMQQAOEGPJSKTUDOHGRH"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID22PFH5E0X1OVE2BQFVXDTJ3ZVG3INP5VW45UWHMLUSWSMRICGXAG">Rule</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID05L5FQVUVZ4XUTJOF52CNFYXII5GEGNGLO2MOM5RU0X3RFF0TYF">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">4</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDYTR0WI4DTDH0OSHRY0HYBIT4JD4GDJUDQRT5K1CIVHTAHKSSDK2">Silk primitive without silk layer</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDMNOSSLJC1NJTKAVBCJITLMJPPO24B33XY4QVXKMGVSLZA0BCVHZM">Silk to Silk (Clearance=0.1mm) (All),(All)</a></td>
+<td class="column2">3</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDIWAM2KW0NCVEDE25XCF52RT0YF1GIQGKANVOD2JNHH0TJAEV04UN">Silk To Solder Mask (Clearance=0.1mm) (IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID2UWMHFXOJTSPLVKIRR3L0OIMHLPMZMKAJMVEGGFUKEB3VPQMUBB">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">31</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDSTASJKNDNXOVDF0ZNF10CKCVSJD3GMJY3IYKJ0KAHGNN1S4GTWWE">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVFAYHNPXZFGOHGF41YPHHEAYPPLDZPAQYX5TUH22X1STIIMEKTK">Hole Size Constraint (Min=0.2mm) (Max=2.54mm) (All)</a></td>
+<td class="column2">6</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDG4SEYVPVMYP4K0W0OELMIHE5ANISE0ILRHYMYBBCH24E3GC0LLXN">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDFBK5XE40X1X1HHPJ2KFJRYG0CDKMCMQPWWXDN5I2NBDFE33V1IXO">Width Constraint (Min=0.254mm) (Max=10mm) (Preferred=0.254mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXZX2QGKC0E31PKB5NTJ2XNYV5MF0QMGUW11G45GXXLMATQPWOOKO">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDN1MFTT0DTZTLDUQD02NXX1HFDHCH4PXRQ253AQBTBG1UH1YQDDXM">Clearance Constraint (Gap=0.2mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDSAXROARJLTKKKTQSEYFFSLZZIE5L52JMGOKDYC4C3JR0AGYHW0B">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">124</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTXWFQOXYPCDUMHE5CAAS14OHDFRWZ0PKHT0WUSOKZRTZXEXL4DPC">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">168</td>
+</tr>
+</table><br><hr><a name="ID05L5FQVUVZ4XUTJOF52CNFYXII5GEGNGLO2MOM5RU0X3RFF0TYF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1677.499mil|Location2.X=1753.334mil|Location1.Y=3312.5mil|Location2.Y=3434.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1677.499mil|Location2.X=1753.334mil|Location1.Y=3312.5mil|Location2.Y=3434.456mil|Absolute=True">Net Antennae: Via (13.208mm,-10.795mm) Top Layer to Bottom Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1967.499mil|Location2.X=2043.334mil|Location1.Y=3207.5mil|Location2.Y=3329.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1967.499mil|Location2.X=2043.334mil|Location1.Y=3207.5mil|Location2.Y=3329.456mil|Absolute=True">Net Antennae: Via (20.574mm,-13.462mm) Top Layer to Bottom Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1802.499mil|Location2.X=1878.334mil|Location1.Y=3397.5mil|Location2.Y=3519.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1802.499mil|Location2.X=1878.334mil|Location1.Y=3397.5mil|Location2.Y=3519.456mil|Absolute=True">Net Antennae: Via (16.383mm,-8.636mm) Top Layer to Bottom Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2247.499mil|Location2.X=2323.334mil|Location1.Y=1387.5mil|Location2.Y=1509.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2247.499mil|Location2.X=2323.334mil|Location1.Y=1387.5mil|Location2.Y=1509.456mil|Absolute=True">Net Antennae: Via (27.686mm,-59.69mm) Top Layer to Bottom Layer</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDMNOSSLJC1NJTKAVBCJITLMJPPO24B33XY4QVXKMGVSLZA0BCVHZM"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Silk to Silk (Clearance=0.1mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3301mil|Location2.X=3470.952mil|Location1.Y=1806mil|Location2.Y=1885.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3301mil|Location2.X=3470.952mil|Location1.Y=1806mil|Location2.Y=1885.981mil|Absolute=True">Text "R18" (53.873mm,-49.632mm)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3452.519mil|Location2.X=3462.519mil|Location1.Y=982.638mil|Location2.Y=3397.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3452.519mil|Location2.X=3462.519mil|Location1.Y=982.638mil|Location2.Y=3397.362mil|Absolute=True">Track (57.595mm,-70.672mm)(57.595mm,-9.592mm)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1484.999mil|Location2.X=1544.356mil|Location1.Y=3264.405mil|Location2.Y=3350mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1484.999mil|Location2.X=1544.356mil|Location1.Y=3264.405mil|Location2.Y=3350mil|Absolute=True">Text "R7" (7.747mm,-10.922mm)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1489.921mil|Location2.X=1499.921mil|Location1.Y=2789.685mil|Location2.Y=3754.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1489.921mil|Location2.X=1499.921mil|Location1.Y=2789.685mil|Location2.Y=3754.685mil|Absolute=True">Track (7.745mm,-24.773mm)(7.745mm,-0.516mm)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3186mil|Location2.X=3355.952mil|Location1.Y=1861mil|Location2.Y=1940.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3186mil|Location2.X=3355.952mil|Location1.Y=1861mil|Location2.Y=1940.981mil|Absolute=True">Text "R17" (50.952mm,-48.235mm)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3301mil|Location2.X=3470.952mil|Location1.Y=1806mil|Location2.Y=1885.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3301mil|Location2.X=3470.952mil|Location1.Y=1806mil|Location2.Y=1885.981mil|Absolute=True">Text "R18" (53.873mm,-49.632mm)  Top Overlay</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="ID2UWMHFXOJTSPLVKIRR3L0OIMHLPMZMKAJMVEGGFUKEB3VPQMUBB"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2320.881mil|Location2.X=2383.999mil|Location1.Y=3350.606mil|Location2.Y=3384.197mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2320.881mil|Location2.X=2383.999mil|Location1.Y=3350.606mil|Location2.Y=3384.197mil|Absolute=True">Pad U4-5(29.526mm,-10.226mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2320.881mil|Location2.X=2383.999mil|Location1.Y=3388.008mil|Location2.Y=3421.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2320.881mil|Location2.X=2383.999mil|Location1.Y=3388.008mil|Location2.Y=3421.598mil|Absolute=True">Pad U4-4(29.526mm,-9.276mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2320.881mil|Location2.X=2383.999mil|Location1.Y=3350.606mil|Location2.Y=3384.197mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2320.881mil|Location2.X=2383.999mil|Location1.Y=3350.606mil|Location2.Y=3384.197mil|Absolute=True">Pad U4-5(29.526mm,-10.226mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2320.881mil|Location2.X=2383.999mil|Location1.Y=3313.205mil|Location2.Y=3346.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2320.881mil|Location2.X=2383.999mil|Location1.Y=3313.205mil|Location2.Y=3346.795mil|Absolute=True">Pad U4-6(29.526mm,-11.176mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2444.897mil|Location2.X=2508.015mil|Location1.Y=3350.606mil|Location2.Y=3384.197mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2444.897mil|Location2.X=2508.015mil|Location1.Y=3350.606mil|Location2.Y=3384.197mil|Absolute=True">Pad U4-2(32.676mm,-10.226mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2444.897mil|Location2.X=2508.015mil|Location1.Y=3388.008mil|Location2.Y=3421.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2444.897mil|Location2.X=2508.015mil|Location1.Y=3388.008mil|Location2.Y=3421.598mil|Absolute=True">Pad U4-3(32.676mm,-9.276mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2444.897mil|Location2.X=2508.015mil|Location1.Y=3313.205mil|Location2.Y=3346.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2444.897mil|Location2.X=2508.015mil|Location1.Y=3313.205mil|Location2.Y=3346.795mil|Absolute=True">Pad U4-1(32.676mm,-11.176mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2444.897mil|Location2.X=2508.015mil|Location1.Y=3350.606mil|Location2.Y=3384.197mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2444.897mil|Location2.X=2508.015mil|Location1.Y=3350.606mil|Location2.Y=3384.197mil|Absolute=True">Pad U4-2(32.676mm,-10.226mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1746.826mil|Location2.Y=1771.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1746.826mil|Location2.Y=1771.362mil|Absolute=True">Pad U1-14(14.986mm,-51.077mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1721.236mil|Location2.Y=1745.771mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1721.236mil|Location2.Y=1745.771mil|Absolute=True">Pad U1-13(14.986mm,-51.727mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1772.417mil|Location2.Y=1796.952mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1772.417mil|Location2.Y=1796.952mil|Absolute=True">Pad U1-15(14.986mm,-50.427mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1746.826mil|Location2.Y=1771.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1746.826mil|Location2.Y=1771.362mil|Absolute=True">Pad U1-14(14.986mm,-51.077mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1798.007mil|Location2.Y=1822.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1798.007mil|Location2.Y=1822.543mil|Absolute=True">Pad U1-16(14.986mm,-49.777mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1772.417mil|Location2.Y=1796.952mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1772.417mil|Location2.Y=1796.952mil|Absolute=True">Pad U1-15(14.986mm,-50.427mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1823.598mil|Location2.Y=1848.133mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1823.598mil|Location2.Y=1848.133mil|Absolute=True">Pad U1-17(14.986mm,-49.127mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1798.007mil|Location2.Y=1822.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1798.007mil|Location2.Y=1822.543mil|Absolute=True">Pad U1-16(14.986mm,-49.777mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1849.189mil|Location2.Y=1873.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1849.189mil|Location2.Y=1873.724mil|Absolute=True">Pad U1-18(14.986mm,-48.477mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1823.598mil|Location2.Y=1848.133mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1823.598mil|Location2.Y=1848.133mil|Absolute=True">Pad U1-17(14.986mm,-49.127mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1874.779mil|Location2.Y=1899.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1874.779mil|Location2.Y=1899.315mil|Absolute=True">Pad U1-19(14.986mm,-47.827mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1849.189mil|Location2.Y=1873.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1849.189mil|Location2.Y=1873.724mil|Absolute=True">Pad U1-18(14.986mm,-48.477mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1900.37mil|Location2.Y=1924.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1900.37mil|Location2.Y=1924.905mil|Absolute=True">Pad U1-20(14.986mm,-47.177mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1874.779mil|Location2.Y=1899.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1874.779mil|Location2.Y=1899.315mil|Absolute=True">Pad U1-19(14.986mm,-47.827mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1925.96mil|Location2.Y=1950.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1925.96mil|Location2.Y=1950.496mil|Absolute=True">Pad U1-21(14.986mm,-46.527mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1900.37mil|Location2.Y=1924.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1900.37mil|Location2.Y=1924.905mil|Absolute=True">Pad U1-20(14.986mm,-47.177mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1951.551mil|Location2.Y=1976.086mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1951.551mil|Location2.Y=1976.086mil|Absolute=True">Pad U1-22(14.986mm,-45.877mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1925.96mil|Location2.Y=1950.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1925.96mil|Location2.Y=1950.496mil|Absolute=True">Pad U1-21(14.986mm,-46.527mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1977.142mil|Location2.Y=2001.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1977.142mil|Location2.Y=2001.677mil|Absolute=True">Pad U1-23(14.986mm,-45.227mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1951.551mil|Location2.Y=1976.086mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1951.551mil|Location2.Y=1976.086mil|Absolute=True">Pad U1-22(14.986mm,-45.877mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=2002.732mil|Location2.Y=2027.268mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=2002.732mil|Location2.Y=2027.268mil|Absolute=True">Pad U1-24(14.986mm,-44.577mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1977.142mil|Location2.Y=2001.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1977.142mil|Location2.Y=2001.677mil|Absolute=True">Pad U1-23(14.986mm,-45.227mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1746.826mil|Location2.Y=1771.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1746.826mil|Location2.Y=1771.362mil|Absolute=True">Pad U1-11(9.046mm,-51.077mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1721.236mil|Location2.Y=1745.771mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1721.236mil|Location2.Y=1745.771mil|Absolute=True">Pad U1-12(9.046mm,-51.727mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1772.417mil|Location2.Y=1796.952mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1772.417mil|Location2.Y=1796.952mil|Absolute=True">Pad U1-10(9.046mm,-50.427mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1746.826mil|Location2.Y=1771.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1746.826mil|Location2.Y=1771.362mil|Absolute=True">Pad U1-11(9.046mm,-51.077mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1798.007mil|Location2.Y=1822.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1798.007mil|Location2.Y=1822.543mil|Absolute=True">Pad U1-9(9.046mm,-49.777mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1772.417mil|Location2.Y=1796.952mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1772.417mil|Location2.Y=1796.952mil|Absolute=True">Pad U1-10(9.046mm,-50.427mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1823.598mil|Location2.Y=1848.133mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1823.598mil|Location2.Y=1848.133mil|Absolute=True">Pad U1-8(9.046mm,-49.127mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1798.007mil|Location2.Y=1822.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1798.007mil|Location2.Y=1822.543mil|Absolute=True">Pad U1-9(9.046mm,-49.777mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1849.189mil|Location2.Y=1873.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1849.189mil|Location2.Y=1873.724mil|Absolute=True">Pad U1-7(9.046mm,-48.477mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1823.598mil|Location2.Y=1848.133mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1823.598mil|Location2.Y=1848.133mil|Absolute=True">Pad U1-8(9.046mm,-49.127mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1874.779mil|Location2.Y=1899.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1874.779mil|Location2.Y=1899.315mil|Absolute=True">Pad U1-6(9.046mm,-47.827mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1849.189mil|Location2.Y=1873.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1849.189mil|Location2.Y=1873.724mil|Absolute=True">Pad U1-7(9.046mm,-48.477mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1900.37mil|Location2.Y=1924.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1900.37mil|Location2.Y=1924.905mil|Absolute=True">Pad U1-5(9.046mm,-47.177mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1874.779mil|Location2.Y=1899.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1874.779mil|Location2.Y=1899.315mil|Absolute=True">Pad U1-6(9.046mm,-47.827mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1925.96mil|Location2.Y=1950.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1925.96mil|Location2.Y=1950.496mil|Absolute=True">Pad U1-4(9.046mm,-46.527mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1900.37mil|Location2.Y=1924.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1900.37mil|Location2.Y=1924.905mil|Absolute=True">Pad U1-5(9.046mm,-47.177mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1951.551mil|Location2.Y=1976.086mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1951.551mil|Location2.Y=1976.086mil|Absolute=True">Pad U1-3(9.046mm,-45.877mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1925.96mil|Location2.Y=1950.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1925.96mil|Location2.Y=1950.496mil|Absolute=True">Pad U1-4(9.046mm,-46.527mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1977.142mil|Location2.Y=2001.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1977.142mil|Location2.Y=2001.677mil|Absolute=True">Pad U1-2(9.046mm,-45.227mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1951.551mil|Location2.Y=1976.086mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1951.551mil|Location2.Y=1976.086mil|Absolute=True">Pad U1-3(9.046mm,-45.877mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=2002.732mil|Location2.Y=2027.268mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=2002.732mil|Location2.Y=2027.268mil|Absolute=True">Pad U1-1(9.046mm,-44.577mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1977.142mil|Location2.Y=2001.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1977.142mil|Location2.Y=2001.677mil|Absolute=True">Pad U1-2(9.046mm,-45.227mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.803mil|Location2.X=1863.921mil|Location1.Y=3325.291mil|Location2.Y=3358.882mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.803mil|Location2.X=1863.921mil|Location1.Y=3325.291mil|Location2.Y=3358.882mil|Absolute=True">Pad U2-5(16.316mm,-10.869mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.803mil|Location2.X=1863.921mil|Location1.Y=3362.693mil|Location2.Y=3396.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.803mil|Location2.X=1863.921mil|Location1.Y=3362.693mil|Location2.Y=3396.284mil|Absolute=True">Pad U2-4(16.316mm,-9.919mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1805.999mil|Location2.X=1863.999mil|Location1.Y=3401mil|Location2.Y=3459mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1805.999mil|Location2.X=1863.999mil|Location1.Y=3401mil|Location2.Y=3459mil|Absolute=True">Via (16.383mm,-8.636mm) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.803mil|Location2.X=1863.921mil|Location1.Y=3362.693mil|Location2.Y=3396.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.803mil|Location2.X=1863.921mil|Location1.Y=3362.693mil|Location2.Y=3396.284mil|Absolute=True">Pad U2-4(16.316mm,-9.919mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.803mil|Location2.X=1863.921mil|Location1.Y=3325.291mil|Location2.Y=3358.882mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.803mil|Location2.X=1863.921mil|Location1.Y=3325.291mil|Location2.Y=3358.882mil|Absolute=True">Pad U2-5(16.316mm,-10.869mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.803mil|Location2.X=1863.921mil|Location1.Y=3287.89mil|Location2.Y=3321.48mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1800.803mil|Location2.X=1863.921mil|Location1.Y=3287.89mil|Location2.Y=3321.48mil|Absolute=True">Pad U2-6(16.316mm,-11.819mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.819mil|Location2.X=1987.937mil|Location1.Y=3325.291mil|Location2.Y=3358.882mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.819mil|Location2.X=1987.937mil|Location1.Y=3325.291mil|Location2.Y=3358.882mil|Absolute=True">Pad U2-2(19.466mm,-10.869mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.819mil|Location2.X=1987.937mil|Location1.Y=3362.693mil|Location2.Y=3396.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.819mil|Location2.X=1987.937mil|Location1.Y=3362.693mil|Location2.Y=3396.284mil|Absolute=True">Pad U2-3(19.466mm,-9.919mm)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.819mil|Location2.X=1987.937mil|Location1.Y=3287.89mil|Location2.Y=3321.48mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.819mil|Location2.X=1987.937mil|Location1.Y=3287.89mil|Location2.Y=3321.48mil|Absolute=True">Pad U2-1(19.466mm,-11.819mm)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.819mil|Location2.X=1987.937mil|Location1.Y=3325.291mil|Location2.Y=3358.882mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.819mil|Location2.X=1987.937mil|Location1.Y=3325.291mil|Location2.Y=3358.882mil|Absolute=True">Pad U2-2(19.466mm,-10.869mm)  Top Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDVFAYHNPXZFGOHGF41YPHHEAYPPLDZPAQYX5TUH22X1STIIMEKTK"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole Size Constraint (Min=0.2mm) (Max=2.54mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1228.744mil|Location2.X=1387.474mil|Location1.Y=653.745mil|Location2.Y=812.475mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1228.744mil|Location2.X=1387.474mil|Location1.Y=653.745mil|Location2.Y=812.475mil|Absolute=True">Hole Size Constraint (4mm &gt; 2.54mm) : Pad Free-3(3mm,-77.137mm)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1228.744mil|Location2.X=1387.474mil|Location1.Y=3572.525mil|Location2.Y=3731.255mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1228.744mil|Location2.X=1387.474mil|Location1.Y=3572.525mil|Location2.Y=3731.255mil|Absolute=True">Hole Size Constraint (4mm &gt; 2.54mm) : Pad Free-3(3mm,-3mm)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3230.398mil|Location2.X=3359.601mil|Location1.Y=975.399mil|Location2.Y=1104.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3230.398mil|Location2.X=3359.601mil|Location1.Y=975.399mil|Location2.Y=1104.601mil|Absolute=True">Hole Size Constraint (3.25mm &gt; 2.54mm) : Pad P3-0(53.467mm,-69.342mm)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2830.398mil|Location2.X=2959.601mil|Location1.Y=975.399mil|Location2.Y=1104.601mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2830.398mil|Location2.X=2959.601mil|Location1.Y=975.399mil|Location2.Y=1104.601mil|Absolute=True">Hole Size Constraint (3.25mm &gt; 2.54mm) : Pad P3-0(43.307mm,-69.342mm)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3607.524mil|Location2.X=3766.255mil|Location1.Y=653.744mil|Location2.Y=812.475mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3607.524mil|Location2.X=3766.255mil|Location1.Y=653.744mil|Location2.Y=812.475mil|Absolute=True">Hole Size Constraint (4mm &gt; 2.54mm) : Pad Free-3(63.421mm,-77.137mm)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3607.525mil|Location2.X=3766.255mil|Location1.Y=3572.524mil|Location2.Y=3731.254mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3607.525mil|Location2.X=3766.255mil|Location1.Y=3572.524mil|Location2.Y=3731.254mil|Absolute=True">Hole Size Constraint (4mm &gt; 2.54mm) : Pad Free-3(63.421mm,-3mm)  Multi-Layer</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDSAXROARJLTKKKTQSEYFFSLZZIE5L52JMGOKDYC4C3JR0AGYHW0B"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2298.559mil|Location2.X=2349.866mil|Location1.Y=1081.276mil|Location2.Y=1251.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2298.559mil|Location2.X=2349.866mil|Location1.Y=1081.276mil|Location2.Y=1251.401mil|Absolute=True">Un-Routed Net Constraint: Net X2 Between Pad Y1-2 [Unplated] (28.809,-65.024mm) And Pad C2-2 (28.829,-67.642mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2200.133mil|Location2.X=2251.44mil|Location1.Y=1081.276mil|Location2.Y=1251.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2200.133mil|Location2.X=2251.44mil|Location1.Y=1081.276mil|Location2.Y=1251.401mil|Absolute=True">Un-Routed Net Constraint: Net X1 Between Pad C1-2 (26.289,-67.642mm) And Pad Y1-1 [Unplated] (26.309,-65.024mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1977.142mil|Location2.Y=2027.268mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1977.142mil|Location2.Y=2027.268mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad U1-23 (14.986,-45.227mm) And Pad U1-24 (14.986,-44.577mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2759.936mil|Location2.X=2834.865mil|Location1.Y=1473.205mil|Location2.Y=1556.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2759.936mil|Location2.X=2834.865mil|Location1.Y=1473.205mil|Location2.Y=1556.795mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad U3-7 (40.828,-57.912mm) And Pad U3-8 (40.828,-56.642mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2406.393mil|Location2.X=2553.763mil|Location1.Y=3504.032mil|Location2.Y=3555.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2406.393mil|Location2.X=2553.763mil|Location1.Y=3504.032mil|Location2.Y=3555.338mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad C18-1 (31.498,-6.104mm) And Pad C19-1 (34.038,-6.104mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2472.534mil|Location2.X=2834.865mil|Location1.Y=1423.205mil|Location2.Y=1506.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2472.534mil|Location2.X=2834.865mil|Location1.Y=1423.205mil|Location2.Y=1506.795mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad U3-3 (33.528,-59.182mm) And Pad U3-7 (40.828,-57.912mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2225.724mil|Location2.X=2547.463mil|Location1.Y=1423.205mil|Location2.Y=1538.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2225.724mil|Location2.X=2547.463mil|Location1.Y=1423.205mil|Location2.Y=1538.173mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad U7-10 [Unplated] (26.559,-57.49mm) And Pad U3-3 (33.528,-59.182mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2198.676mil|Location2.X=2583.684mil|Location1.Y=2953.284mil|Location2.Y=3057.582mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2198.676mil|Location2.X=2583.684mil|Location1.Y=2953.284mil|Location2.Y=3057.582mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad L2-1 (26.672,-19.693mm) And Pad R14-2 (34.798,-18.747mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2134.424mil|Location2.X=2281.479mil|Location1.Y=2953.284mil|Location2.Y=3348.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2134.424mil|Location2.X=2281.479mil|Location1.Y=2953.284mil|Location2.Y=3348.37mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad R9-1 (24.64,-11.311mm) And Pad L2-1 (26.672,-19.693mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2472.534mil|Location2.X=2547.463mil|Location1.Y=1423.205mil|Location2.Y=1880.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2472.534mil|Location2.X=2547.463mil|Location1.Y=1423.205mil|Location2.Y=1880.653mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad U3-3 (33.528,-59.182mm) And Pad C11-1 (33.655,-48.641mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2515.172mil|Location2.X=2783.015mil|Location1.Y=1901.984mil|Location2.Y=2169.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2515.172mil|Location2.X=2783.015mil|Location1.Y=1901.984mil|Location2.Y=2169.827mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad Z1-17 (34.036,-46.621mm) And Pad Z1-28 (39.636,-41.021mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2399.999mil|Location2.X=2850.471mil|Location1.Y=2276.968mil|Location2.Y=2255mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2399.999mil|Location2.X=2850.471mil|Location1.Y=2276.968mil|Location2.Y=2255mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Track on layer Top Layer (33.274,-35.383mm) And Pad Z1-28 (39.636,-41.021mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2826.314mil|Location2.X=3300.653mil|Location1.Y=2051.315mil|Location2.Y=2160.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2826.314mil|Location2.X=3300.653mil|Location1.Y=2051.315mil|Location2.Y=2160.653mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad C9-1 (42.164,-41.529mm) And Pad R6-1 (52.959,-43.053mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2679.345mil|Location2.X=2834.865mil|Location1.Y=1003.244mil|Location2.Y=1506.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2679.345mil|Location2.X=2834.865mil|Location1.Y=1003.244mil|Location2.Y=1506.795mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad R10-2 (38.481,-69.674mm) And Pad U3-7 (40.828,-57.912mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2679.345mil|Location2.X=3053.724mil|Location1.Y=656.472mil|Location2.Y=1050.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2679.345mil|Location2.X=3053.724mil|Location1.Y=656.472mil|Location2.Y=1050.614mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad R10-2 (38.481,-69.674mm) And Pad P3-2 (46.487,-78.232mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3249.346mil|Location2.X=3668.212mil|Location1.Y=1636.787mil|Location2.Y=2098.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3249.346mil|Location2.X=3668.212mil|Location1.Y=1636.787mil|Location2.Y=2098.685mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad R6-1 (52.959,-43.053mm) And Pad P2-4 (61.595,-52.832mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2134.424mil|Location2.X=2453.763mil|Location1.Y=3301mil|Location2.Y=3555.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2134.424mil|Location2.X=2453.763mil|Location1.Y=3301mil|Location2.Y=3555.338mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad R9-1 (24.64,-11.311mm) And Pad C18-1 (31.498,-6.104mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2476.314mil|Location2.X=2583.684mil|Location1.Y=2439.346mil|Location2.Y=3057.582mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2476.314mil|Location2.X=2583.684mil|Location1.Y=2439.346mil|Location2.Y=3057.582mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad C7-1 (33.274,-33.147mm) And Pad R14-2 (34.798,-18.747mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2544.826mil|Location1.Y=1901.984mil|Location2.Y=2001.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2544.826mil|Location1.Y=1901.984mil|Location2.Y=2001.677mil|Absolute=True">Un-Routed Net Constraint: Net VOUT3.3 Between Pad U1-23 (14.986,-45.227mm) And Pad Z1-17 (34.036,-46.621mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2836.314mil|Location2.X=2883.684mil|Location1.Y=2901.276mil|Location2.Y=3020.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2836.314mil|Location2.X=2883.684mil|Location1.Y=2901.276mil|Location2.Y=3020.653mil|Absolute=True">Un-Routed Net Constraint: Net U6_VCC Between Pad R16-2 (42.418,-21.414mm) And Pad R13-1 (42.418,-19.685mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2733.086mil|Location2.X=2883.684mil|Location1.Y=2966.59mil|Location2.Y=3020.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2733.086mil|Location2.X=2883.684mil|Location1.Y=2966.59mil|Location2.Y=3020.653mil|Absolute=True">Un-Routed Net Constraint: Net U6_VCC Between Pad U6-3 (39.946,-20.005mm) And Pad R13-1 (42.418,-19.685mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=2481.834mil|Location1.Y=1977.142mil|Location2.Y=2408.016mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=2481.834mil|Location1.Y=1977.142mil|Location2.Y=2408.016mil|Absolute=True">Un-Routed Net Constraint: Net TS_TR Between Pad U1-2 (9.046,-45.227mm) And Pad Z1-41 (32.436,-35.421mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1326.472mil|Location2.Y=1796.952mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1326.472mil|Location2.Y=1796.952mil|Absolute=True">Un-Routed Net Constraint: Net TS_D7 Between Pad XDS1-14 (2.159,-61.214mm) And Pad U1-10 (9.046,-50.427mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1426.472mil|Location2.Y=1822.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1426.472mil|Location2.Y=1822.543mil|Absolute=True">Un-Routed Net Constraint: Net TS_D6 Between Pad XDS1-13 (2.159,-58.674mm) And Pad U1-9 (9.046,-49.777mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1526.472mil|Location2.Y=1848.133mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1526.472mil|Location2.Y=1848.133mil|Absolute=True">Un-Routed Net Constraint: Net TS_D5 Between Pad XDS1-12 (2.159,-56.134mm) And Pad U1-8 (9.046,-49.127mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1626.472mil|Location2.Y=1873.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1626.472mil|Location2.Y=1873.724mil|Absolute=True">Un-Routed Net Constraint: Net TS_D4 Between Pad XDS1-11 (2.159,-53.594mm) And Pad U1-7 (9.046,-48.477mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1726.472mil|Location2.Y=1899.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1726.472mil|Location2.Y=1899.315mil|Absolute=True">Un-Routed Net Constraint: Net TS_D3 Between Pad XDS1-10 (2.159,-51.054mm) And Pad U1-6 (9.046,-47.827mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1826.472mil|Location2.Y=1924.905mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1826.472mil|Location2.Y=1924.905mil|Absolute=True">Un-Routed Net Constraint: Net TS_D2 Between Pad XDS1-9 (2.159,-48.514mm) And Pad U1-5 (9.046,-47.177mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1925.96mil|Location2.Y=1993.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1925.96mil|Location2.Y=1993.527mil|Absolute=True">Un-Routed Net Constraint: Net TS_D1 Between Pad XDS1-8 (2.159,-45.974mm) And Pad U1-4 (9.046,-46.527mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1951.551mil|Location2.Y=2093.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1951.551mil|Location2.Y=2093.527mil|Absolute=True">Un-Routed Net Constraint: Net TS_D0 Between Pad XDS1-7 (2.159,-43.434mm) And Pad U1-3 (9.046,-45.877mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3182.417mil|Location2.X=3233.724mil|Location1.Y=2051.315mil|Location2.Y=2173.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3182.417mil|Location2.X=3233.724mil|Location1.Y=2051.315mil|Location2.Y=2173.685mil|Absolute=True">Un-Routed Net Constraint: Net STATUS_BTN Between Pad R6-2 (51.259,-43.053mm) And Pad C4-2 (51.259,-41.148mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3182.417mil|Location2.X=3668.212mil|Location1.Y=2036.787mil|Location2.Y=2143.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3182.417mil|Location2.X=3668.212mil|Location1.Y=2036.787mil|Location2.Y=2143.213mil|Absolute=True">Un-Routed Net Constraint: Net STATUS_BTN Between Pad R6-2 (51.259,-43.053mm) And Pad P2-6 (61.595,-42.672mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2717.928mil|Location2.X=3233.724mil|Location1.Y=2126.315mil|Location2.Y=2295.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2717.928mil|Location2.X=3233.724mil|Location1.Y=2126.315mil|Location2.Y=2295.811mil|Absolute=True">Un-Routed Net Constraint: Net STATUS_BTN Between Pad Z1-32 (39.636,-37.821mm) And Pad C4-2 (51.259,-41.148mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=2418.841mil|Location1.Y=2226.472mil|Location2.Y=2408.016mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=2418.841mil|Location1.Y=2226.472mil|Location2.Y=2408.016mil|Absolute=True">Un-Routed Net Constraint: Net S_RW Between Pad XDS1-5 (2.159,-38.354mm) And Pad Z1-43 (30.836,-35.421mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=2450.338mil|Location1.Y=2326.472mil|Location2.Y=2408.016mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=2450.338mil|Location1.Y=2326.472mil|Location2.Y=2408.016mil|Absolute=True">Un-Routed Net Constraint: Net S_RS Between Pad XDS1-4 (2.159,-35.814mm) And Pad Z1-42 (31.636,-35.421mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=2387.345mil|Location1.Y=2126.472mil|Location2.Y=2408.016mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=2387.345mil|Location1.Y=2126.472mil|Location2.Y=2408.016mil|Absolute=True">Un-Routed Net Constraint: Net S_E Between Pad XDS1-6 (2.159,-40.894mm) And Pad Z1-44 (30.036,-35.421mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1746.826mil|Location2.Y=2043.842mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1746.826mil|Location2.Y=2043.842mil|Absolute=True">Un-Routed Net Constraint: Net S_D7 Between Pad U1-14 (14.986,-51.077mm) And Pad Z1-10 (28.436,-44.221mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1772.417mil|Location2.Y=2075.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1772.417mil|Location2.Y=2075.338mil|Absolute=True">Un-Routed Net Constraint: Net S_D6 Between Pad U1-15 (14.986,-50.427mm) And Pad Z1-9 (28.436,-43.421mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1798.007mil|Location2.Y=2106.834mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1798.007mil|Location2.Y=2106.834mil|Absolute=True">Un-Routed Net Constraint: Net S_D5 Between Pad U1-16 (14.986,-49.777mm) And Pad Z1-8 (28.436,-42.621mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1823.598mil|Location2.Y=2201.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1823.598mil|Location2.Y=2201.323mil|Absolute=True">Un-Routed Net Constraint: Net S_D4 Between Pad U1-17 (14.986,-49.127mm) And Pad Z1-5 (28.436,-40.221mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1849.189mil|Location2.Y=2232.819mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1849.189mil|Location2.Y=2232.819mil|Absolute=True">Un-Routed Net Constraint: Net S_D3 Between Pad U1-18 (14.986,-48.477mm) And Pad Z1-4 (28.436,-39.421mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1874.779mil|Location2.Y=2264.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1874.779mil|Location2.Y=2264.315mil|Absolute=True">Un-Routed Net Constraint: Net S_D2 Between Pad U1-19 (14.986,-47.827mm) And Pad Z1-3 (28.436,-38.621mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1900.37mil|Location2.Y=2295.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1900.37mil|Location2.Y=2295.811mil|Absolute=True">Un-Routed Net Constraint: Net S_D1 Between Pad U1-20 (14.986,-47.177mm) And Pad Z1-2 (28.436,-37.821mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1925.96mil|Location2.Y=2327.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=2342.07mil|Location1.Y=1925.96mil|Location2.Y=2327.307mil|Absolute=True">Un-Routed Net Constraint: Net S_D0 Between Pad U1-21 (14.986,-46.527mm) And Pad Z1-1 (28.436,-37.021mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2717.928mil|Location2.X=3348.684mil|Location1.Y=1734.347mil|Location2.Y=2043.842mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2717.928mil|Location2.X=3348.684mil|Location1.Y=1734.347mil|Location2.Y=2043.842mil|Absolute=True">Un-Routed Net Constraint: Net RG_LED1 Between Pad Z1-24 (39.636,-44.221mm) And Pad R18-1 (54.229,-51.054mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2717.928mil|Location2.X=3233.684mil|Location1.Y=1789.347mil|Location2.Y=2012.346mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2717.928mil|Location2.X=3233.684mil|Location1.Y=1789.347mil|Location2.Y=2012.346mil|Absolute=True">Un-Routed Net Constraint: Net RG_LED0 Between Pad Z1-23 (39.636,-45.021mm) And Pad R17-1 (51.308,-49.657mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2536.314mil|Location2.X=2709.589mil|Location1.Y=2939.346mil|Location2.Y=3035.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2536.314mil|Location2.X=2709.589mil|Location1.Y=2939.346mil|Location2.Y=3035.614mil|Absolute=True">Un-Routed Net Constraint: Net POWEROK Between Pad R14-1 (34.798,-20.447mm) And Pad U6-2 (37.846,-19.055mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2650.408mil|Location2.X=2783.015mil|Location1.Y=2077.181mil|Location2.Y=3035.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2650.408mil|Location2.X=2783.015mil|Location1.Y=2077.181mil|Location2.Y=3035.614mil|Absolute=True">Un-Routed Net Constraint: Net POWEROK Between Pad U6-2 (37.846,-19.055mm) And Pad Z1-26 (39.636,-42.621mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1603.999mil|Location1.Y=2426.472mil|Location2.Y=2574mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1603.999mil|Location1.Y=2426.472mil|Location2.Y=2574mil|Absolute=True">Un-Routed Net Constraint: Net POT_CONTRASTE Between Pad XDS1-3 (2.159,-33.274mm) And Pad R1-2 (9.652,-31.242mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1256.471mil|Location2.X=2576.322mil|Location1.Y=2342.929mil|Location2.Y=3038.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1256.471mil|Location2.X=2576.322mil|Location1.Y=2342.929mil|Location2.Y=3038.527mil|Absolute=True">Un-Routed Net Constraint: Net PIC_RASPI_TXD Between Pad P1-10 (2.54,-19.431mm) And Pad Z1-38 (34.836,-35.421mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1256.471mil|Location2.X=2607.818mil|Location1.Y=2342.929mil|Location2.Y=3138.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1256.471mil|Location2.X=2607.818mil|Location1.Y=2342.929mil|Location2.Y=3138.527mil|Absolute=True">Un-Routed Net Constraint: Net PIC_RASPI_RXD Between Pad P1-8 (2.54,-16.891mm) And Pad Z1-37 (35.636,-35.421mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2672.653mil|Location2.X=3203.724mil|Location1.Y=756.472mil|Location2.Y=1967.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2672.653mil|Location2.X=3203.724mil|Location1.Y=756.472mil|Location2.Y=1967.071mil|Absolute=True">Un-Routed Net Constraint: Net PGEC1 Between Pad Z1-22 (38.036,-46.621mm) And Pad P3-5 (50.297,-75.692mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2201.353mil|Location2.X=2252.66mil|Location1.Y=3301mil|Location2.Y=3453.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2201.353mil|Location2.X=2252.66mil|Location1.Y=3301mil|Location2.Y=3453.37mil|Absolute=True">Un-Routed Net Constraint: Net NetR9_2 Between Pad R9-2 (26.34,-11.311mm) And Pad R12-2 (26.34,-8.644mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2201.353mil|Location2.X=2383.999mil|Location1.Y=3388.008mil|Location2.Y=3453.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2201.353mil|Location2.X=2383.999mil|Location1.Y=3388.008mil|Location2.Y=3453.37mil|Absolute=True">Un-Routed Net Constraint: Net NetR9_2 Between Pad R12-2 (26.34,-8.644mm) And Pad U4-4 (29.526,-9.276mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1621.274mil|Location2.X=1738.999mil|Location1.Y=3286.315mil|Location2.Y=3374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1621.274mil|Location2.X=1738.999mil|Location1.Y=3286.315mil|Location2.Y=3374mil|Absolute=True">Un-Routed Net Constraint: Net NetR7_2 Between Pad R7-2 (11.606,-11.684mm) And Via (13.208,-10.795mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1641.196mil|Location2.X=1738.999mil|Location1.Y=3316mil|Location2.Y=3443.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1641.196mil|Location2.X=1738.999mil|Location1.Y=3316mil|Location2.Y=3443.37mil|Absolute=True">Un-Routed Net Constraint: Net NetR7_2 Between Pad R8-2 (12.112,-8.898mm) And Via (13.208,-10.795mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1680.999mil|Location2.X=1863.921mil|Location1.Y=3316mil|Location2.Y=3396.284mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1680.999mil|Location2.X=1863.921mil|Location1.Y=3316mil|Location2.Y=3396.284mil|Absolute=True">Un-Routed Net Constraint: Net NetR7_2 Between Via (13.208,-10.795mm) And Pad U2-4 (16.316,-9.919mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3301.314mil|Location2.X=3668.212mil|Location1.Y=1236.787mil|Location2.Y=1718.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3301.314mil|Location2.X=3668.212mil|Location1.Y=1236.787mil|Location2.Y=1718.724mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_2 Between Pad R18-2 (54.229,-52.754mm) And Pad P2-2 (61.595,-62.992mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3186.314mil|Location2.X=3668.212mil|Location1.Y=1036.787mil|Location2.Y=1773.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3186.314mil|Location2.X=3668.212mil|Location1.Y=1036.787mil|Location2.Y=1773.724mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_1 Between Pad R17-2 (51.308,-51.357mm) And Pad P2-1 (61.595,-68.072mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2132.416mil|Location2.X=2383.999mil|Location1.Y=3201.315mil|Location2.Y=3346.795mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2132.416mil|Location2.X=2383.999mil|Location1.Y=3201.315mil|Location2.Y=3346.795mil|Absolute=True">Un-Routed Net Constraint: Net NetC17_2 Between Pad C17-2 (24.589,-13.843mm) And Pad U4-6 (29.526,-11.176mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2274.999mil|Location2.X=2536.928mil|Location1.Y=3125mil|Location2.Y=3094.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2274.999mil|Location2.X=2536.928mil|Location1.Y=3125mil|Location2.Y=3094.685mil|Absolute=True">Un-Routed Net Constraint: Net NetC17_1 Between Track on layer Top Layer (30.099,-13.843mm) And Pad L2-2 (31.672,-19.693mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1631.669mil|Location2.X=1714.472mil|Location1.Y=2948.284mil|Location2.Y=3243.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1631.669mil|Location2.X=1714.472mil|Location1.Y=2948.284mil|Location2.Y=3243.685mil|Absolute=True">Un-Routed Net Constraint: Net NetC8_1 Between Pad C8-1 (12.192,-13.97mm) And Pad L1-2 (12.27,-19.82mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1721.236mil|Location2.Y=1771.362mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1585.18mil|Location1.Y=1721.236mil|Location2.Y=1771.362mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-12 (9.046,-51.727mm) And Pad U1-11 (9.046,-51.077mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2201.314mil|Location2.X=2348.684mil|Location1.Y=1014.346mil|Location2.Y=1065.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2201.314mil|Location2.X=2348.684mil|Location1.Y=1014.346mil|Location2.Y=1065.653mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C1-1 (26.289,-69.342mm) And Pad C2-1 (28.829,-69.342mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2483.676mil|Location2.X=2639.314mil|Location1.Y=1901.984mil|Location2.Y=1967.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2483.676mil|Location2.X=2639.314mil|Location1.Y=1901.984mil|Location2.Y=1967.071mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Z1-16 (33.236,-46.621mm) And Pad Z1-20 (36.436,-46.621mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2483.676mil|Location2.X=2538.684mil|Location1.Y=1762.417mil|Location2.Y=1967.071mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2483.676mil|Location2.X=2538.684mil|Location1.Y=1762.417mil|Location2.Y=1967.071mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Z1-16 (33.236,-46.621mm) And Pad C11-2 (33.655,-50.341mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3238.441mil|Location2.X=3301.559mil|Location1.Y=2126.315mil|Location2.Y=2330.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3238.441mil|Location2.X=3301.559mil|Location1.Y=2126.315mil|Location2.Y=2330.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Q1-3 (52.832,-36.957mm) And Pad C4-1 (52.959,-41.148mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2301.314mil|Location2.X=2520.652mil|Location1.Y=1006.315mil|Location2.Y=1065.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2301.314mil|Location2.X=2520.652mil|Location1.Y=1006.315mil|Location2.Y=1065.653mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C2-1 (28.829,-69.342mm) And Pad C5-1 (33.147,-69.596mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2769.346mil|Location2.X=2995.653mil|Location1.Y=2491.315mil|Location2.Y=2543.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2769.346mil|Location2.X=2995.653mil|Location1.Y=2491.315mil|Location2.Y=2543.685mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R5-1 (40.767,-31.75mm) And Pad R4-1 (45.212,-31.877mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2476.314mil|Location2.X=2544.826mil|Location1.Y=2342.929mil|Location2.Y=2557.582mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2476.314mil|Location2.X=2544.826mil|Location1.Y=2342.929mil|Location2.Y=2557.582mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C7-2 (33.274,-31.447mm) And Pad Z1-39 (34.036,-35.421mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2106.393mil|Location2.X=2185.731mil|Location1.Y=3406mil|Location2.Y=3622.268mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2106.393mil|Location2.X=2185.731mil|Location1.Y=3406mil|Location2.Y=3622.268mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C20-2 (23.878,-4.404mm) And Pad R12-1 (24.64,-8.644mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2214.37mil|Location2.X=2609.999mil|Location1.Y=1285.629mil|Location2.Y=1490mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2214.37mil|Location2.X=2609.999mil|Location1.Y=1285.629mil|Location2.Y=1490mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Track on layer Top Layer (28.559,-60.563mm) And Pad U3-4 (33.528,-60.452mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3228.441mil|Location2.X=3301.559mil|Location1.Y=2299.189mil|Location2.Y=2545.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3228.441mil|Location2.X=3301.559mil|Location1.Y=2299.189mil|Location2.Y=2545.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Q2-3 (52.578,-31.496mm) And Pad Q1-3 (52.832,-36.957mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1721.236mil|Location2.Y=1976.086mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1819.038mil|Location1.Y=1721.236mil|Location2.Y=1976.086mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-13 (14.986,-51.727mm) And Pad U1-22 (14.986,-45.877mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2650.408mil|Location2.X=2883.684mil|Location1.Y=2834.346mil|Location2.Y=2960.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2650.408mil|Location2.X=2883.684mil|Location1.Y=2834.346mil|Location2.Y=2960.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U6-1 (37.846,-20.955mm) And Pad R16-1 (42.418,-23.114mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1899.999mil|Location2.X=2260.078mil|Location1.Y=3195mil|Location2.Y=3529.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1899.999mil|Location2.X=2260.078mil|Location1.Y=3195mil|Location2.Y=3529.685mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Track on layer Top Layer (20.574,-12.065mm) And Pad R12-1 (24.64,-8.644mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1943.645mil|Location1.Y=1951.551mil|Location2.Y=2218.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1740.96mil|Location2.X=1943.645mil|Location1.Y=1951.551mil|Location2.Y=2218.055mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-22 (14.986,-45.877mm) And Pad C3-2 (17.841,-41.021mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1603.999mil|Location1.Y=2606mil|Location2.Y=2693.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1603.999mil|Location1.Y=2606mil|Location2.Y=2693.527mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad XDS1-1 (2.159,-28.194mm) And Pad R1-3 (9.652,-28.702mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2694.999mil|Location2.X=2901.495mil|Location1.Y=2420mil|Location2.Y=2286.496mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2694.999mil|Location2.X=2901.495mil|Location1.Y=2420mil|Location2.Y=2286.496mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R5-1 (40.767,-31.75mm) And Track on layer Top Layer (40.932,-40.221mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3208.598mil|Location2.X=3291.559mil|Location1.Y=2514.189mil|Location2.Y=2916.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3208.598mil|Location2.X=3291.559mil|Location1.Y=2514.189mil|Location2.Y=2916.401mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C13-1 (52.324,-22.733mm) And Pad Q2-3 (52.578,-31.496mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2276.983mil|Location2.X=2513.33mil|Location1.Y=1901.984mil|Location2.Y=2169.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2276.983mil|Location2.X=2513.33mil|Location1.Y=1901.984mil|Location2.Y=2169.827mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Z1-6 (28.436,-41.021mm) And Pad Z1-16 (33.236,-46.621mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1189.999mil|Location2.X=1574.999mil|Location1.Y=3105mil|Location2.Y=3565mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1189.999mil|Location2.X=1574.999mil|Location1.Y=3105mil|Location2.Y=3565mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-6 (2.54,-14.351mm) And Track on layer Top Layer (7.239,-7.747mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3228.441mil|Location2.X=3668.212mil|Location1.Y=2514.189mil|Location2.Y=2743.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3228.441mil|Location2.X=3668.212mil|Location1.Y=2514.189mil|Location2.Y=2743.213mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Q2-3 (52.578,-31.496mm) And Pad P2-9 (61.595,-27.432mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2472.534mil|Location2.X=2980.652mil|Location1.Y=1373.205mil|Location2.Y=1563.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2472.534mil|Location2.X=2980.652mil|Location1.Y=1373.205mil|Location2.Y=1563.685mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U3-4 (33.528,-60.452mm) And Pad C6-1 (44.831,-56.642mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3249.346mil|Location2.X=3668.212mil|Location1.Y=1836.787mil|Location2.Y=2173.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3249.346mil|Location2.X=3668.212mil|Location1.Y=1836.787mil|Location2.Y=2173.685mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C4-1 (52.959,-41.148mm) And Pad P2-5 (61.595,-47.752mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1692.101mil|Location2.X=2248.684mil|Location1.Y=669.11mil|Location2.Y=1065.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1692.101mil|Location2.X=2248.684mil|Location1.Y=669.11mil|Location2.Y=1065.653mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad PS1-2 (14.605,-77.361mm) And Pad C1-1 (26.289,-69.342mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2469.345mil|Location2.X=3103.724mil|Location1.Y=756.472mil|Location2.Y=1053.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2469.345mil|Location2.X=3103.724mil|Location1.Y=756.472mil|Location2.Y=1053.685mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C5-1 (33.147,-69.596mm) And Pad P3-3 (47.757,-75.692mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1126.472mil|Location2.Y=1745.771mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1126.472mil|Location2.Y=1745.771mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad XDS1-16 (2.159,-66.294mm) And Pad U1-12 (9.046,-51.727mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1819.038mil|Location1.Y=1721.236mil|Location2.Y=1745.771mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1819.038mil|Location1.Y=1721.236mil|Location2.Y=1745.771mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-12 (9.046,-51.727mm) And Pad U1-13 (14.986,-51.727mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2301.314mil|Location2.X=2348.684mil|Location1.Y=1014.346mil|Location2.Y=1364.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2301.314mil|Location2.X=2348.684mil|Location1.Y=1014.346mil|Location2.Y=1364.945mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U7-5 [Unplated] (28.559,-61.89mm) And Pad C2-1 (28.829,-69.342mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2944.346mil|Location2.X=3291.559mil|Location1.Y=2491.315mil|Location2.Y=2545.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2944.346mil|Location2.X=3291.559mil|Location1.Y=2491.315mil|Location2.Y=2545.811mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R4-1 (45.212,-31.877mm) And Pad Q2-3 (52.578,-31.496mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2476.314mil|Location2.X=2820.653mil|Location1.Y=2496.315mil|Location2.Y=2557.582mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2476.314mil|Location2.X=2820.653mil|Location1.Y=2496.315mil|Location2.Y=2557.582mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C7-2 (33.274,-31.447mm) And Pad R5-1 (40.767,-31.75mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2609.66mil|Location2.X=2783.015mil|Location1.Y=1901.984mil|Location2.Y=2201.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2609.66mil|Location2.X=2783.015mil|Location1.Y=1901.984mil|Location2.Y=2201.323mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad Z1-20 (36.436,-46.621mm) And Pad Z1-29 (39.636,-40.221mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2558.148mil|Location2.X=2779.999mil|Location1.Y=3212.953mil|Location2.Y=3045mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2558.148mil|Location2.X=2779.999mil|Location1.Y=3212.953mil|Location2.Y=3045mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Track on layer Top Layer (37.291,-11.609mm) And Pad U6-1 (37.846,-20.955mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1323.526mil|Location1.Y=2626.472mil|Location2.Y=3238.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1323.526mil|Location1.Y=2626.472mil|Location2.Y=3238.527mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad XDS1-1 (2.159,-28.194mm) And Pad P1-6 (2.54,-14.351mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2472.534mil|Location2.X=2547.463mil|Location1.Y=1373.205mil|Location2.Y=1813.724mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2472.534mil|Location2.X=2547.463mil|Location1.Y=1373.205mil|Location2.Y=1813.724mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U3-4 (33.528,-60.452mm) And Pad C11-2 (33.655,-50.341mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2769.346mil|Location2.X=2883.684mil|Location1.Y=2496.315mil|Location2.Y=2885.653mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2769.346mil|Location2.X=2883.684mil|Location1.Y=2496.315mil|Location2.Y=2885.653mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R5-1 (40.767,-31.75mm) And Pad R16-1 (42.418,-23.114mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1841.156mil|Location2.X=2342.07mil|Location1.Y=2091.945mil|Location2.Y=2218.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1841.156mil|Location2.X=2342.07mil|Location1.Y=2091.945mil|Location2.Y=2218.055mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C3-2 (17.841,-41.021mm) And Pad Z1-6 (28.436,-41.021mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2717.928mil|Location2.X=3396.047mil|Location1.Y=2297.654mil|Location2.Y=2368.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2717.928mil|Location2.X=3396.047mil|Location1.Y=2297.654mil|Location2.Y=2368.213mil|Absolute=True">Un-Routed Net Constraint: Net CR_LED_R Between Pad Z1-33 (39.636,-37.021mm) And Pad Q1-2 (55.232,-36.007mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3332.929mil|Location2.X=3668.212mil|Location1.Y=2236.787mil|Location2.Y=2343.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3332.929mil|Location2.X=3668.212mil|Location1.Y=2236.787mil|Location2.Y=2343.213mil|Absolute=True">Un-Routed Net Constraint: Net CR_LED_R_CTRL Between Pad Q1-1 (55.232,-37.907mm) And Pad P2-7 (61.595,-37.592mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2672.653mil|Location2.X=3386.047mil|Location1.Y=2342.929mil|Location2.Y=2583.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2672.653mil|Location2.X=3386.047mil|Location1.Y=2342.929mil|Location2.Y=2583.213mil|Absolute=True">Un-Routed Net Constraint: Net CR_LED_G Between Pad Z1-34 (38.036,-35.421mm) And Pad Q2-2 (54.978,-30.546mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3322.929mil|Location2.X=3668.212mil|Location1.Y=2436.787mil|Location2.Y=2543.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3322.929mil|Location2.X=3668.212mil|Location1.Y=2436.787mil|Location2.Y=2543.213mil|Absolute=True">Un-Routed Net Constraint: Net CR_LED_G_CTRL Between Pad Q2-1 (54.978,-32.446mm) And Pad P2-8 (61.595,-32.512mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2766.275mil|Location2.X=3668.212mil|Location1.Y=2571.315mil|Location2.Y=3143.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2766.275mil|Location2.X=3668.212mil|Location1.Y=2571.315mil|Location2.Y=3143.213mil|Absolute=True">Un-Routed Net Constraint: Net CR_DATA1_12V Between Pad R3-2 (40.689,-29.845mm) And Pad P2-11 (61.595,-17.272mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2699.346mil|Location2.X=2753.724mil|Location1.Y=2496.315mil|Location2.Y=2618.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2699.346mil|Location2.X=2753.724mil|Location1.Y=2496.315mil|Location2.Y=2618.685mil|Absolute=True">Un-Routed Net Constraint: Net CR_DATA1_3V Between Pad R3-1 (38.989,-29.845mm) And Pad R5-2 (39.067,-31.75mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2609.66mil|Location2.X=2753.724mil|Location1.Y=2342.929mil|Location2.Y=2543.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2609.66mil|Location2.X=2753.724mil|Location1.Y=2342.929mil|Location2.Y=2543.685mil|Absolute=True">Un-Routed Net Constraint: Net CR_DATA1_3V Between Pad Z1-36 (36.436,-35.421mm) And Pad R5-2 (39.067,-31.75mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2946.275mil|Location2.X=3668.212mil|Location1.Y=2571.315mil|Location2.Y=2943.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2946.275mil|Location2.X=3668.212mil|Location1.Y=2571.315mil|Location2.Y=2943.213mil|Absolute=True">Un-Routed Net Constraint: Net CR_DATA0_12V Between Pad R2-2 (45.261,-29.845mm) And Pad P2-10 (61.595,-22.352mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2877.417mil|Location2.X=2930.653mil|Location1.Y=2491.315mil|Location2.Y=2618.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2877.417mil|Location2.X=2930.653mil|Location1.Y=2491.315mil|Location2.Y=2618.685mil|Absolute=True">Un-Routed Net Constraint: Net CR_DATA0_3V Between Pad R4-2 (43.512,-31.877mm) And Pad R2-1 (43.561,-29.845mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2641.157mil|Location2.X=2928.724mil|Location1.Y=2342.929mil|Location2.Y=2538.685mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2641.157mil|Location2.X=2928.724mil|Location1.Y=2342.929mil|Location2.Y=2538.685mil|Absolute=True">Un-Routed Net Constraint: Net CR_DATA0_3V Between Pad Z1-35 (37.236,-35.421mm) And Pad R4-2 (43.512,-31.877mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2717.928mil|Location2.X=3668.212mil|Location1.Y=1436.787mil|Location2.Y=2075.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2717.928mil|Location2.X=3668.212mil|Location1.Y=1436.787mil|Location2.Y=2075.338mil|Absolute=True">Un-Routed Net Constraint: Net CMD_SERVO Between Pad Z1-25 (39.636,-43.421mm) And Pad P2-3 (61.595,-57.912mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2211.393mil|Location2.X=2358.763mil|Location1.Y=3504.032mil|Location2.Y=3555.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2211.393mil|Location2.X=2358.763mil|Location1.Y=3504.032mil|Location2.Y=3555.338mil|Absolute=True">Un-Routed Net Constraint: Net 12VDC Between Pad C21-1 (26.545,-6.104mm) And Pad C22-1 (29.085,-6.104mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2106.393mil|Location2.X=2258.763mil|Location1.Y=3504.032mil|Location2.Y=3555.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2106.393mil|Location2.X=2258.763mil|Location1.Y=3504.032mil|Location2.Y=3555.338mil|Absolute=True">Un-Routed Net Constraint: Net 12VDC Between Pad C20-1 (23.878,-6.104mm) And Pad C21-1 (26.545,-6.104mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2320.881mil|Location2.X=2508.015mil|Location1.Y=3350.606mil|Location2.Y=3421.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2320.881mil|Location2.X=2508.015mil|Location1.Y=3350.606mil|Location2.Y=3421.598mil|Absolute=True">Un-Routed Net Constraint: Net 12VDC Between Pad U4-5 (29.526,-10.226mm) And Pad U4-3 (32.676,-9.276mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.819mil|Location2.X=2153.763mil|Location1.Y=3362.693mil|Location2.Y=3555.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.819mil|Location2.X=2153.763mil|Location1.Y=3362.693mil|Location2.Y=3555.338mil|Absolute=True">Un-Routed Net Constraint: Net 12VDC Between Pad U2-3 (19.466,-9.919mm) And Pad C20-1 (23.878,-6.104mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2836.314mil|Location2.X=3094.551mil|Location1.Y=2833.599mil|Location2.Y=3087.582mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2836.314mil|Location2.X=3094.551mil|Location1.Y=2833.599mil|Location2.Y=3087.582mil|Absolute=True">Un-Routed Net Constraint: Net 12VDC Between Pad R13-2 (42.418,-17.985mm) And Pad C13-2 (47.324,-22.733mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2311.393mil|Location2.X=2383.999mil|Location1.Y=3350.606mil|Location2.Y=3555.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2311.393mil|Location2.X=2383.999mil|Location1.Y=3350.606mil|Location2.Y=3555.338mil|Absolute=True">Un-Routed Net Constraint: Net 12VDC Between Pad C22-1 (29.085,-6.104mm) And Pad U4-5 (29.526,-10.226mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2444.897mil|Location2.X=2883.684mil|Location1.Y=3036.276mil|Location2.Y=3421.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2444.897mil|Location2.X=2883.684mil|Location1.Y=3036.276mil|Location2.Y=3421.598mil|Absolute=True">Un-Routed Net Constraint: Net 12VDC Between Pad U4-3 (32.676,-9.276mm) And Pad R13-2 (42.418,-17.985mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1846.236mil|Location2.X=1988.606mil|Location1.Y=3499.032mil|Location2.Y=3550.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1846.236mil|Location2.X=1988.606mil|Location1.Y=3499.032mil|Location2.Y=3550.338mil|Absolute=True">Un-Routed Net Constraint: Net 5VDC Between Pad C10-1 (17.27,-6.231mm) And Pad C12-1 (19.683,-6.231mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1256.471mil|Location2.X=1605.652mil|Location1.Y=3286.315mil|Location2.Y=3438.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1256.471mil|Location2.X=1605.652mil|Location1.Y=3286.315mil|Location2.Y=3438.527mil|Absolute=True">Un-Routed Net Constraint: Net 5VDC Between Pad P1-2 (2.54,-9.271mm) And Pad R7-1 (9.906,-11.684mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1603.999mil|Location1.Y=2406mil|Location2.Y=2593.527mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1603.999mil|Location1.Y=2406mil|Location2.Y=2593.527mil|Absolute=True">Un-Routed Net Constraint: Net 5VDC Between Pad XDS1-2 (2.159,-30.734mm) And Pad R1-1 (9.652,-33.782mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1603.999mil|Location1.Y=2002.732mil|Location2.Y=2474mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1507.101mil|Location2.X=1603.999mil|Location1.Y=2002.732mil|Location2.Y=2474mil|Absolute=True">Un-Routed Net Constraint: Net 5VDC Between Pad U1-1 (9.046,-44.577mm) And Pad R1-1 (9.652,-33.782mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1828.519mil|Location2.X=1911.322mil|Location1.Y=2948.284mil|Location2.Y=3550.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1828.519mil|Location2.X=1911.322mil|Location1.Y=2948.284mil|Location2.Y=3550.338mil|Absolute=True">Un-Routed Net Constraint: Net 5VDC Between Pad L1-1 (17.27,-19.82mm) And Pad C10-1 (17.27,-6.231mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1226.472mil|Location2.Y=2027.268mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1241.471mil|Location2.X=1585.18mil|Location1.Y=1226.472mil|Location2.Y=2027.268mil|Absolute=True">Un-Routed Net Constraint: Net 5VDC Between Pad XDS1-15 (2.159,-63.754mm) And Pad U1-1 (9.046,-44.577mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1554.345mil|Location2.X=1893.606mil|Location1.Y=3286.315mil|Location2.Y=3550.338mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1554.345mil|Location2.X=1893.606mil|Location1.Y=3286.315mil|Location2.Y=3550.338mil|Absolute=True">Un-Routed Net Constraint: Net 5VDC Between Pad R7-1 (9.906,-11.684mm) And Pad C10-1 (17.27,-6.231mm)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1535.999mil|Location2.X=1911.322mil|Location1.Y=2406mil|Location2.Y=3031.086mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\bocal\Desktop\GitHub\elec\BADGOTRON\Schemas\PCB4.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1535.999mil|Location2.X=1911.322mil|Location1.Y=2406mil|Location2.Y=3031.086mil|Absolute=True">Un-Routed Net Constraint: Net 5VDC Between Pad R1-1 (9.652,-33.782mm) And Pad L1-1 (17.27,-19.82mm)</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br></body>
+</html>

@@ -299,6 +299,10 @@ DItemRevisionGUID=
 DocumentPath=Project Outputs for badgotron\Design Rule Check - PCB2.html
 DItemRevisionGUID=
 
+[GeneratedDocument3]
+DocumentPath=Project Outputs for badgotron\Design Rule Check - PCB4.html
+DItemRevisionGUID=
+
 [Configuration1]
 Name=Default Configuration
 ParameterCount=0
