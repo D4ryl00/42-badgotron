@@ -53,6 +53,12 @@ typedef struct	s_rtc_time
 	u8	year;
 }				t_rtc_time;
 
+typedef struct	s_user
+{
+	u8	id[5];
+	u8	active;
+}				t_user;
+
 #ifdef	__cplusplus
 }
 #endif
