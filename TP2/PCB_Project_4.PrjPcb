@@ -28,7 +28,7 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
-OutputPath=Project Outputs for PCB_Project_4
+OutputPath=
 LogFolderPath=
 ManagedProjectGUID=
 
@@ -173,122 +173,62 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [GeneratedDocument1]
-DocumentPath=Project Outputs for Free Documents\BOM\Bill of Materials-PCB_Project_4.xlsx
-DItemRevisionGUID=
-
-[GeneratedDocument2]
 DocumentPath=Project Outputs for PCB_Project_4\BOM\Bill of Materials-PCB_Project_4.xlsx
 DItemRevisionGUID=
 
-[GeneratedDocument3]
+[GeneratedDocument2]
 DocumentPath=Project Outputs for PCB_Project_4\BOM\BOM\BOM.xls.xlsx
 DItemRevisionGUID=
 
-[GeneratedDocument4]
-DocumentPath=Project Outputs for PCB_Project_4\Design Rule Check - PCB1.html
-DItemRevisionGUID=
-
-[GeneratedDocument5]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB1.DRR
-DItemRevisionGUID=
-
-[GeneratedDocument6]
+[GeneratedDocument3]
 DocumentPath=Project Outputs for PCB_Project_4\NC Drill\PCB1.DRR
 DItemRevisionGUID=
 
-[GeneratedDocument7]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB1.EXTREP
-DItemRevisionGUID=
-
-[GeneratedDocument8]
+[GeneratedDocument4]
 DocumentPath=Project Outputs for PCB_Project_4\Gerber\PCB1.EXTREP
 DItemRevisionGUID=
 
-[GeneratedDocument9]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB1.GBL
-DItemRevisionGUID=
-
-[GeneratedDocument10]
+[GeneratedDocument5]
 DocumentPath=Project Outputs for PCB_Project_4\Gerber\PCB1.GBL
 DItemRevisionGUID=
 
-[GeneratedDocument11]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB1.GBS
-DItemRevisionGUID=
-
-[GeneratedDocument12]
+[GeneratedDocument6]
 DocumentPath=Project Outputs for PCB_Project_4\Gerber\PCB1.GBS
 DItemRevisionGUID=
 
-[GeneratedDocument13]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB1.GM32
-DItemRevisionGUID=
-
-[GeneratedDocument14]
+[GeneratedDocument7]
 DocumentPath=Project Outputs for PCB_Project_4\Gerber\PCB1.GM32
 DItemRevisionGUID=
 
-[GeneratedDocument15]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB1.GTL
-DItemRevisionGUID=
-
-[GeneratedDocument16]
+[GeneratedDocument8]
 DocumentPath=Project Outputs for PCB_Project_4\Gerber\PCB1.GTL
 DItemRevisionGUID=
 
-[GeneratedDocument17]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB1.GTO
-DItemRevisionGUID=
-
-[GeneratedDocument18]
+[GeneratedDocument9]
 DocumentPath=Project Outputs for PCB_Project_4\Gerber\PCB1.GTO
 DItemRevisionGUID=
 
-[GeneratedDocument19]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB1.GTS
-DItemRevisionGUID=
-
-[GeneratedDocument20]
+[GeneratedDocument10]
 DocumentPath=Project Outputs for PCB_Project_4\Gerber\PCB1.GTS
 DItemRevisionGUID=
 
-[GeneratedDocument21]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB1.LDP
-DItemRevisionGUID=
-
-[GeneratedDocument22]
+[GeneratedDocument11]
 DocumentPath=Project Outputs for PCB_Project_4\NC Drill\PCB1.LDP
 DItemRevisionGUID=
 
-[GeneratedDocument23]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB1.REP
-DItemRevisionGUID=
-
-[GeneratedDocument24]
+[GeneratedDocument12]
 DocumentPath=Project Outputs for PCB_Project_4\Gerber\PCB1.REP
 DItemRevisionGUID=
 
-[GeneratedDocument25]
-DocumentPath=Project Outputs for Free Documents\Gerber\PCB1.RUL
-DItemRevisionGUID=
-
-[GeneratedDocument26]
+[GeneratedDocument13]
 DocumentPath=Project Outputs for PCB_Project_4\Gerber\PCB1.RUL
 DItemRevisionGUID=
 
-[GeneratedDocument27]
-DocumentPath=Project Outputs for Free Documents\NC Drill\PCB1.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument28]
+[GeneratedDocument14]
 DocumentPath=Project Outputs for PCB_Project_4\NC Drill\PCB1.TXT
 DItemRevisionGUID=
 
-[GeneratedDocument29]
-DocumentPath=Project Outputs for Free Documents\Pick Place\Pick Place for PCB1.txt
-DItemRevisionGUID=
-
-[GeneratedDocument30]
+[GeneratedDocument15]
 DocumentPath=Project Outputs for PCB_Project_4\Pick Place\Pick Place for PCB1.txt
 DItemRevisionGUID=
 
@@ -303,7 +243,7 @@ GenerateBOM=1
 OutputJobsCount=0
 
 [Generic_EDE]
-OutputDir=Project Outputs for PCB_Project_4
+OutputDir=
 
 [OutputGroup1]
 Name=Netlist Outputs
