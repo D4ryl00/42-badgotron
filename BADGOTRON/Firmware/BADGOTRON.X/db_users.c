@@ -1,6 +1,6 @@
 #include "badgotron.h"
 
-static u8	idequ(u8 *id1, u8 *id2)
+static u8	is_id_equ(u8 *id1, u8 *id2)
 {
 	u8	i;
 
@@ -13,7 +13,7 @@ static u8	idequ(u8 *id1, u8 *id2)
 	return (1);
 }
 
-static u8	idisnull(u8 *id1)
+static u8	is_id_null(u8 *id1)
 {
 	u8	i;
 
@@ -26,7 +26,7 @@ static u8	idisnull(u8 *id1)
 	return (1);
 }
 
-static void	idcpy(u8 *dest, u8 *src)
+static void	id_cpy(u8 *dest, u8 *src)
 {
 	u8	i;
 
@@ -45,9 +45,9 @@ void	db_adduser(u8 *id)
 		user = -1;
 		while (++user < 682)
 		{
-			if (idisnull(g_db_index[user].id))
+			if (is_id_null(g_db_index[user].id))
 			{
-				idcpy(g_db_index[user].id, id);
+				id_cpy(g_db_index[user].id, id);
 				g_db_index[user].active = 1;
 				return ;
 			}

@@ -28,7 +28,7 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
-OutputPath=
+OutputPath=Project Outputs for badgotron
 LogFolderPath=
 ManagedProjectGUID=
 
@@ -309,15 +309,63 @@ GenerateClassCluster=0
 DocumentUniqueId=VOIOKYBK
 
 [GeneratedDocument1]
-DocumentPath=Project Outputs for badgotron\Design Rule Check - PCB1.html
+DocumentPath=Project Outputs for badgotron\BOM\Bill of Materials-badgotron.xlsx
 DItemRevisionGUID=
 
 [GeneratedDocument2]
-DocumentPath=Project Outputs for badgotron\Design Rule Check - PCB2.html
+DocumentPath=Project Outputs for badgotron\NC Drill\PCB4.DRR
 DItemRevisionGUID=
 
 [GeneratedDocument3]
-DocumentPath=Project Outputs for badgotron\Design Rule Check - PCB4.html
+DocumentPath=Project Outputs for badgotron\Gerber\PCB4.EXTREP
+DItemRevisionGUID=
+
+[GeneratedDocument4]
+DocumentPath=Project Outputs for badgotron\Gerber\PCB4.GBL
+DItemRevisionGUID=
+
+[GeneratedDocument5]
+DocumentPath=Project Outputs for badgotron\Gerber\PCB4.GBO
+DItemRevisionGUID=
+
+[GeneratedDocument6]
+DocumentPath=Project Outputs for badgotron\Gerber\PCB4.GBS
+DItemRevisionGUID=
+
+[GeneratedDocument7]
+DocumentPath=Project Outputs for badgotron\Gerber\PCB4.GM16
+DItemRevisionGUID=
+
+[GeneratedDocument8]
+DocumentPath=Project Outputs for badgotron\Gerber\PCB4.GTL
+DItemRevisionGUID=
+
+[GeneratedDocument9]
+DocumentPath=Project Outputs for badgotron\Gerber\PCB4.GTO
+DItemRevisionGUID=
+
+[GeneratedDocument10]
+DocumentPath=Project Outputs for badgotron\Gerber\PCB4.GTS
+DItemRevisionGUID=
+
+[GeneratedDocument11]
+DocumentPath=Project Outputs for badgotron\NC Drill\PCB4.LDP
+DItemRevisionGUID=
+
+[GeneratedDocument12]
+DocumentPath=Project Outputs for badgotron\Gerber\PCB4.REP
+DItemRevisionGUID=
+
+[GeneratedDocument13]
+DocumentPath=Project Outputs for badgotron\Gerber\PCB4.RUL
+DItemRevisionGUID=
+
+[GeneratedDocument14]
+DocumentPath=Project Outputs for badgotron\NC Drill\PCB4.TXT
+DItemRevisionGUID=
+
+[GeneratedDocument15]
+DocumentPath=Project Outputs for badgotron\Pick Place\Pick Place for PCB4.txt
 DItemRevisionGUID=
 
 [Configuration1]
@@ -331,7 +379,7 @@ GenerateBOM=1
 OutputJobsCount=0
 
 [Generic_EDE]
-OutputDir=
+OutputDir=Project Outputs for badgotron
 
 [OutputGroup1]
 Name=Netlist Outputs

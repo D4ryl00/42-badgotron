@@ -50,13 +50,13 @@ Generating : Bottom Layer
 
 
 Used DCodes :
-    D10
+    D12
     D22
     D23
     D24
     D25
     D26
-    D28
+    D27
     D29
     D30
     D31
@@ -77,8 +77,8 @@ Generating : Top Overlay
 
 
 Used DCodes :
-    D25
-    D27
+    D23
+    D28
     D39
     D40
     D41
@@ -135,7 +135,7 @@ Generating : Bottom Solder
 
 
 Used DCodes :
-    D47
+    D49
     D59
     D60
     D61
@@ -156,7 +156,7 @@ Generating : Bottom Overlay
 
 
 Used DCodes :
-    D25
+    D23
     D40
 *************************************************************
 
@@ -168,6 +168,6 @@ Generating : Board Outline
 
 
 Used DCodes :
-    D25
+    D23
 *************************************************************
 
