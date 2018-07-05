@@ -7,6 +7,8 @@
 
 #include "badgotron.h"
 u8	g_set_time;
+t_flash_page	g_flash_index;
+t_flash_page	g_flash_data;
 
 void    print_uartbuffer(void)
 {
@@ -30,7 +32,9 @@ int main(int argc, char** argv)
 {
     u8	RX_UART_char;
 	u8	tmp;
+	u8	i;
 
+	i = 0;
     INTCONSET = _INTCON_MVEC_MASK;
     __builtin_enable_interrupts();
     display_init();
@@ -56,7 +60,12 @@ int main(int argc, char** argv)
 	//rtc_srwrite(0);
 	g_set_time = 0;
 	init_rtc();
-	init_badge();
+	init_wiegand();
+	while (i < 4096)
+	{
+		g_flash_index.page[i] = 0;
+		i++;
+	}
 	msleep(2000);
     while (42)
     {

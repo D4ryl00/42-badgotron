@@ -24,6 +24,23 @@ void    msleep(u32 time)
     }
 }
 
+void    init_wiegand_timer(void)
+{
+    /* Initialize Timer3 = 1s */
+    T3CONbits.ON = 0;
+    TMR3 = 0;
+    T3CONbits.TCKPS = 3; // 1 million per second / 256
+    PR3 = 9000; // +- 250 ms
+    IFS0bits.T3IF = 0;
+    T3CONbits.ON = 1;
+}
+
+void    stop_wiegand_timer(void)
+{
+    T3CONbits.ON = 0;
+	IFS0bits.T3IF = 0;
+}
+
 void    clock_sleep(u32 time)
 {
     int cpt = 0;

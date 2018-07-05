@@ -26,7 +26,7 @@ static u8	is_id_null(u8 *id1)
 	return (1);
 }
 
-static void	id_cpy(u8 *dest, u8 *src)
+void	id_cpy(u8 *dest, u8 *src)
 {
 	u8	i;
 
@@ -40,7 +40,7 @@ void	db_adduser(u8 *id)
 	u8	page = -1;
 	u8	user;
 
-	while (++page < 47)
+	/*while (++page < 47)
 	{
 		user = -1;
 		while (++user < 682)
@@ -52,5 +52,6 @@ void	db_adduser(u8 *id)
 				return ;
 			}
 		}
-	}
+	}*/
 }
+

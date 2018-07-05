@@ -1,8 +1,9 @@
 #include "badgotron.h"
 
 t_wiegand_buf	g_wiegand_buf;
+u8				g_id_badge[5];
 
-void	init_badge(void)
+void	init_wiegand(void)
 {
 	u8	tmp = 0;
 	
@@ -28,4 +29,73 @@ void	init_badge(void)
 	IFS1bits.CNIF = 0;
 	IEC1bits.CNIE = 1;
 	__builtin_enable_interrupts();
+}
+/* tested and working */
+static u8	checksum_is_ok(void)
+{
+	u8	res;
+	u8	checksum;
+	u8	i;
+	u8	j;
+	u8	tmp;
+	
+	res = 0;
+	checksum = 0;
+	i = -1;
+	while (++i < 4)
+		checksum = (checksum << 1) + g_wiegand_buf.buffer[40 + i];
+	i = 0;
+	while (i < 40)
+	{
+		tmp = 0;
+		j = -1;
+		while (++j < 4)
+			tmp = (tmp << 1) + g_wiegand_buf.buffer[i + j];
+		res ^= tmp;
+		i += 4;
+	}
+	if (res == checksum)
+		return (1);
+	return (0);
+}
+/*Tested working*/
+void	badge_bitwise(void)
+{
+	u8	i;
+
+	i = 0;
+	g_id_badge[0] = 0;
+	g_id_badge[1] = 0;
+	g_id_badge[2] = 0;
+	g_id_badge[3] = 0;
+	g_id_badge[4] = 0;
+	while (i < 40)
+	{
+		if (g_wiegand_buf.buffer[i] == 1)
+			g_id_badge[i / 8] = g_id_badge[i / 8] | (u8)(1 << 7 - (i % 8));
+		i++;
+	}
+}
+
+void	start_badge(void)
+{
+	if (!checksum_is_ok())
+	{
+		display_clear();
+		display_printstr("Erreur de lecture du badge");
+		msleep(2000);
+		display_clear();
+		return ;
+	}
+	display_clear();
+	display_printstr("Lecture du badge OK");
+	msleep(2000);
+	display_clear();
+	badge_bitwise();
+	id_cpy(g_flash_index.index.user[0].id, g_id_badge);
+	g_flash_data.data.user[0].timestamp = 12345678;
+	msleep(10);
+
+	/*if (get_user_position() == -1)
+		create_user();*/
 }

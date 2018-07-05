@@ -31,14 +31,23 @@ void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7) Int_Badge(void) // Routine interruptions
 {
 	// ICI IL FAUDRA RETURN() SI INDEX == 44 (à savoir que le buffer n'est pas encore traite), et mettre la LED lecteur ROUGE
 	__builtin_disable_interrupts();
+	init_wiegand_timer();
 	while (g_wiegand_buf.index != 44)
 	{
-		while (WIEGAND_DATA0_DATA && WIEGAND_DATA1_DATA);
-		if (!WIEGAND_DATA0_DATA)
+		if (IFS0bits.T3IF == 1)
+		{
+			stop_wiegand_timer();
+			g_wiegand_buf.index = 0;
+			IFS1bits.CNIF = 0;
+			msleep(500);
+			return ;
+		}
+		while (WIEGAND_DATA0_DATA && WIEGAND_DATA1_DATA && IFS0bits.T3IF == 0);
+		if (!WIEGAND_DATA0_DATA && IFS0bits.T3IF == 0)
 			g_wiegand_buf.buffer[g_wiegand_buf.index++] = 0;
 		else if (!WIEGAND_DATA1_DATA)
 			g_wiegand_buf.buffer[g_wiegand_buf.index++] = 1;
-		while (!WIEGAND_DATA0_DATA || !WIEGAND_DATA1_DATA);
+		while ((IFS0bits.T3IF == 0) && !WIEGAND_DATA0_DATA || !WIEGAND_DATA1_DATA);
 	}
 		if (g_wiegand_buf.index == 44 && WIEGAND_DATA0_DATA && WIEGAND_DATA1_DATA)
 		{
@@ -54,8 +63,9 @@ void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7) Int_Badge(void) // Routine interruptions
 					display_printchar("0123456789ABCDEF"[digit]);
 			}
 			g_wiegand_buf.index = 0;
-			msleep(5000);
+			msleep(1500);
 			display_clear();
+			start_badge();
 		}
 	IFS1bits.CNIF = 0;
 	__builtin_enable_interrupts();
