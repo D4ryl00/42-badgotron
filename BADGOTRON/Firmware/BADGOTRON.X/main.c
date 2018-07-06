@@ -28,6 +28,35 @@ void	print_bin(u8 byte)
 	display_printchar((byte & 0b1) ? '1' : '0');
 }
 
+void	putnbr(u32 nbr)
+{
+	u32	power;
+	u32	tmp;
+
+	tmp = nbr;
+	power = 1;
+	while ((nbr /= 10))
+		power *= 10;
+	nbr = tmp;
+	while (power)
+	{
+		display_printchar("0123456789"[(nbr / power) % 10]);
+		power /= 10;
+	}
+}
+
+void	print_badge(u8 *id)
+{
+	u8	i;
+
+	i= -1;
+	while (++i < 5)
+	{
+		display_printchar("0123456789ABCDEF"[id[i] >> 4]);
+		display_printchar("0123456789ABCDEF"[id[i] & 0x0f]);
+	}
+}
+
 int main(int argc, char** argv)
 {
     u8	RX_UART_char;
@@ -53,20 +82,20 @@ int main(int argc, char** argv)
 	/*tmp = flash_get_byte_init(0x1000);
 	display_printchar(tmp);
 	while ((tmp = flash_get_byte_next()) != 0xff)
-		display_printchar(tmp);*/
-	flash_get_byte_end();
+		display_printchar(tmp);
+	flash_get_byte_end();*/
 	//tmp = rtc_get_id();
 	//rtc_eewrite(0x00, 'U');
 	//rtc_srwrite(0);
 	g_set_time = 0;
 	init_rtc();
 	init_wiegand();
-	while (i < 4096)
+	/*while (i < 4096)
 	{
 		g_flash_index.page[i] = 0;
 		i++;
-	}
-	msleep(2000);
+	}*/
+	msleep(5000);
     while (42)
     {
         WDTCONbits.WDTCLR = 1;
