@@ -104,6 +104,8 @@ int main(int argc, char** argv)
 		print_time();
 		display_printchar('_');
 		print_bin(g_set_time);
+		display_printchar('_');
+		putnbr(get_timestamp());
 		msleep(10);
 		/*if (g_uart_rx_buf.index)
 			print_uartbuffer();*/

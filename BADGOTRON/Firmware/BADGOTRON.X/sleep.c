@@ -11,7 +11,7 @@ void    msleep(u32 time)
     T2CONbits.ON = 0;
     TMR2 = 0;
     T2CONbits.TCKPS = 0; // / 1 million per second
-    PR2 = 1000; // = 1 ms
+    PR2 = 8000; // = 1 ms
     IFS0bits.T2IF = 0;
     T2CONbits.ON = 1;
     while (cpt < time)
@@ -30,7 +30,7 @@ void    init_wiegand_timer(void)
     T3CONbits.ON = 0;
     TMR3 = 0;
     T3CONbits.TCKPS = 3; // 1 million per second / 256
-    PR3 = 9000; // +- 250 ms
+    PR3 = 65000; // +- 250 ms
     IFS0bits.T3IF = 0;
     T3CONbits.ON = 1;
 }

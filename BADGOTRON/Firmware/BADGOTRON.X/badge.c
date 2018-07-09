@@ -73,6 +73,8 @@ static void	convert_format_id(u8 *dest, u8 *src)
 
 void	start_badge(void)
 {
+	u8	id[5];
+
 	if (!checksum_is_ok())
 	{
 		display_clear();
@@ -83,13 +85,18 @@ void	start_badge(void)
 	}
 	display_clear();
 	display_printstr("Lecture du badge OK");
-	msleep(2000);
-	display_clear();
-	convert_format_id(g_flash_index.index.user[0].id, g_wiegand_buf.buffer);
-	print_badge(g_flash_index.index.user[0].id);
-	display_printchar('_');
-	g_flash_data.data.user[0].timestamp = 12345678;
-	putnbr(g_flash_data.data.user[0].timestamp);
+	convert_format_id(&id, g_wiegand_buf.buffer);
+	if (get_index_position_user(id) >= 0)
+	{
+		display_printstr("Badge connu");
+	}
+	else
+	{
+		display_printstr("Badge inconnu");
+		id_cpy(g_flash_index.index.user[0].id, id);
+		g_flash_index.index.user[0].active = 1;
+		flash_put_multibytes(0, g_flash_index.page, 4096);
+	}
 	msleep(5000);
 	display_clear();
 

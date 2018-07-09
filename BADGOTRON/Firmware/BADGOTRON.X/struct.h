@@ -51,6 +51,7 @@ typedef struct	s_rtc_time
 	u8	date;
 	u8	month;
 	u8	year;
+	u8	dst;
 }				t_rtc_time;
 
 
@@ -65,7 +66,7 @@ typedef struct	__attribute__((packed))			s_index_user
 typedef struct	__attribute__((packed))			s_page_index
 {
 	t_index_user	user[682];
-	u8				page_number;
+	u16		page_number;
 }												t_page_index;
 
 
@@ -90,7 +91,7 @@ typedef struct	__attribute__((packed))			s_data_user
 typedef struct	__attribute__((packed))			s_page_data
 {
 	t_data_user		user[120]; // 120 * 34o = 4080o
-	u8				page_number;
+	u16			page_number;
 }												t_page_data;
 
 /*
@@ -98,9 +99,9 @@ typedef struct	__attribute__((packed))			s_page_data
 */
 typedef union		u_flash_page
 {
-	u8				page[4096];
+	u8		page[4096];
 	t_page_index	index;
-	t_page_data		data;
+	t_page_data	data;
 }					t_flash_page;
 
 #ifdef	__cplusplus

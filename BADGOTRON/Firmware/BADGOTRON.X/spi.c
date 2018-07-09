@@ -18,7 +18,7 @@ void	init_spi(void)
 	/* Clearing the receive buffer */
 	rData = SPI2BUF;
 	/* Set Baud Rate = PBCLK / 2 */
-	SPI2BRG = 31;
+	SPI2BRG = 0;
 	/* clear the SPIROV bit */
 	SPI2STATbits.SPIROV = 0;
 	/* Set settings */

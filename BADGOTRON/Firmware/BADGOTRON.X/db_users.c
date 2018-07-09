@@ -35,6 +35,29 @@ void	id_cpy(u8 *dest, u8 *src)
 		dest[i] = src[i];
 }
 
+s16		get_index_position_user(u8 *id)
+{
+	u16	offset;
+	u16	position;
+
+	g_flash_index.index.page_number = -1;
+	while (++g_flash_index.index.page_number < 25)
+	{
+		offset = 0;
+		g_flash_index.page[0] = flash_get_byte_init(g_flash_index.index.page_number * 4096);
+		while (++offset < 4092)
+			g_flash_index.page[offset] = flash_get_byte_next();
+		flash_get_byte_end();
+		position = -1;
+		while (++position < 682)
+		{
+			if (is_id_equ(g_flash_index.index.user[position].id, id))
+				return (position);
+		}
+	}
+	return (-1);
+}
+
 void	db_adduser(u8 *id)
 {
 	u8	page = -1;
