@@ -21,7 +21,7 @@ int		main(void)
 	while (42)
 	{
 		readbuffer = read_uart(fd);
-		//ft_putendl(readbuffer);
+		ft_putendl(readbuffer);
 		respond(readbuffer, fd);
 		ft_putstr_fd("\n", fd);
 	}

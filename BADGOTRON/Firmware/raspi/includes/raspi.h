@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 11:30:12 by amordret          #+#    #+#             */
-/*   Updated: 2018/05/30 16:21:24 by amordret         ###   ########.fr       */
+/*   Updated: 2018/07/10 13:44:43 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_temps
 	char		heure;
 	char		minute;
 	char		seconde;
+	char		isdst;
 	time_t		epoch;
 }				t_temps;
 

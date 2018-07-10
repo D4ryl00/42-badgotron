@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 14:49:56 by amordret          #+#    #+#             */
-/*   Updated: 2018/05/30 15:21:20 by amordret         ###   ########.fr       */
+/*   Updated: 2018/07/10 13:44:36 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ void	get_temps(t_temps *now)
 	now->minute = localti->tm_min;
 	now->seconde = localti->tm_sec;
 	now->epoch = epoch;
+	now->isdst = localti->tm_isdst;
 }

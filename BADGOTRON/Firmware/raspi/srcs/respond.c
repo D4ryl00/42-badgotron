@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:38:56 by amordret          #+#    #+#             */
-/*   Updated: 2018/05/30 16:23:02 by amordret         ###   ########.fr       */
+/*   Updated: 2018/07/10 13:44:40 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int		respond_time(char *readbuffer, int fd)
 	get_temps(&now);
 	if (ft_strequ(readbuffer, "time_wday?"))
 	{
+		ft_putchar_fd('0', fd);
 		ft_putnbr_fd(now.joursem, fd);
-		ft_putchar('\n');
+		ft_putnbr(now.joursem);
+		ft_putchar_fd('\n', fd);
 		return (1) ;
 	}
 	if (ft_strequ(readbuffer, "time_day?"))
@@ -42,7 +44,7 @@ int		respond_time(char *readbuffer, int fd)
 		if (now.jour < 10)
 			ft_putchar_fd('0', fd);
 		ft_putnbr_fd(now.jour, fd);
-		ft_putchar('\n');
+		ft_putchar_fd('\n', fd);
 		return (1) ;
 	}
 	if (ft_strequ(readbuffer, "time_month?"))
@@ -50,13 +52,13 @@ int		respond_time(char *readbuffer, int fd)
 		if (now.mois < 10)
 			ft_putchar_fd('0', fd);
 		ft_putnbr_fd(now.mois, fd);
-		ft_putchar('\n');
+		ft_putchar_fd('\n', fd);
 		return (1) ;
 	}
 	if (ft_strequ(readbuffer, "time_year?"))
 	{
 		ft_putnbr_fd(now.annee, fd);
-		ft_putchar('\n');
+		ft_putchar_fd('\n', fd);
 		return (1) ;
 	}
 	if (ft_strequ(readbuffer, "time_hour?"))
@@ -64,7 +66,7 @@ int		respond_time(char *readbuffer, int fd)
 		if (now.heure < 10)
 			ft_putchar_fd('0', fd);
 		ft_putnbr_fd(now.heure, fd);
-		ft_putchar('\n');
+		ft_putchar_fd('\n', fd);
 		return (1) ;
 	}
 	if (ft_strequ(readbuffer, "time_minute?"))
@@ -72,7 +74,7 @@ int		respond_time(char *readbuffer, int fd)
 		if (now.minute < 10)
 			ft_putchar_fd('0', fd);
 		ft_putnbr_fd(now.minute, fd);
-		ft_putchar('\n');
+		ft_putchar_fd('\n', fd);
 		return (1) ;
 	}
 	if (ft_strequ(readbuffer, "time_second?"))
@@ -80,7 +82,17 @@ int		respond_time(char *readbuffer, int fd)
 		if (now.seconde < 10)
 			ft_putchar_fd('0', fd);
 		ft_putnbr_fd(now.seconde, fd);
-		ft_putchar('\n');
+		ft_putchar_fd('\n', fd);
+		return (1) ;
+	}
+	if (ft_strequ(readbuffer, "time_dst?"))
+	{
+		ft_putchar_fd('0', fd);			
+		if (now.isdst == 1)
+			ft_putchar_fd('1', fd);
+		else
+			ft_putchar_fd('0', fd);
+		ft_putchar_fd('\n', fd);
 		return (1) ;
 	}
 	return  (0);
