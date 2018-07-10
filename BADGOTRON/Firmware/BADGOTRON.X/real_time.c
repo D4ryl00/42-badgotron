@@ -100,14 +100,14 @@ void	conv_rasp_time(void)
 	g_rtc_time.year += (g_uart_rx_buf.buffer[0] - '0') << 4;
 	uart_clear_buffer();
 
-	g_rtc_time.dst = 1;
-	/*while (g_uart_rx_buf.index < 2)
+	while (g_uart_rx_buf.index < 2)
 	{
 		uart_putstr("time_dst?\n");
 		while (!g_uart_rx_buf.index);
 		if (g_uart_rx_buf.index < 2)
 			uart_clear_buffer();
-	}*/
+	}
+	g_rtc_time.dst = g_uart_rx_buf.buffer[1] - '0';
 }
 
 void	print_time(void)

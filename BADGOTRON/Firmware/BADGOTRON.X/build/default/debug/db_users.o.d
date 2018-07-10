@@ -3,8 +3,8 @@ db_users.c  \
 badgotron.h  \
 types.h  \
 struct.h  \
- prototypes.h  \
-macros.h  \
+ macros.h  \
+prototypes.h  \
 uart.h  \
 spi.h  \
 flash.h  \

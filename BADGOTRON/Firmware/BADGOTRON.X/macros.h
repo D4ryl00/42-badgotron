@@ -12,11 +12,19 @@
 //extern "C" {
 #endif
 
-#define DISPLAY_DELAY 2
-#define PBCLK 8000000
+#define DISPLAY_DELAY 8
+#define DISPLAY_DELAY2 15
+#define PBCLK 40000000
 
 #define PIN_MODE_OUTPUT 0
 #define PIN_MODE_INPUT 1
+
+#define FLASH_PAGE_SIZE 4096
+#define FLASH_INDEX_PAGE_MAX 25
+#define FLASH_INDEX_USER_PER_PAGE 682
+#define FLASH_DATA_USER_PER_PAGE 120
+#define FLASH_INDEX_USER_SIZE 4092
+#define FLASH_INDEX_PAGE_PER_CHECKSUM 2
 
 #ifdef	__cplusplus
 }

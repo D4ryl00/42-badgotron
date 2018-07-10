@@ -150,7 +150,7 @@ void		flash_put_byte(u32 addr, u8 data)
 	flash_set_block_protection(FLASH_BLOCK_PROTECTED);
 }
 
-u8			flash_get_byte_init(u32 addr)
+u8			flash_get_slow_byte_init(u32 addr)
 {
 	u8	data = 0;
 
@@ -158,6 +158,20 @@ u8			flash_get_byte_init(u32 addr)
 	spi_select_slave(FLASH);
 	spi_transfer(FLASH_READ, &data);
 	put_addr(addr);
+	spi_transfer(0, &data);
+	return (data);
+}
+
+u8			flash_get_byte_init(u32 addr)
+{
+	u8	data = 0;
+	u8	tmp = 0;
+
+	__builtin_disable_interrupts();
+	spi_select_slave(FLASH);
+	spi_transfer(FLASH_READ_HIGH, &tmp);
+	put_addr(addr);
+	spi_transfer(0, &tmp);
 	spi_transfer(0, &data);
 	return (data);
 }

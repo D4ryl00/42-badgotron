@@ -7,7 +7,7 @@
 
 #ifndef STRUCT_H
 #define	STRUCT_H
-
+#include "macros.h"
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -60,12 +60,12 @@ typedef struct	s_rtc_time
 typedef struct	__attribute__((packed))			s_index_user
 {
 	u8	id[5];
-	u8	active;
+	u8	inactive;
 }												t_index_user;
 
 typedef struct	__attribute__((packed))			s_page_index
 {
-	t_index_user	user[682];
+	t_index_user	user[FLASH_INDEX_USER_PER_PAGE];
 	u16		page_number;
 }												t_page_index;
 
@@ -90,7 +90,7 @@ typedef struct	__attribute__((packed))			s_data_user
 
 typedef struct	__attribute__((packed))			s_page_data
 {
-	t_data_user		user[120]; // 120 * 34o = 4080o
+	t_data_user		user[FLASH_DATA_USER_PER_PAGE]; // 120 * 34o = 4080o
 	u16			page_number;
 }												t_page_data;
 

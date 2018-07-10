@@ -54,7 +54,7 @@ static u8	checksum_is_ok(void)
 		i += 4;
 	}
 	if (res == checksum)
-		return (1);
+		return (checksum);
 	return (0);
 }
 
@@ -74,8 +74,10 @@ static void	convert_format_id(u8 *dest, u8 *src)
 void	start_badge(void)
 {
 	u8	id[5];
+	s16	position;
+	u8	checksum;
 
-	if (!checksum_is_ok())
+	if (!(checksum = checksum_is_ok()))
 	{
 		display_clear();
 		display_printstr("Erreur de lecture du badge");
@@ -85,17 +87,22 @@ void	start_badge(void)
 	}
 	display_clear();
 	display_printstr("Lecture du badge OK");
-	convert_format_id(&id, g_wiegand_buf.buffer);
-	if (get_index_position_user(id) >= 0)
+	convert_format_id(id, g_wiegand_buf.buffer);
+	if ((position = get_index_position_user(id, checksum)) >= 0)
 	{
-		display_printstr("Badge connu");
+		display_clear();
+		display_printstr("Badge connu  page ");
+		putnbr(g_flash_index.index.page_number);
+		display_printstr("   User ");
+		putnbr(position);
 	}
 	else
 	{
+		position = get_first_free_space(checksum);
 		display_printstr("Badge inconnu");
-		id_cpy(g_flash_index.index.user[0].id, id);
-		g_flash_index.index.user[0].active = 1;
-		flash_put_multibytes(0, g_flash_index.page, 4096);
+		id_cpy(g_flash_index.index.user[position].id, id);
+		g_flash_index.index.user[position].inactive = 0;
+		flash_put_multibytes(g_flash_index.index.page_number * 4096, g_flash_index.page, 4096);
 	}
 	msleep(5000);
 	display_clear();

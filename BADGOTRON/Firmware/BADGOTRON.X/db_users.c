@@ -35,21 +35,50 @@ void	id_cpy(u8 *dest, u8 *src)
 		dest[i] = src[i];
 }
 
-s16		get_index_position_user(u8 *id)
+s16		get_first_free_space(u8 checksum)
 {
 	u16	offset;
 	u16	position;
+	u16 pageslues;
 
-	g_flash_index.index.page_number = -1;
-	while (++g_flash_index.index.page_number < 25)
+	g_flash_index.index.page_number = FLASH_INDEX_PAGE_PER_CHECKSUM * checksum - 1;
+	pageslues = -1;
+	while (++pageslues < FLASH_INDEX_PAGE_MAX)
 	{
 		offset = 0;
-		g_flash_index.page[0] = flash_get_byte_init(g_flash_index.index.page_number * 4096);
-		while (++offset < 4092)
+		g_flash_index.index.page_number++;
+		g_flash_index.page[0] = flash_get_byte_init(g_flash_index.index.page_number * FLASH_PAGE_SIZE);
+		while (++offset < FLASH_INDEX_USER_SIZE)
 			g_flash_index.page[offset] = flash_get_byte_next();
 		flash_get_byte_end();
 		position = -1;
-		while (++position < 682)
+		while (++position < FLASH_INDEX_USER_PER_PAGE)
+		{
+			if (g_flash_index.index.user[position].inactive)
+				return (position);
+		}
+	}
+	return (-1);
+}
+
+s16		get_index_position_user(u8 *id, u8 checksum)
+{
+	u16	offset;
+	u16	position;
+	u16 pageslues;
+
+	g_flash_index.index.page_number = FLASH_INDEX_PAGE_PER_CHECKSUM * checksum - 1;
+	pageslues = -1;
+	while (++pageslues < FLASH_INDEX_PAGE_MAX)
+	{
+		offset = 0;
+		g_flash_index.index.page_number++;
+		g_flash_index.page[0] = flash_get_byte_init(g_flash_index.index.page_number * FLASH_PAGE_SIZE);
+		while (++offset < FLASH_INDEX_USER_SIZE)
+			g_flash_index.page[offset] = flash_get_byte_next();
+		flash_get_byte_end();
+		position = -1;
+		while (++position < FLASH_INDEX_USER_PER_PAGE)
 		{
 			if (is_id_equ(g_flash_index.index.user[position].id, id))
 				return (position);
