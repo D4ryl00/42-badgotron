@@ -79,11 +79,11 @@ typedef struct	__attribute__((packed))			s_data_user
 	u16	current_day;
 	u16	current_week;
 	u16	current_month;
-	u16	current_trimester;
+	u32	current_trimester;
 	u16	last_day;
 	u16	last_week;
 	u16	last_month;
-	u16	last_trimester;
+	u32	last_trimester;
 	u16	sliding_days[7];
 }												t_data_user;
 

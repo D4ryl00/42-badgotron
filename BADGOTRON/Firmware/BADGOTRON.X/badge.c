@@ -71,12 +71,60 @@ static void	convert_format_id(u8 *dest, u8 *src)
 			dest[i / 8] |= src[i] << (7 - (i % 8));
 }
 
+static void	badge_known_user(s16 index_position)
+{
+	u32	data_user_page_address;
+	u8	user_data_position;
+
+	g_flash_index.index.user[index_position].inactive = 0;
+	flash_put_multibytes(g_flash_index.index.page_number * FLASH_PAGE_SIZE, g_flash_index.page, FLASH_PAGE_SIZE);
+	data_user_page_address = get_user_data_page_address(g_flash_index.index.page_number, index_position);
+	user_data_position = get_user_data_position(g_flash_index.index.page_number, index_position);
+	get_data_page(data_user_page_address);
+	if (!g_flash_data.data.user[user_data_position].timestamp)
+		{
+			g_flash_data.data.user[user_data_position].timestamp = get_timestamp();
+			display_printstr("Bienvenue Jennifer");
+		}
+	else
+	{
+		db_update_user_out_time(&(g_flash_data.data.user[user_data_position]));
+		display_printstr("Good bye Jennifer : ");
+		putnbr(g_flash_data.data.user[user_data_position].current_day);
+		display_printstr("mn.");
+	}
+	flash_put_multibytes(data_user_page_address, g_flash_data.page, FLASH_PAGE_SIZE);
+}
+
+static void	badge_unknown_user(u8 *id, u8 checksum)
+{
+	s16	index_position;
+	u32	data_user_page_address;
+	u8	user_data_position;
+
+	if ((index_position = get_first_free_space(checksum)) < 0)
+	{
+		display_printstr("No enough memory");
+		msleep(2000);
+		display_clear();
+		return ;
+	}
+	id_cpy(g_flash_index.index.user[index_position].id, id);
+	g_flash_index.index.user[index_position].inactive = 0;
+	flash_put_multibytes(g_flash_index.index.page_number * FLASH_PAGE_SIZE, g_flash_index.page, FLASH_PAGE_SIZE);
+	data_user_page_address = get_user_data_page_address(g_flash_index.index.page_number, index_position);
+	user_data_position = get_user_data_position(g_flash_index.index.page_number, index_position);
+	get_data_page(data_user_page_address);
+	init_user_data(&(g_flash_data.data.user[user_data_position]));
+	g_flash_data.data.user[user_data_position].timestamp = get_timestamp();
+	flash_put_multibytes(data_user_page_address, g_flash_data.page, FLASH_PAGE_SIZE);
+	display_printstr("Bienvenue exInconnu");
+}
+
 void	start_badge(void)
 {
 	u8	id[5];
 	s16	index_position;
-	u32	data_user_page_address;
-	u8	user_data_position;
 	u8	checksum;
 
 	if (!(checksum = checksum_is_ok()))
@@ -88,45 +136,11 @@ void	start_badge(void)
 		return ;
 	}
 	display_clear();
-	display_printstr("Badge OK");
 	convert_format_id(id, g_wiegand_buf.buffer);
 	if ((index_position = get_index_position_user(id, checksum)) >= 0)
-	{
-		data_user_page_address = get_user_data_page_address(g_flash_index.index.page_number, index_position);
-		user_data_position = get_user_data_position(g_flash_index.index.page_number, index_position);
-		display_printstr(",Known bagdePage ");
-		putnbr(g_flash_index.index.page_number);
-		display_printstr(", user ");
-		putnbr(index_position);
-		display_printstr(", page_address ");
-		putnbr(data_user_page_address);
-		display_printstr(", user_position ");
-		putnbr(user_data_position);
-	}
+		badge_known_user(index_position);
 	else
-	{
-		if ((index_position = get_first_free_space(checksum)) < 0)
-		{
-			display_printstr("No enough memory");
-			msleep(2000);
-			display_clear();
-			return ;
-		}
-		data_user_page_address = get_user_data_page_address(g_flash_index.index.page_number, index_position);
-		user_data_position = get_user_data_position(g_flash_index.index.page_number, index_position);
-		id_cpy(g_flash_index.index.user[index_position].id, id);
-		g_flash_index.index.user[index_position].inactive = 0;
-		flash_put_multibytes(g_flash_index.index.page_number * FLASH_PAGE_SIZE, g_flash_index.page, FLASH_PAGE_SIZE);
-		display_printstr("            Unknown badge.      Registered page");
-		putnbr(g_flash_index.index.page_number);
-		display_printstr(", user ");
-		putnbr(index_position);
-		display_printstr(", data_position ");
-		putnbr(data_user_page_address);
-	}
+		badge_unknown_user(id, checksum);
 	msleep(5000);
 	display_clear();
-
-	/*if (get_user_position() == -1)
-		create_user();*/
 }

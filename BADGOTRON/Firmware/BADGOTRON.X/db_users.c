@@ -107,23 +107,40 @@ u8	get_user_data_position(u8 page_number, s16 index_position)
 	return (user_number % FLASH_DATA_USER_PER_PAGE);
 }
 
-void	db_adduser(u8 *id)
+void		get_data_page(u32 addr)
 {
-	u8	page = -1;
-	u8	user;
+	u32 i;
 
-	/*while (++page < 47)
-	{
-		user = -1;
-		while (++user < 682)
-		{
-			if (is_id_null(g_db_index[user].id))
-			{
-				id_cpy(g_db_index[user].id, id);
-				g_db_index[user].active = 1;
-				return ;
-			}
-		}
-	}*/
+	i = 0;
+	g_flash_data.page[0] = flash_get_byte_init(addr);
+	while (++i < FLASH_PAGE_SIZE)
+		g_flash_data.page[i] = flash_get_byte_next();
+	flash_get_byte_end();
 }
 
+void	init_user_data(t_data_user *data)
+{
+	u8	i;
+
+	data->current_day = 0;
+	data->current_month = 0;
+	data->current_trimester = 0;
+	data->current_week = 0;
+	data->last_day = 0;
+	data->last_month = 0;
+	data->last_trimester = 0;
+	data->last_week = 0;
+	i = -1;
+	while (++i < 7)
+		data->sliding_days[i] = 0;
+	data->timestamp = 0;
+}
+
+void	db_update_user_out_time(t_data_user *data)
+{
+	data->current_day += (get_timestamp() - data->timestamp) / 60;
+	data->current_month += (get_timestamp() - data->timestamp) / 60;
+	data->current_trimester += (get_timestamp() - data->timestamp) / 60;
+	data->current_week += (get_timestamp() - data->timestamp) / 60;
+	data->timestamp = 0;
+}

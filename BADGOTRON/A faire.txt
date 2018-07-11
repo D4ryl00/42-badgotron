@@ -1,0 +1,19 @@
+DB:
+- Stocker dans les 7 jours glissants à minuit
+
+RTC:
+- Gérer les alarmes de fin de jour/semaine/mois/trimestre.
+
+Général:
+- Mettre un mode de maintenance bloquant pour les alarmes de la RTC;
+- Gérer le powersave grâce au voltage monitor.
+- Gérer l'historique avec l'appui sur le bouton.
+
+Vu-mètre:
+- Faire la fonction qui calcule le % de rotation en fonction des heures en jour glissants.
+
+Display:
+- Faire un truc beau pour l'affichage
+
+Boitier:
+- Tout
