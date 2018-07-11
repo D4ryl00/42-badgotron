@@ -66,7 +66,7 @@ typedef struct	__attribute__((packed))			s_index_user
 typedef struct	__attribute__((packed))			s_page_index
 {
 	t_index_user	user[FLASH_INDEX_USER_PER_PAGE];
-	u16		page_number;
+	u8				page_number;
 }												t_page_index;
 
 
@@ -75,7 +75,6 @@ typedef struct	__attribute__((packed))			s_page_index
 */
 typedef struct	__attribute__((packed))			s_data_user
 {
-//u32	id;
 	u32	timestamp;
 	u16	current_day;
 	u16	current_week;
@@ -91,7 +90,7 @@ typedef struct	__attribute__((packed))			s_data_user
 typedef struct	__attribute__((packed))			s_page_data
 {
 	t_data_user		user[FLASH_DATA_USER_PER_PAGE]; // 120 * 34o = 4080o
-	u16			page_number;
+	u8				page_number;
 }												t_page_data;
 
 /*

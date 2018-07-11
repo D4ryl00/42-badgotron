@@ -123,6 +123,8 @@ void	rtc_set_time(void)
 	write_byte(0x02, g_rtc_time.minutes);
 	// seconds
 	write_byte(0x01, 0x80 | g_rtc_time.seconds);
+	// DST value (Summer time)
+	write_byte(0x20, g_rtc_time.dst);
 }
 
 u8  rtc_get_id(void)
@@ -162,6 +164,7 @@ void	rtc_update_time(void)
 	g_rtc_time.minutes = read_byte(0x02);
 	g_rtc_time.seconds = read_byte(0x01) & 0x7f;
 	g_rtc_time.day = read_byte(0x04) & 0x07;
+	g_rtc_time.dst = read_byte(0x20);
 }
 
 u8	rtc_oscillator_status(void)

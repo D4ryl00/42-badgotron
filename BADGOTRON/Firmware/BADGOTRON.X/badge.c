@@ -74,35 +74,55 @@ static void	convert_format_id(u8 *dest, u8 *src)
 void	start_badge(void)
 {
 	u8	id[5];
-	s16	position;
+	s16	index_position;
+	u32	data_user_page_address;
+	u8	user_data_position;
 	u8	checksum;
 
 	if (!(checksum = checksum_is_ok()))
 	{
 		display_clear();
-		display_printstr("Erreur de lecture du badge");
+		display_printstr("Badge reading error!");
 		msleep(2000);
 		display_clear();
 		return ;
 	}
 	display_clear();
-	display_printstr("Lecture du badge OK");
+	display_printstr("Badge OK");
 	convert_format_id(id, g_wiegand_buf.buffer);
-	if ((position = get_index_position_user(id, checksum)) >= 0)
+	if ((index_position = get_index_position_user(id, checksum)) >= 0)
 	{
-		display_clear();
-		display_printstr("Badge connu  page ");
+		data_user_page_address = get_user_data_page_address(g_flash_index.index.page_number, index_position);
+		user_data_position = get_user_data_position(g_flash_index.index.page_number, index_position);
+		display_printstr(",Known bagdePage ");
 		putnbr(g_flash_index.index.page_number);
-		display_printstr("   User ");
-		putnbr(position);
+		display_printstr(", user ");
+		putnbr(index_position);
+		display_printstr(", page_address ");
+		putnbr(data_user_page_address);
+		display_printstr(", user_position ");
+		putnbr(user_data_position);
 	}
 	else
 	{
-		position = get_first_free_space(checksum);
-		display_printstr("Badge inconnu");
-		id_cpy(g_flash_index.index.user[position].id, id);
-		g_flash_index.index.user[position].inactive = 0;
-		flash_put_multibytes(g_flash_index.index.page_number * 4096, g_flash_index.page, 4096);
+		if ((index_position = get_first_free_space(checksum)) < 0)
+		{
+			display_printstr("No enough memory");
+			msleep(2000);
+			display_clear();
+			return ;
+		}
+		data_user_page_address = get_user_data_page_address(g_flash_index.index.page_number, index_position);
+		user_data_position = get_user_data_position(g_flash_index.index.page_number, index_position);
+		id_cpy(g_flash_index.index.user[index_position].id, id);
+		g_flash_index.index.user[index_position].inactive = 0;
+		flash_put_multibytes(g_flash_index.index.page_number * FLASH_PAGE_SIZE, g_flash_index.page, FLASH_PAGE_SIZE);
+		display_printstr("            Unknown badge.      Registered page");
+		putnbr(g_flash_index.index.page_number);
+		display_printstr(", user ");
+		putnbr(index_position);
+		display_printstr(", data_position ");
+		putnbr(data_user_page_address);
 	}
 	msleep(5000);
 	display_clear();
