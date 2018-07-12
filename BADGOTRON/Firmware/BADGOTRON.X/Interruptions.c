@@ -1,9 +1,7 @@
 #include "badgotron.h"
 
-void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7) Int_Badge(void) // Routine interruptions CN generale ( il convient apres de tester laquelle des pins a genere le flag
+static void	interrupt_badge(void)
 {
-	// ICI IL FAUDRA RETURN() SI INDEX == 44 (à savoir que le buffer n'est pas encore traite), et mettre la LED lecteur ROUGE
-	__builtin_disable_interrupts();
 	init_wiegand_timer();
 	while (g_wiegand_buf.index != 44)
 	{
@@ -11,7 +9,6 @@ void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7) Int_Badge(void) // Routine interruptions
 		{
 			stop_wiegand_timer();
 			g_wiegand_buf.index = 0;
-			IFS1bits.CNIF = 0;
 			msleep(500);
 			return ;
 		}
@@ -22,20 +19,56 @@ void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7) Int_Badge(void) // Routine interruptions
 			g_wiegand_buf.buffer[g_wiegand_buf.index++] = 1;
 		while ((IFS0bits.T3IF == 0) && !WIEGAND_DATA0_DATA || !WIEGAND_DATA1_DATA);
 	}
-		if (g_wiegand_buf.index == 44 && WIEGAND_DATA0_DATA && WIEGAND_DATA1_DATA)
+	if (g_wiegand_buf.index == 44 && WIEGAND_DATA0_DATA && WIEGAND_DATA1_DATA)
+	{
+		u8	i = 0;
+		while (i < 44)
 		{
-			u8	i = 0;
-			while (i < 44)
-			{
-				u8	j = -1;
-				u8	digit = 0;
-				while (++j < 4)
-					digit |= g_wiegand_buf.buffer[i++] << (3 - j);
-					display_printchar("0123456789ABCDEF"[digit]);
-			}
-			g_wiegand_buf.index = 0;
-			start_badge();
+			u8	j = -1;
+			u8	digit = 0;
+			while (++j < 4)
+				digit |= g_wiegand_buf.buffer[i++] << (3 - j);
+				display_printchar("0123456789ABCDEF"[digit]);
 		}
+		g_wiegand_buf.index = 0;
+		start_badge();
+	}
+}
+
+static void	interrupt_rtc(void)
+{
+	rtc_update_time();
+	display_clear();
+	display_printstr("Alarm ok, ");
+	if (!g_rtc_time.seconds && !g_rtc_time.minutes && !g_rtc_time.hour
+			&& g_rtc_time.date == 0x01 && ((g_rtc_time.month == 0x01)
+			|| (g_rtc_time.month == 0x04) || (g_rtc_time.month == 0x07)
+			|| (g_rtc_time.month == 0x10)))
+		display_printstr("start of trimester");
+	else if (!g_rtc_time.seconds && !g_rtc_time.minutes && !g_rtc_time.hour
+			&& g_rtc_time.date == 0x01)
+		display_printstr("start of month");
+	else if (!g_rtc_time.seconds && !g_rtc_time.minutes && !g_rtc_time.hour
+			&& g_rtc_time.day == 0x01)
+		display_printstr("start of week");
+	else if (!g_rtc_time.seconds && !g_rtc_time.minutes && !g_rtc_time.hour)
+	{
+		display_printstr("start of day");
+	}
+	print_time();
+	msleep(10000);
+	display_clear();
+	// Disable RTC flag
+	rtc_disable_alarm_flag();
+}
+
+void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7) Int_Badge(void) // Routine interruptions CN generale ( il convient apres de tester laquelle des pins a genere le flag
+{
+	__builtin_disable_interrupts();
+	if (!WIEGAND_DATA0_DATA || !WIEGAND_DATA1_DATA)
+		interrupt_badge();
+	else if (!RTC_PIN_MFP_READ)
+		interrupt_rtc();
 	IFS1bits.CNIF = 0;
 	__builtin_enable_interrupts();
 }

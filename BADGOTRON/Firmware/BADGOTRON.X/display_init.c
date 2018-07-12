@@ -12,26 +12,26 @@ void    set_mode_data_pins(u8 mode)
 	DB7_MODE = mode;
 }
 
-//void    set_data_pins(u8 data)
-//{
-//	union u_u8 value;
-//
-//	value.allBits = data;
-//	DB0_WRITE = value.bit0;
-//	DB1_WRITE = value.bit1;
-//	DB2_WRITE = value.bit2;
-//	DB3_WRITE = value.bit3;
-//	DB4_WRITE = value.bit4;
-//	DB5_WRITE = value.bit5;
-//	DB6_WRITE = value.bit6;
-//	DB7_WRITE = value.bit7;
-//}
-
 void    set_data_pins(u8 data)
+{
+	union u_u8 value;
+
+	value.allBits = data;
+	DB0_WRITE = value.bit0;
+	DB1_WRITE = value.bit1;
+	DB2_WRITE = value.bit2;
+	DB3_WRITE = value.bit3;
+	DB4_WRITE = value.bit4;
+	DB5_WRITE = value.bit5;
+	DB6_WRITE = value.bit6;
+	DB7_WRITE = value.bit7;
+}
+
+/*void    set_data_pins(u8 data)
 {
 	LATDCLR = 0b11111111;
 	LATDSET = data;
-}
+}*/
 
 //void	write_init_command(u8 d)
 //{
@@ -151,19 +151,5 @@ void    display_init(void)
 	msleep(1);
 	write_command(0x0c); // Display on, cursor on
 	msleep(1);
-	//init end
-
-	// test put A
-	//u8 str[] = "Salut Gregoire, ce projet est trop cool mais c'est un peu compliqu";
-        /*if (str)
-        {
-            int i = 0;
-            while (str[i])
-            {
-                display_printchar(str[i++]);
-            }
-            display_printchar(0xfc);
-            msleep(50);
-        }*/
 }
 

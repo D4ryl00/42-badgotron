@@ -9,13 +9,13 @@ void	init_wiegand(void)
 	// Init buffer
 	g_wiegand_buf.index = 0;
 	__builtin_disable_interrupts(); // Desativer les interrupts partout
-	AD1PCFGbits.PCFG4 = 1; //Force la pin en mode digital (car elle est AN aussi la salope
-	AD1PCFGbits.PCFG5 = 1; // idem
+	WIEGAND_DATA0_DIGITAL = 1; //Force la pin en mode digital (car elle est AN aussi la salope
+	WIEGAND_DATA1_DIGITAL = 1; // idem
 
 	WIEGAND_DATA0_MODE = PIN_MODE_INPUT;
 	WIEGAND_DATA1_MODE = PIN_MODE_INPUT;
-	CNENbits.CNEN6 = 1; //Enable CN6 (cf datasheet CN6 = RB4)
-	CNENbits.CNEN7 = 1;
+	WIEGAND_DATA0_CN = 1; //Enable CN6 (cf datasheet CN6 = RB4)
+	WIEGAND_DATA1_CN = 1;
 	CNCONbits.ON = 1; //Enable CON (CN interrupts)
 
 	////CNPUEbits.CNPUE7 = 1; -> pull up DESACTIVE

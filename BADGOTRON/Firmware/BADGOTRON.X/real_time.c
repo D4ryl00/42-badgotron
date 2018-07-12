@@ -2,13 +2,14 @@
 
 void	conv_rasp_time(void)
 {
-	/*g_rtc_time.seconds = 0x50;
+	/*g_rtc_time.seconds = 0x45;
 	g_rtc_time.minutes = 0x59;
 	g_rtc_time.hour = 0x23;
-	g_rtc_time.day = 0x07;
-	g_rtc_time.date = 0x10;
-	g_rtc_time.month = 0x06;
-	g_rtc_time.year = 0x18;*/
+	g_rtc_time.day = 0x04;
+	g_rtc_time.date = 0x12;
+	g_rtc_time.month = 0x07;
+	g_rtc_time.year = 0x18;
+	g_rtc_time.dst = 1;*/
 	// seconds
 	g_rtc_time.seconds = 0;
 	while (g_uart_rx_buf.index < 2)

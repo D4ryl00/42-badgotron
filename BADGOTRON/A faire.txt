@@ -15,5 +15,8 @@ Vu-mètre:
 Display:
 - Faire un truc beau pour l'affichage
 
+Badge:
+- Mettre la LED en rouge quand occupé (badge en cours ou mise à jour donc ne peut pas badger).
+
 Boitier:
 - Tout

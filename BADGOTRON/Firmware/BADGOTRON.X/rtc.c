@@ -176,15 +176,44 @@ u8	rtc_oscillator_status(void)
 
 void init_rtc(void)
 {
+	u8	tmp;
+
+	// Init pin for alarms
+	__builtin_disable_interrupts(); // Desativer les interrupts partout
+	RTC_PIN_MFP_DIGITAL = 1; // Enable digital mode because this PIN is also analog
+	RTC_PIN_MFP_MODE = PIN_MODE_INPUT;
+	RTC_PIN_MFP_CN = 1;
+	RTC_PIN_MFP_PULLUP = 1;
+	CNCONbits.ON = 1; //Enable CON (CN interrupts)
+	// READ PORT BIT FOR CLEARING IT
+	tmp = RTC_PIN_MFP_READ;
+	// INTERRUPT
+	IPC6bits.CNIP = 7;
+	IPC6bits.CNIS = 3;
+	IFS1bits.CNIF = 0;
+	IEC1bits.CNIE = 1;
+	__builtin_enable_interrupts();
+	// Set alarms
+	write_byte(0x0e, 0x00);
+	// Set day and alarm match
+	write_byte(0x0f, 0x20);
+	// End of init alarms
 	// Configuration bits
-	write_byte(0x08, 0x00);
+	write_byte(0x08, 0x10);
 	// Calibration
 	write_byte(0x09, 0x00);
-
 	if (!is_on_time())
 	{
 		conv_rasp_time();
 		rtc_set_time();
 		g_set_time = 1;
 	}
+}
+
+void	rtc_disable_alarm_flag(void)
+{
+	u8	config;
+
+	config = read_byte(0x0f) & (~0x08);
+	write_byte(0x0f, config);
 }

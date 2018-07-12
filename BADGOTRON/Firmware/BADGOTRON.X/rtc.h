@@ -22,6 +22,12 @@ extern "C" {
 #define RTC_READ 0x13
 #define RTC_SRWRITE 0x01
 
+#define RTC_PIN_MFP_MODE TRISBbits.TRISB3
+#define RTC_PIN_MFP_READ PORTBbits.RB3
+#define RTC_PIN_MFP_DIGITAL AD1PCFGbits.PCFG3
+#define RTC_PIN_MFP_CN CNENbits.CNEN5
+#define RTC_PIN_MFP_PULLUP CNPUEbits.CNPUE5
+
 t_rtc_time g_rtc_time;
 
 u8		rtc_get_status_register(void);
