@@ -30,10 +30,11 @@ extern "C" {
 /*SERVO*/
 #include "servo_pin_select.h"
 
-extern u8 g_set_time;
-extern t_flash_page	g_flash_index;
-extern t_flash_page	g_flash_data;
+extern u8				g_set_time;
+extern t_flash_page		g_flash_index;
+extern t_flash_page		g_flash_data;
 extern t_wiegand_buf	g_wiegand_buf;
+extern u8				g_badger_mode;
 
 #ifdef	__cplusplus
 }

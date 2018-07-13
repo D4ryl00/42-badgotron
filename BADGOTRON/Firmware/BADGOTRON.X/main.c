@@ -6,9 +6,12 @@
  */
 
 #include "badgotron.h"
-u8	g_set_time;
+u8				g_set_time;
 t_flash_page	g_flash_index;
 t_flash_page	g_flash_data;
+// badge_mode drop the day timestamp at midnight if the user is not logged out
+// like the current badger.
+u8				g_badger_mode = 1;
 
 void    print_uartbuffer(void)
 {

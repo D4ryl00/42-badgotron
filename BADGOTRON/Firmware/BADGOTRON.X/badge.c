@@ -80,7 +80,7 @@ static void	badge_known_user(s16 index_position)
 	flash_put_multibytes(g_flash_index.index.page_number * FLASH_PAGE_SIZE, g_flash_index.page, FLASH_PAGE_SIZE);
 	data_user_page_address = get_user_data_page_address(g_flash_index.index.page_number, index_position);
 	user_data_position = get_user_data_position(g_flash_index.index.page_number, index_position);
-	get_data_page(data_user_page_address);
+	db_get_data_page(data_user_page_address);
 	if (!g_flash_data.data.user[user_data_position].timestamp)
 		{
 			g_flash_data.data.user[user_data_position].timestamp = get_timestamp();
@@ -114,7 +114,7 @@ static void	badge_unknown_user(u8 *id, u8 checksum)
 	flash_put_multibytes(g_flash_index.index.page_number * FLASH_PAGE_SIZE, g_flash_index.page, FLASH_PAGE_SIZE);
 	data_user_page_address = get_user_data_page_address(g_flash_index.index.page_number, index_position);
 	user_data_position = get_user_data_position(g_flash_index.index.page_number, index_position);
-	get_data_page(data_user_page_address);
+	db_get_data_page(data_user_page_address);
 	init_user_data(&(g_flash_data.data.user[user_data_position]));
 	g_flash_data.data.user[user_data_position].timestamp = get_timestamp();
 	flash_put_multibytes(data_user_page_address, g_flash_data.page, FLASH_PAGE_SIZE);
