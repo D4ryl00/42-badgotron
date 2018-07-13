@@ -78,8 +78,8 @@ static void	badge_known_user(s16 index_position)
 
 	g_flash_index.index.user[index_position].inactive = 0;
 	flash_put_multibytes(g_flash_index.index.page_number * FLASH_PAGE_SIZE, g_flash_index.page, FLASH_PAGE_SIZE);
-	data_user_page_address = get_user_data_page_address(g_flash_index.index.page_number, index_position);
-	user_data_position = get_user_data_position(g_flash_index.index.page_number, index_position);
+	data_user_page_address = db_get_user_data_page_address(g_flash_index.index.page_number, index_position);
+	user_data_position = db_get_user_data_position(g_flash_index.index.page_number, index_position);
 	db_get_data_page(data_user_page_address);
 	if (!g_flash_data.data.user[user_data_position].timestamp)
 		{
@@ -88,10 +88,12 @@ static void	badge_known_user(s16 index_position)
 		}
 	else
 	{
+		display_printstr("Au revoir Jennifer  ");
+		putnbr((get_timestamp() - g_flash_data.data.user[user_data_position].timestamp) / 60);
+		display_printstr(" mn.");
 		db_update_user_out_time(&(g_flash_data.data.user[user_data_position]));
-		display_printstr("Good bye Jennifer : ");
 		putnbr(g_flash_data.data.user[user_data_position].current_day);
-		display_printstr("mn.");
+		display_printstr("mn aujourd'hui.");
 	}
 	flash_put_multibytes(data_user_page_address, g_flash_data.page, FLASH_PAGE_SIZE);
 }
@@ -112,8 +114,8 @@ static void	badge_unknown_user(u8 *id, u8 checksum)
 	id_cpy(g_flash_index.index.user[index_position].id, id);
 	g_flash_index.index.user[index_position].inactive = 0;
 	flash_put_multibytes(g_flash_index.index.page_number * FLASH_PAGE_SIZE, g_flash_index.page, FLASH_PAGE_SIZE);
-	data_user_page_address = get_user_data_page_address(g_flash_index.index.page_number, index_position);
-	user_data_position = get_user_data_position(g_flash_index.index.page_number, index_position);
+	data_user_page_address = db_get_user_data_page_address(g_flash_index.index.page_number, index_position);
+	user_data_position = db_get_user_data_position(g_flash_index.index.page_number, index_position);
 	db_get_data_page(data_user_page_address);
 	init_user_data(&(g_flash_data.data.user[user_data_position]));
 	g_flash_data.data.user[user_data_position].timestamp = get_timestamp();

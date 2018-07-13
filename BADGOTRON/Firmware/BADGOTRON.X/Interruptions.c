@@ -54,6 +54,7 @@ static void	interrupt_rtc(void)
 	else if (!g_rtc_time.seconds && !g_rtc_time.minutes && !g_rtc_time.hour)
 	{
 		display_printstr("start of day");
+		db_foreach(&daily_task);
 	}
 	print_time();
 	msleep(10000);

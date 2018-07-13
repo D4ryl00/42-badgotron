@@ -17,6 +17,8 @@ void    msleep(u32 time);
 void    clock_sleep(u32 time);
 void	print_bin(u8 byte);
 
+u8		daily_task(t_data_user *data);
+
 #ifdef	__cplusplus
 }
 #endif

@@ -87,17 +87,22 @@ s16		get_index_position_user(u8 *id, u8 checksum)
 	return (-1);
 }
 
-u32	get_user_data_page_address(u8 page_number, s16 index_position)
+u8	db_get_user_data_page_position(u8 page_number, s16 index_position)
 {
 	u16	user_number;
 	u16	users_prev_pages;
 
 	users_prev_pages = page_number * FLASH_INDEX_USER_PER_PAGE;
 	user_number = users_prev_pages + index_position;
-	return ((user_number / FLASH_DATA_USER_PER_PAGE + FLASH_INDEX_PAGE_NBR) * FLASH_PAGE_SIZE);
+	return (user_number / FLASH_DATA_USER_PER_PAGE + FLASH_INDEX_PAGE_NBR);
 }
 
-u8	get_user_data_position(u8 page_number, s16 index_position)
+u32	db_get_user_data_page_address(u8 page_number, s16 index_position)
+{
+	return (db_get_user_data_page_position(page_number, index_position) * FLASH_PAGE_SIZE);
+}
+
+u8	db_get_user_data_position(u8 page_number, s16 index_position)
 {
 	u16	user_number;
 	u16	users_prev_pages;
@@ -158,26 +163,17 @@ void	db_update_user_out_time(t_data_user *data)
 	data->timestamp = 0;
 }
 
-u8	db_get_user_data_page_position(u16 user_index, u8 page_index)
-{
-	return ((page_index * FLASH_INDEX_USER_PER_PAGE + user_index)
-			/ FLASH_DATA_USER_PER_PAGE);
-}
-
-u8	db_get_user_data_position(u16 user_index, u8 page_index)
-{
-	return ((page_index * FLASH_INDEX_USER_PER_PAGE + user_index)
-			% FLASH_DATA_USER_PER_PAGE);
-}
-
-void	db_foreach(void (*f)(t_data_user *))
+void	db_foreach(u8 (*f)(t_data_user *))
 {
 	u8	i;
 	u16	j;
 	u8	data_page;
+	u32	data_page_address;
 	u8	data_position;
+	u8	is_modified;
 
 	i = -1;
+	is_modified = 0;
 	while (++i < FLASH_INDEX_PAGE_NBR)
 	{
 		db_get_index_page(i * FLASH_PAGE_SIZE);
@@ -186,12 +182,20 @@ void	db_foreach(void (*f)(t_data_user *))
 		{
 			if (!g_flash_index.index.user[j].inactive)
 			{
-				data_page = db_get_user_data_page_position(j, g_flash_index.index.page_number);
+				data_page = db_get_user_data_page_position(g_flash_index.index.page_number, j);
+				data_page_address = db_get_user_data_page_address(g_flash_index.index.page_number, j);
 				if (g_flash_data.data.page_number != data_page)
-					db_get_data_page(data_page * FLASH_PAGE_SIZE);
-				data_position = db_get_user_data_position(j, g_flash_index.index.page_number);
-				f(&(g_flash_data.data.user[data_position]));
+				{
+					if (is_modified)
+						flash_put_multibytes((g_flash_data.data.page_number	* FLASH_PAGE_SIZE)
+								, g_flash_data.page, FLASH_PAGE_SIZE);
+					db_get_data_page(data_page_address);
+				}
+				data_position = db_get_user_data_position(g_flash_index.index.page_number, j);
+				is_modified |= f(&(g_flash_data.data.user[data_position]));
 			}
 		}
 	}
+	if (is_modified)
+		flash_put_multibytes(data_page_address, g_flash_data.page, FLASH_PAGE_SIZE);
 }

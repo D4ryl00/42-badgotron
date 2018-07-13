@@ -202,7 +202,7 @@ void init_rtc(void)
 	write_byte(0x08, 0x10);
 	// Calibration
 	write_byte(0x09, 0x00);
-	if (!is_on_time())
+	if (is_on_time())
 	{
 		conv_rasp_time();
 		rtc_set_time();
