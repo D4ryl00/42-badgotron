@@ -174,7 +174,7 @@ u8	rtc_oscillator_status(void)
 	//return (read_byte(0x01) & 0x80);
 }
 
-void init_rtc(void)
+void init_rtc(u8 test)
 {
 	u8	tmp;
 
@@ -202,7 +202,7 @@ void init_rtc(void)
 	write_byte(0x08, 0x10);
 	// Calibration
 	write_byte(0x09, 0x00);
-	if (is_on_time())
+	if (!is_on_time() || test)
 	{
 		conv_rasp_time();
 		rtc_set_time();

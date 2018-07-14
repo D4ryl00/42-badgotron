@@ -32,7 +32,7 @@ t_rtc_time g_rtc_time;
 
 u8		rtc_get_status_register(void);
 u8		rtc_eeread(u8 addr);
-void	init_rtc(void);
+void	init_rtc(u8 test);
 void	rtc_update_time(void);
 u8		rtc_oscillator_status(void);
 

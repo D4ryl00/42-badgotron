@@ -156,11 +156,14 @@ void	init_user_data(t_data_user *data)
 
 void	db_update_user_out_time(t_data_user *data)
 {
-	data->current_day += (get_timestamp() - data->timestamp) / 60;
-	data->current_month += (get_timestamp() - data->timestamp) / 60;
-	data->current_trimester += (get_timestamp() - data->timestamp) / 60;
-	data->current_week += (get_timestamp() - data->timestamp) / 60;
+	u16	minutes;
+
+	minutes = (get_timestamp() - data->timestamp) / 60;
 	data->timestamp = 0;
+	data->current_day += minutes;
+	data->current_month += minutes;
+	data->current_week += minutes;
+	data->current_trimester += minutes;
 }
 
 void	db_foreach(u8 (*f)(t_data_user *))

@@ -91,7 +91,7 @@ int main(int argc, char** argv)
 	//rtc_eewrite(0x00, 'U');
 	//rtc_srwrite(0);
 	g_set_time = 0;
-	init_rtc();
+	init_rtc(1);
 	init_wiegand();
 	/*while (i < 4096)
 	{

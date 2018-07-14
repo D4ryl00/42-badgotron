@@ -44,13 +44,22 @@ static void	interrupt_rtc(void)
 			&& g_rtc_time.date == 0x01 && ((g_rtc_time.month == 0x01)
 			|| (g_rtc_time.month == 0x04) || (g_rtc_time.month == 0x07)
 			|| (g_rtc_time.month == 0x10)))
+	{
 		display_printstr("start of trimester");
+		db_foreach(&trimesterly_task);
+	}
 	else if (!g_rtc_time.seconds && !g_rtc_time.minutes && !g_rtc_time.hour
 			&& g_rtc_time.date == 0x01)
+	{
 		display_printstr("start of month");
+		db_foreach(&monthly_task);
+	}
 	else if (!g_rtc_time.seconds && !g_rtc_time.minutes && !g_rtc_time.hour
 			&& g_rtc_time.day == 0x01)
+	{
 		display_printstr("start of week");
+		db_foreach(&weekly_task);
+	}
 	else if (!g_rtc_time.seconds && !g_rtc_time.minutes && !g_rtc_time.hour)
 	{
 		display_printstr("start of day");
@@ -63,7 +72,7 @@ static void	interrupt_rtc(void)
 	rtc_disable_alarm_flag();
 }
 
-void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7) Int_Badge(void) // Routine interruptions CN generale ( il convient apres de tester laquelle des pins a genere le flag
+void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7AUTO) Int_Badge(void) // Routine interruptions CN generale ( il convient apres de tester laquelle des pins a genere le flag
 {
 	__builtin_disable_interrupts();
 	if (!WIEGAND_DATA0_DATA || !WIEGAND_DATA1_DATA)
@@ -74,7 +83,7 @@ void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7) Int_Badge(void) // Routine interruptions
 	__builtin_enable_interrupts();
 }
 
-void	__ISR(_UART_1_VECTOR, IPL7) Int_UART1_RX(void)
+void	__ISR(_UART_1_VECTOR, IPL7AUTO) Int_UART1_RX(void)
 {
 	uart_getstr();
 	IFS0bits.U1RXIF = 0;

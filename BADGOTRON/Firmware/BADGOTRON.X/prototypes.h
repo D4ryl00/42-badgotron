@@ -18,6 +18,9 @@ void    clock_sleep(u32 time);
 void	print_bin(u8 byte);
 
 u8		daily_task(t_data_user *data);
+u8		weekly_task(t_data_user *data);
+u8		monthly_task(t_data_user *data);
+u8		trimesterly_task(t_data_user *data);
 
 #ifdef	__cplusplus
 }

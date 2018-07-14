@@ -1,6 +1,6 @@
 #include "badgotron.h"
 
-void	__ISR(_TIMER_3_VECTOR, IPL7) Servo_PWM(void)
+void	__ISR(_TIMER_3_VECTOR, IPL7AUTO) Servo_PWM(void)
 {
 	PIN_SERVO_WRITE = 0;
 	IFS0bits.T3IF = 0;
