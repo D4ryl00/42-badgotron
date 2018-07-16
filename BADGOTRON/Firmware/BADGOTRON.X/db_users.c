@@ -164,9 +164,10 @@ void	db_update_user_out_time(t_data_user *data)
 	data->current_month += minutes;
 	data->current_week += minutes;
 	data->current_trimester += minutes;
+	data->sliding_days[0] += minutes;
 }
 
-void	db_foreach(u8 (*f)(t_data_user *))
+void	db_foreach(u8 (*f)(t_index_user *, t_data_user *, u8))
 {
 	u8	i;
 	u16	j;
@@ -195,7 +196,8 @@ void	db_foreach(u8 (*f)(t_data_user *))
 					db_get_data_page(data_page_address);
 				}
 				data_position = db_get_user_data_position(g_flash_index.index.page_number, j);
-				is_modified |= f(&(g_flash_data.data.user[data_position]));
+				f(&(g_flash_index.index.user[j]), &(g_flash_data.data.user[data_position]), 1);
+				is_modified = 1;
 			}
 		}
 	}

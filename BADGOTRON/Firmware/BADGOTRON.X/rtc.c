@@ -204,7 +204,7 @@ void init_rtc(u8 test)
 	write_byte(0x09, 0x00);
 	if (!is_on_time() || test)
 	{
-		conv_rasp_time();
+		conv_rasp_time(test);
 		rtc_set_time();
 		g_set_time = 1;
 	}

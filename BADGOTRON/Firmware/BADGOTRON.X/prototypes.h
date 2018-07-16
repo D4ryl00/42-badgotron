@@ -17,10 +17,10 @@ void    msleep(u32 time);
 void    clock_sleep(u32 time);
 void	print_bin(u8 byte);
 
-u8		daily_task(t_data_user *data);
-u8		weekly_task(t_data_user *data);
-u8		monthly_task(t_data_user *data);
-u8		trimesterly_task(t_data_user *data);
+void	daily_task(t_index_user *index, t_data_user *data, u8 is_parent);
+void	weekly_task(t_index_user *index, t_data_user *data, u8 is_parent);
+void	monthly_task(t_index_user *index, t_data_user *data, u8 is_parent);
+void	trimesterly_task(t_index_user *index, t_data_user *data, u8 is_parent);
 
 #ifdef	__cplusplus
 }

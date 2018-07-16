@@ -1,114 +1,120 @@
 #include "badgotron.h"
 
-void	conv_rasp_time(void)
+void	conv_rasp_time(u8 test)
 {
-	g_rtc_time.seconds = 0x45;
-	g_rtc_time.minutes = 0x59;
-	g_rtc_time.hour = 0x14;
-	g_rtc_time.day = 0x05;
-	g_rtc_time.date = 0x13;
-	g_rtc_time.month = 0x07;
-	g_rtc_time.year = 0x18;
-	g_rtc_time.dst = 1;
-	// seconds
-	/*g_rtc_time.seconds = 0;
-	while (g_uart_rx_buf.index < 2)
+	if (test)
 	{
-		uart_putstr("time_second?\n");
-		while (!g_uart_rx_buf.index);
-		if (g_uart_rx_buf.index < 2)
-			uart_clear_buffer();
+		g_rtc_time.seconds = 0x45;
+		g_rtc_time.minutes = 0x59;
+		g_rtc_time.hour = 0x23;
+		g_rtc_time.day = 0x05;
+		g_rtc_time.date = 0x13;
+		g_rtc_time.month = 0x07;
+		g_rtc_time.year = 0x18;
+		g_rtc_time.dst = 1;
 	}
-	g_rtc_time.seconds = g_uart_rx_buf.buffer[1] - '0';
-	g_rtc_time.seconds += (g_uart_rx_buf.buffer[0] - '0') << 4;
-	uart_clear_buffer();
+	else
+	{
+		// seconds
+		g_rtc_time.seconds = 0;
+		while (g_uart_rx_buf.index < 2)
+		{
+			uart_putstr("time_second?\n");
+			while (!g_uart_rx_buf.index);
+			if (g_uart_rx_buf.index < 2)
+				uart_clear_buffer();
+		}
+		g_rtc_time.seconds = g_uart_rx_buf.buffer[1] - '0';
+		g_rtc_time.seconds += (g_uart_rx_buf.buffer[0] - '0') << 4;
+		uart_clear_buffer();
 
-	// minutes
-	g_rtc_time.minutes = 0;
-	while (g_uart_rx_buf.index < 2)
-	{
-		uart_putstr("time_minute?\n");
-		while (!g_uart_rx_buf.index);
-		if (g_uart_rx_buf.index < 2)
-			uart_clear_buffer();
-	}
-	g_rtc_time.minutes = g_uart_rx_buf.buffer[1] - '0';
-	g_rtc_time.minutes += (g_uart_rx_buf.buffer[0] - '0') << 4;
-	uart_clear_buffer();
+		// minutes
+		g_rtc_time.minutes = 0;
+		while (g_uart_rx_buf.index < 2)
+		{
+			uart_putstr("time_minute?\n");
+			while (!g_uart_rx_buf.index);
+			if (g_uart_rx_buf.index < 2)
+				uart_clear_buffer();
+		}
+		g_rtc_time.minutes = g_uart_rx_buf.buffer[1] - '0';
+		g_rtc_time.minutes += (g_uart_rx_buf.buffer[0] - '0') << 4;
+		uart_clear_buffer();
 
-	// hours
-	g_rtc_time.hour = 0;
-	while (g_uart_rx_buf.index < 2)
-	{
-		uart_putstr("time_hour?\n");
-		while (!g_uart_rx_buf.index);
-		if (g_uart_rx_buf.index < 2)
-			uart_clear_buffer();
-	}
-	g_rtc_time.hour = g_uart_rx_buf.buffer[1] - '0';
-	g_rtc_time.hour += (g_uart_rx_buf.buffer[0] - '0') << 4;
-	uart_clear_buffer();
+		// hours
+		g_rtc_time.hour = 0;
+		while (g_uart_rx_buf.index < 2)
+		{
+			uart_putstr("time_hour?\n");
+			while (!g_uart_rx_buf.index);
+			if (g_uart_rx_buf.index < 2)
+				uart_clear_buffer();
+		}
+		g_rtc_time.hour = g_uart_rx_buf.buffer[1] - '0';
+		g_rtc_time.hour += (g_uart_rx_buf.buffer[0] - '0') << 4;
+		uart_clear_buffer();
 
-	// day
-	g_rtc_time.day = 0;
-	while (g_uart_rx_buf.index < 2)
-	{
-		uart_putstr("time_wday?\n");
-		while (!g_uart_rx_buf.index);
-		if (g_uart_rx_buf.index < 2)
-			uart_clear_buffer();
-	}
-	g_rtc_time.day = g_uart_rx_buf.buffer[1] - '0';
-	g_rtc_time.day += (g_uart_rx_buf.buffer[0] - '0') << 4;
-	uart_clear_buffer();
+		// day
+		g_rtc_time.day = 0;
+		while (g_uart_rx_buf.index < 2)
+		{
+			uart_putstr("time_wday?\n");
+			while (!g_uart_rx_buf.index);
+			if (g_uart_rx_buf.index < 2)
+				uart_clear_buffer();
+		}
+		g_rtc_time.day = g_uart_rx_buf.buffer[1] - '0';
+		g_rtc_time.day += (g_uart_rx_buf.buffer[0] - '0') << 4;
+		uart_clear_buffer();
 
-	// date
-	g_rtc_time.date = 0;
-	while (g_uart_rx_buf.index < 2)
-	{
-		uart_putstr("time_day?\n");
-		while (!g_uart_rx_buf.index);
-		if (g_uart_rx_buf.index < 2)
-			uart_clear_buffer();
-	}
-	g_rtc_time.date = g_uart_rx_buf.buffer[1] - '0';
-	g_rtc_time.date += (g_uart_rx_buf.buffer[0] - '0') << 4;
-	uart_clear_buffer();
+		// date
+		g_rtc_time.date = 0;
+		while (g_uart_rx_buf.index < 2)
+		{
+			uart_putstr("time_day?\n");
+			while (!g_uart_rx_buf.index);
+			if (g_uart_rx_buf.index < 2)
+				uart_clear_buffer();
+		}
+		g_rtc_time.date = g_uart_rx_buf.buffer[1] - '0';
+		g_rtc_time.date += (g_uart_rx_buf.buffer[0] - '0') << 4;
+		uart_clear_buffer();
 
-	// month
-	g_rtc_time.month = 0;
-	while (g_uart_rx_buf.index < 2)
-	{
-		uart_putstr("time_month?\n");
-		while (!g_uart_rx_buf.index);
-		if (g_uart_rx_buf.index < 2)
-			uart_clear_buffer();
-	}
-	g_rtc_time.month = g_uart_rx_buf.buffer[1] - '0';
-	g_rtc_time.month += (g_uart_rx_buf.buffer[0] - '0') << 4;
-	uart_clear_buffer();
+		// month
+		g_rtc_time.month = 0;
+		while (g_uart_rx_buf.index < 2)
+		{
+			uart_putstr("time_month?\n");
+			while (!g_uart_rx_buf.index);
+			if (g_uart_rx_buf.index < 2)
+				uart_clear_buffer();
+		}
+		g_rtc_time.month = g_uart_rx_buf.buffer[1] - '0';
+		g_rtc_time.month += (g_uart_rx_buf.buffer[0] - '0') << 4;
+		uart_clear_buffer();
 
-	// year
-	g_rtc_time.year = 0;
-	while (g_uart_rx_buf.index < 2)
-	{
-		uart_putstr("time_year?\n");
-		while (!g_uart_rx_buf.index);
-		if (g_uart_rx_buf.index < 2)
-			uart_clear_buffer();
-	}
-	g_rtc_time.year = g_uart_rx_buf.buffer[1] - '0';
-	g_rtc_time.year += (g_uart_rx_buf.buffer[0] - '0') << 4;
-	uart_clear_buffer();
+		// year
+		g_rtc_time.year = 0;
+		while (g_uart_rx_buf.index < 2)
+		{
+			uart_putstr("time_year?\n");
+			while (!g_uart_rx_buf.index);
+			if (g_uart_rx_buf.index < 2)
+				uart_clear_buffer();
+		}
+		g_rtc_time.year = g_uart_rx_buf.buffer[1] - '0';
+		g_rtc_time.year += (g_uart_rx_buf.buffer[0] - '0') << 4;
+		uart_clear_buffer();
 
-	while (g_uart_rx_buf.index < 2)
-	{
-		uart_putstr("time_dst?\n");
-		while (!g_uart_rx_buf.index);
-		if (g_uart_rx_buf.index < 2)
-			uart_clear_buffer();
+		while (g_uart_rx_buf.index < 2)
+		{
+			uart_putstr("time_dst?\n");
+			while (!g_uart_rx_buf.index);
+			if (g_uart_rx_buf.index < 2)
+				uart_clear_buffer();
+		}
+		g_rtc_time.dst = g_uart_rx_buf.buffer[1] - '0';
 	}
-	g_rtc_time.dst = g_uart_rx_buf.buffer[1] - '0';*/
 }
 
 void	print_time(void)

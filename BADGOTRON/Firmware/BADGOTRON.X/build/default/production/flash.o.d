@@ -10,5 +10,6 @@ spi.h  \
 flash.h  \
 rtc.h  \
 badge.h  \
+button.h  \
  display_pin_select.h  \
-servo_pin_select.h 
+servo.h 

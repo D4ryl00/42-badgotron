@@ -7,11 +7,13 @@
 
 #include "badgotron.h"
 u8				g_set_time;
+u8				g_print_time = 1;
 t_flash_page	g_flash_index;
 t_flash_page	g_flash_data;
 // badge_mode drop the day timestamp at midnight if the user is not logged out
 // like the current badger.
 u8				g_badger_mode = 1;
+u8				g_history = 0;
 
 void    print_uartbuffer(void)
 {
@@ -62,11 +64,6 @@ void	print_badge(u8 *id)
 
 int main(int argc, char** argv)
 {
-    u8	RX_UART_char;
-	u8	tmp;
-	u8	i;
-
-	i = 0;
     INTCONSET = _INTCON_MVEC_MASK;
     __builtin_enable_interrupts();
     display_init();
@@ -91,27 +88,24 @@ int main(int argc, char** argv)
 	//rtc_eewrite(0x00, 'U');
 	//rtc_srwrite(0);
 	g_set_time = 0;
-	init_rtc(1);
+	init_rtc(0);
 	init_wiegand();
-	/*while (i < 4096)
-	{
-		g_flash_index.page[i] = 0;
-		i++;
-	}*/
+	button_init();
 	msleep(5000);
     while (42)
     {
         WDTCONbits.WDTCLR = 1;
-		rtc_update_time();
-		display_returnhome();
-		print_time();
-		display_printchar('_');
-		print_bin(g_set_time);
-		display_printchar('_');
-		putnbr(get_timestamp());
-		msleep(10);
-		/*if (g_uart_rx_buf.index)
-			print_uartbuffer();*/
+		if (g_print_time)
+		{
+			rtc_update_time();
+			display_returnhome();
+			print_time();
+			display_printchar('_');
+			print_bin(g_set_time);
+			display_printchar('_');
+			putnbr(get_timestamp());
+			msleep(10);
+		}
     }
     return (EXIT_SUCCESS);
 }

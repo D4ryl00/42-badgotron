@@ -27,6 +27,9 @@
 #define FLASH_DATA_USER_SIZE 38
 #define FLASH_DATA_USER_PER_PAGE 107
 
+#define WIEGAND_TIMER_FLAG IFS0bits.T3IF
+#define HISTORY_TIMER_FLAG IFS0bits.T5IF
+
 #ifdef	__cplusplus
 }
 #endif

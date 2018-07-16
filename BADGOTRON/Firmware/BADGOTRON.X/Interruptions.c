@@ -2,83 +2,94 @@
 
 static void	interrupt_badge(void)
 {
-	init_wiegand_timer();
+	wiegand_timer_init();
 	while (g_wiegand_buf.index != 44)
 	{
-		if (IFS0bits.T3IF == 1)
+		if (WIEGAND_TIMER_FLAG == 1)
 		{
-			stop_wiegand_timer();
+			wiegand_timer_stop();
 			g_wiegand_buf.index = 0;
 			msleep(500);
 			return ;
 		}
-		while (WIEGAND_DATA0_DATA && WIEGAND_DATA1_DATA && IFS0bits.T3IF == 0);
-		if (!WIEGAND_DATA0_DATA && IFS0bits.T3IF == 0)
+		while (WIEGAND_DATA0_DATA && WIEGAND_DATA1_DATA && !WIEGAND_TIMER_FLAG);
+		if (!WIEGAND_DATA0_DATA && !WIEGAND_TIMER_FLAG)
 			g_wiegand_buf.buffer[g_wiegand_buf.index++] = 0;
 		else if (!WIEGAND_DATA1_DATA)
 			g_wiegand_buf.buffer[g_wiegand_buf.index++] = 1;
-		while ((IFS0bits.T3IF == 0) && !WIEGAND_DATA0_DATA || !WIEGAND_DATA1_DATA);
+		while (!WIEGAND_TIMER_FLAG && !WIEGAND_DATA0_DATA || !WIEGAND_DATA1_DATA);
 	}
 	if (g_wiegand_buf.index == 44 && WIEGAND_DATA0_DATA && WIEGAND_DATA1_DATA)
 	{
-		u8	i = 0;
-		while (i < 44)
-		{
-			u8	j = -1;
-			u8	digit = 0;
-			while (++j < 4)
-				digit |= g_wiegand_buf.buffer[i++] << (3 - j);
-				display_printchar("0123456789ABCDEF"[digit]);
-		}
 		g_wiegand_buf.index = 0;
-		start_badge();
+		if (g_history)
+		{
+			display_printstr("IN HISTORY");
+			msleep(2000);
+			g_history = 0;
+			g_print_time = 1;
+			display_clear();
+		}
+		else
+			start_badge();
 	}
+	wiegand_timer_stop();
 }
 
 static void	interrupt_rtc(void)
 {
 	rtc_update_time();
 	display_clear();
-	display_printstr("Alarm ok, ");
+	display_printstr("Maintenance         ");
 	if (!g_rtc_time.seconds && !g_rtc_time.minutes && !g_rtc_time.hour
 			&& g_rtc_time.date == 0x01 && ((g_rtc_time.month == 0x01)
 			|| (g_rtc_time.month == 0x04) || (g_rtc_time.month == 0x07)
 			|| (g_rtc_time.month == 0x10)))
 	{
-		display_printstr("start of trimester");
+		display_printstr("start of trimester  ");
 		db_foreach(&trimesterly_task);
 	}
 	else if (!g_rtc_time.seconds && !g_rtc_time.minutes && !g_rtc_time.hour
 			&& g_rtc_time.date == 0x01)
 	{
-		display_printstr("start of month");
+		display_printstr("start of month      ");
 		db_foreach(&monthly_task);
 	}
 	else if (!g_rtc_time.seconds && !g_rtc_time.minutes && !g_rtc_time.hour
 			&& g_rtc_time.day == 0x01)
 	{
-		display_printstr("start of week");
+		display_printstr("start of week       ");
 		db_foreach(&weekly_task);
 	}
-	else if (!g_rtc_time.seconds && !g_rtc_time.minutes && !g_rtc_time.hour)
+	else
 	{
-		display_printstr("start of day");
+		display_printstr("start of day        ");
 		db_foreach(&daily_task);
 	}
-	print_time();
-	msleep(10000);
 	display_clear();
 	// Disable RTC flag
 	rtc_disable_alarm_flag();
 }
 
-void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7AUTO) Int_Badge(void) // Routine interruptions CN generale ( il convient apres de tester laquelle des pins a genere le flag
+static void	interrupt_button(void)
+{
+	display_clear();
+	display_printstr("     Historique     ");
+	display_printstr("     badgez...      ");
+	g_history = 1;
+	g_print_time = 0;
+	history_timer_init();
+}
+
+void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7AUTO) CN_Int(void) // Routine interruptions CN generale ( il convient apres de tester laquelle des pins a genere le flag
 {
 	__builtin_disable_interrupts();
-	if (!WIEGAND_DATA0_DATA || !WIEGAND_DATA1_DATA)
-		interrupt_badge();
-	else if (!RTC_PIN_MFP_READ)
+	if (!RTC_PIN_MFP_READ)
 		interrupt_rtc();
+	else if (!BUTTON_PIN_READ)
+		interrupt_button();
+	else if (!WIEGAND_DATA0_DATA || !WIEGAND_DATA1_DATA)
+		interrupt_badge();
 	IFS1bits.CNIF = 0;
 	__builtin_enable_interrupts();
 }
@@ -87,4 +98,13 @@ void	__ISR(_UART_1_VECTOR, IPL7AUTO) Int_UART1_RX(void)
 {
 	uart_getstr();
 	IFS0bits.U1RXIF = 0;
+}
+
+void	__ISR(_TIMER_5_VECTOR, IPL6AUTO) history_timer_Int(void)
+{
+	__builtin_disable_interrupts();
+	g_history = 0;
+	g_print_time = 1;
+	IFS0bits.T5IF = 0;
+	__builtin_enable_interrupts();
 }

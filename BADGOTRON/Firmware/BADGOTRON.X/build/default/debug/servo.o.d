@@ -1,5 +1,5 @@
-build/default/production/tasks.o:  \
-tasks.c  \
+build/default/debug/servo.o:  \
+servo.c  \
 badgotron.h  \
 types.h  \
 struct.h  \
@@ -10,5 +10,6 @@ spi.h  \
 flash.h  \
 rtc.h  \
 badge.h  \
+button.h  \
  display_pin_select.h  \
-servo_pin_select.h 
+servo.h 

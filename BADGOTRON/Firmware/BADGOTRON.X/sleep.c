@@ -24,7 +24,7 @@ void    msleep(u32 time)
     }
 }
 
-void    init_wiegand_timer(void)
+void    wiegand_timer_init(void)
 {
     /* Initialize Timer3 = 1s */
     T3CONbits.ON = 0;
@@ -35,10 +35,33 @@ void    init_wiegand_timer(void)
     T3CONbits.ON = 1;
 }
 
-void    stop_wiegand_timer(void)
+void    wiegand_timer_stop(void)
 {
     T3CONbits.ON = 0;
 	IFS0bits.T3IF = 0;
+}
+
+void    history_timer_init(void)
+{
+    /* Initialize Timer4 et Timer5 in 32-bits mode */
+    T4CONbits.ON = 0;
+	T5CONbits.ON = 0;
+	T4CONbits.T32 = 1;
+	TMR4 = 0;
+    TMR5 = 0;
+    T4CONbits.TCKPS = 0x07; // div per 256
+	PR4 = 781250; /* -> 5s */
+    IFS0bits.T5IF = 0;
+	IPC5bits.T5IP = 6;
+	IPC5bits.T5IS = 0;
+	IEC0bits.T5IE = 1;
+    T4CONbits.ON = 1;
+}
+
+void    history_timer_stop(void)
+{
+    T4CONbits.ON = 0;
+	IFS0bits.T5IF = 0;
 }
 
 void    clock_sleep(u32 time)

@@ -24,17 +24,20 @@ extern "C" {
 #include "flash.h"
 #include "rtc.h"
 #include "badge.h"
+#include "button.h"
 
 /* Display */
 #include "display_pin_select.h"
 /*SERVO*/
-#include "servo_pin_select.h"
+#include "servo.h"
 
 extern u8				g_set_time;
+extern u8				g_print_time;
 extern t_flash_page		g_flash_index;
 extern t_flash_page		g_flash_data;
 extern t_wiegand_buf	g_wiegand_buf;
 extern u8				g_badger_mode;
+extern u8				g_history;
 
 #ifdef	__cplusplus
 }
