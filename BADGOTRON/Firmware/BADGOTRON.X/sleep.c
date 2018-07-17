@@ -51,7 +51,7 @@ void    history_timer_init(void)
     TMR5 = 0;
     T4CONbits.TCKPS = 0x07; // div per 256
 	PR4 = 781250; /* -> 5s */
-    IFS0bits.T5IF = 0;
+	IFS0bits.T5IF = 0;
 	IPC5bits.T5IP = 6;
 	IPC5bits.T5IS = 0;
 	IEC0bits.T5IE = 1;

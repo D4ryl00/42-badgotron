@@ -21,6 +21,7 @@ static void	interrupt_badge(void)
 	}
 	if (g_wiegand_buf.index == 44 && WIEGAND_DATA0_DATA && WIEGAND_DATA1_DATA)
 	{
+		g_print_enable = 1;
 		g_wiegand_buf.index = 0;
 		if (g_history)
 			show_history();
@@ -71,7 +72,7 @@ static void	interrupt_button(void)
 	display_printstr("     Historique     ");
 	display_printstr("     badgez...      ");
 	g_history = 1;
-	g_print_time = 0;
+	g_print_enable = 0;
 	g_button_enable = 0;
 	history_timer_init();
 }
@@ -99,7 +100,7 @@ void	__ISR(_TIMER_5_VECTOR, IPL6AUTO) history_timer_Int(void)
 {
 	__builtin_disable_interrupts();
 	g_history = 0;
-	g_print_time = 1;
+	g_print_enable = 1;
 	g_button_enable = 1;
 	IFS0bits.T5IF = 0;
 	__builtin_enable_interrupts();

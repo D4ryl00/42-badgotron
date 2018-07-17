@@ -8,7 +8,7 @@
 #include "badgotron.h"
 u8				g_set_time;
 u8				g_display_str[80] = {' '};
-u8				g_print_time = 1;
+u8				g_print_enable = 1;
 t_flash_page	g_flash_index;
 t_flash_page	g_flash_data;
 // badge_mode drop the day timestamp at midnight if the user is not logged out
@@ -103,17 +103,14 @@ int main(int argc, char** argv)
                 WDTCONbits.WDTCLR = 1;
         }
         __builtin_enable_interrupts();
-        if (g_print_time)
-        {
-            rtc_update_time();
-            display_returnhome();
-            print_time();
-            display_printchar('_');
-            print_bin(g_set_time);
-            display_printchar('_');
-            putnbr(get_timestamp());
-            msleep(10);
-        }
+		rtc_update_time();
+		display_returnhome();
+		print_time();
+		display_printchar('_');
+		print_bin(g_set_time);
+		display_printchar('_');
+		putnbr(get_timestamp());
+		msleep(10);
     }
     return (EXIT_SUCCESS);
 }

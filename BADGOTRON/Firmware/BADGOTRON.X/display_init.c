@@ -92,6 +92,8 @@ void	display_printchar(u8 d)
 {
 	u16	t;
 
+	if (g_print_enable == 0)
+		return ;
 	RS_WRITE = 1;
 	RW_WRITE = 0;
 	t = 2;

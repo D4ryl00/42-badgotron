@@ -1,5 +1,5 @@
-build/default/production/uart.o:  \
-uart.c  \
+build/default/production/nrj.o:  \
+nrj.c  \
 badgotron.h  \
 types.h  \
 struct.h  \

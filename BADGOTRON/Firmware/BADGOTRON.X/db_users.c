@@ -204,3 +204,22 @@ void	db_foreach(u8 (*f)(t_index_user *, t_data_user *, u8))
 	if (is_modified)
 		flash_put_multibytes(data_page_address, g_flash_data.page, FLASH_PAGE_SIZE);
 }
+
+t_data_user	*get_data_user(u8 *id, u8 checksum)
+{
+	s16	index_position;
+	u8	data_page;
+	u32	data_page_address;
+	u8	data_position;
+
+	if ((index_position = get_index_position_user(id, checksum)) == -1)
+		return (NULL);
+	data_page = db_get_user_data_page_position(g_flash_index.index.page_number, index_position);
+	if (g_flash_data.data.page_number != data_page)
+	{
+		data_page_address = db_get_user_data_page_address(g_flash_index.index.page_number, index_position);
+		db_get_data_page(data_page_address);
+	}
+	data_position = db_get_user_data_position(g_flash_index.index.page_number, index_position);
+	return (&(g_flash_data.data.user[data_position]));
+}

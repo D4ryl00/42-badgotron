@@ -15,7 +15,8 @@ extern "C" {
 #define NRJ_PIN_DIGITAL AD1PCFGbits.PCFG2
 #define NRJ_PIN_PULLUP CNPUEbits.CNPUE4
 #define NRJ_PIN_MODE TRISBbits.TRISB1
-#define NRJ_PIN_READ PORTBbits.RB1
+//#define NRJ_PIN_READ PORTBbits.RB1
+#define NRJ_PIN_READ 1
 
 #ifdef	__cplusplus
 }

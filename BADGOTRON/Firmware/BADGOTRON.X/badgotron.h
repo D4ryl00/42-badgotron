@@ -25,6 +25,7 @@ extern "C" {
 #include "rtc.h"
 #include "badge.h"
 #include "button.h"
+#include "NRJ.h"
 
 /* Display */
 #include "display_pin_select.h"
@@ -33,7 +34,7 @@ extern "C" {
 
 extern u8				g_set_time;
 extern u8				g_display_str[80];
-extern u8				g_print_time;
+extern u8				g_print_enable;
 extern t_flash_page		g_flash_index;
 extern t_flash_page		g_flash_data;
 extern t_wiegand_buf	g_wiegand_buf;

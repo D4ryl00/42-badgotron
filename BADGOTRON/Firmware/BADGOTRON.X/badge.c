@@ -132,7 +132,7 @@ void	start_badge(void)
 	if (!(checksum = checksum_is_ok()))
 	{
 		display_clear();
-		display_printstr("Badge reading error!");
+		display_printstr("Erreur de lecture du badge.");
 		msleep(2000);
 		display_clear();
 		return ;
@@ -149,9 +149,9 @@ void	start_badge(void)
 
 void	show_history(void)
 {
-	u8	id[5];
-	s16	index_position;
-	u8	checksum;
+	u8			id[5];
+	u8			checksum;
+	t_data_user	*data_user;
 
 	if (!(checksum = checksum_is_ok()))
 	{
@@ -163,11 +163,13 @@ void	show_history(void)
 	}
 	display_clear();
 	convert_format_id(id, g_wiegand_buf.buffer);
-	if ((index_position = get_index_position_user(id, checksum)) != -1)
-	{
-	}
-	else
+	if (!(data_user = get_data_user(id, checksum)))
 		display_printstr("ID inconnu.");
+	else
+	{
+		display_printstr("Aujourd'hui ");
+		putnbr(data_user->current_day);
+	}
 	msleep(2000);
 	display_clear();
 }
