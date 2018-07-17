@@ -23,13 +23,7 @@ static void	interrupt_badge(void)
 	{
 		g_wiegand_buf.index = 0;
 		if (g_history)
-		{
-			display_printstr("IN HISTORY");
-			msleep(2000);
-			g_history = 0;
-			g_print_time = 1;
-			display_clear();
-		}
+			show_history();
 		else
 			start_badge();
 	}
@@ -78,6 +72,7 @@ static void	interrupt_button(void)
 	display_printstr("     badgez...      ");
 	g_history = 1;
 	g_print_time = 0;
+	g_button_enable = 0;
 	history_timer_init();
 }
 
@@ -86,7 +81,7 @@ void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7AUTO) CN_Int(void) // Routine interruption
 	__builtin_disable_interrupts();
 	if (!RTC_PIN_MFP_READ)
 		interrupt_rtc();
-	else if (!BUTTON_PIN_READ)
+	else if (!BUTTON_PIN_READ && g_button_enable)
 		interrupt_button();
 	else if (!WIEGAND_DATA0_DATA || !WIEGAND_DATA1_DATA)
 		interrupt_badge();
@@ -105,6 +100,7 @@ void	__ISR(_TIMER_5_VECTOR, IPL6AUTO) history_timer_Int(void)
 	__builtin_disable_interrupts();
 	g_history = 0;
 	g_print_time = 1;
+	g_button_enable = 1;
 	IFS0bits.T5IF = 0;
 	__builtin_enable_interrupts();
 }

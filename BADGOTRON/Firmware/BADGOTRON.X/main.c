@@ -7,6 +7,7 @@
 
 #include "badgotron.h"
 u8				g_set_time;
+u8				g_display_str[80] = {' '};
 u8				g_print_time = 1;
 t_flash_page	g_flash_index;
 t_flash_page	g_flash_data;
@@ -14,6 +15,7 @@ t_flash_page	g_flash_data;
 // like the current badger.
 u8				g_badger_mode = 1;
 u8				g_history = 0;
+u8				g_button_enable = 1;
 
 void    print_uartbuffer(void)
 {
@@ -67,7 +69,6 @@ int main(int argc, char** argv)
     INTCONSET = _INTCON_MVEC_MASK;
     __builtin_enable_interrupts();
     display_init();
-    display_printstr("Display OK_");
     init_uart();
 	init_spi();
 	/*flash_set_block_protection(FLASH_BLOCK_UNPROTECTED);
@@ -91,7 +92,6 @@ int main(int argc, char** argv)
 	init_rtc(0);
 	init_wiegand();
 	button_init();
-	msleep(5000);
     while (42)
     {
         WDTCONbits.WDTCLR = 1;

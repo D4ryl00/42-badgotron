@@ -146,3 +146,28 @@ void	start_badge(void)
 	msleep(5000);
 	display_clear();
 }
+
+void	show_history(void)
+{
+	u8	id[5];
+	s16	index_position;
+	u8	checksum;
+
+	if (!(checksum = checksum_is_ok()))
+	{
+		display_clear();
+		display_printstr("Erreur de lecture du badge.");
+		msleep(2000);
+		display_clear();
+		return ;
+	}
+	display_clear();
+	convert_format_id(id, g_wiegand_buf.buffer);
+	if ((index_position = get_index_position_user(id, checksum)) != -1)
+	{
+	}
+	else
+		display_printstr("ID inconnu.");
+	msleep(2000);
+	display_clear();
+}

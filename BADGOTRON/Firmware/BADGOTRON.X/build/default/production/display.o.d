@@ -1,5 +1,5 @@
-build/default/debug/display_init.o:  \
-display_init.c  \
+build/default/production/display.o:  \
+display.c  \
 badgotron.h  \
 types.h  \
  struct.h  \

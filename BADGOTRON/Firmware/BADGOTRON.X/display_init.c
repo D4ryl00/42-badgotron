@@ -120,6 +120,25 @@ void    display_printstr(u8 str[])
 		display_printchar(str[i++]);
 }
 
+void	display_print()
+{
+	u8	i;
+
+	display_returnhome();
+	i = -1;
+	while (++i < 20)
+		display_printchar(g_display_str[i]);
+	i = -1;
+	while (++i < 20)
+		display_printchar(g_display_str[40 + i]);
+	i = -1;
+	while (++i < 20)
+		display_printchar(g_display_str[20 + i]);
+	i = -1;
+	while (++i < 20)
+		display_printchar(g_display_str[60 + i]);
+}
+
 void	display_clear(void)
 {
 	write_command(0x01); // Display clear
