@@ -92,13 +92,14 @@ int main(int argc, char** argv)
     init_rtc(0);
     init_wiegand();
     button_init();
+    NRJ_init();
     while (42)
     {
         WDTCONbits.WDTCLR = 1;
-        if (NRJ_PIN_READ)
+        if (!NRJ_PIN_READ)
         {
             __builtin_disable_interrupts();
-            while (NRJ_PIN_READ)
+            while (!NRJ_PIN_READ)
                 WDTCONbits.WDTCLR = 1;
         }
         __builtin_enable_interrupts();
