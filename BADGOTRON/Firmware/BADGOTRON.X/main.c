@@ -16,6 +16,12 @@ t_flash_page	g_flash_data;
 u8				g_badger_mode = 1;
 u8				g_history = 0;
 u8				g_button_enable = 1;
+// Button enable :
+//					set to 0 when button is pressed to avoid detecting 23190 keypresses.
+//					set to 1 during normal operation
+//					set to 2 when already displaying time information relative to the user.
+//						It then triggers page2.
+
 
 void    print_uartbuffer(void)
 {

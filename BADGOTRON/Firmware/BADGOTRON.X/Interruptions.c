@@ -24,7 +24,11 @@ static void	interrupt_badge(void)
 		g_print_enable = 1;
 		g_wiegand_buf.index = 0;
 		if (g_history)
+		{
+			IFS1bits.CNIF = 0;
+			__builtin_enable_interrupts();
 			show_history();
+		}
 		else
 			start_badge();
 	}
@@ -69,12 +73,17 @@ static void	interrupt_rtc(void)
 static void	interrupt_button(void)
 {
 	display_clear();
-	display_printstr("     Historique     ");
-	display_printstr("     badgez...      ");
-	g_history = 1;
-	g_print_enable = 0;
-	g_button_enable = 0;
-	history_timer_init();
+	if (g_button_enable == 1)
+	{
+		display_printstr("     Historique     ");
+		display_printstr("     badgez...      ");
+		g_history = 1;
+		g_print_enable = 0;
+		g_button_enable = 0;
+		history_timer_init();
+	}
+	if (g_button_enable == 2)
+		show_history_pagetwo();
 }
 
 void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7AUTO) CN_Int(void) // Routine interruptions CN generale ( il convient apres de tester laquelle des pins a genere le flag

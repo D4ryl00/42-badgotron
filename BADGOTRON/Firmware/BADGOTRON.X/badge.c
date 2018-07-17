@@ -30,7 +30,7 @@ void	init_wiegand(void)
 	__builtin_enable_interrupts();
 }
 /* tested and working */
-static u8	checksum_is_ok(void)
+u8	checksum_is_ok(void)
 {
 	u8	res;
 	u8	checksum;
@@ -58,7 +58,7 @@ static u8	checksum_is_ok(void)
 	return (0);
 }
 
-static void	convert_format_id(u8 *dest, u8 *src)
+void	convert_format_id(u8 *dest, u8 *src)
 {
 	u8	i;
 
@@ -144,32 +144,5 @@ void	start_badge(void)
 	else
 		badge_unknown_user(id, checksum);
 	msleep(5000);
-	display_clear();
-}
-
-void	show_history(void)
-{
-	u8			id[5];
-	u8			checksum;
-	t_data_user	*data_user;
-
-	if (!(checksum = checksum_is_ok()))
-	{
-		display_clear();
-		display_printstr("Erreur de lecture du badge.");
-		msleep(2000);
-		display_clear();
-		return ;
-	}
-	display_clear();
-	convert_format_id(id, g_wiegand_buf.buffer);
-	if (!(data_user = get_data_user(id, checksum)))
-		display_printstr("ID inconnu.");
-	else
-	{
-		display_printstr("Aujourd'hui ");
-		putnbr(data_user->current_day);
-	}
-	msleep(2000);
 	display_clear();
 }

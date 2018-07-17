@@ -61,6 +61,7 @@
       <itemPath>real_time.c</itemPath>
       <itemPath>db_users.c</itemPath>
       <itemPath>periodically_tasks.c</itemPath>
+      <itemPath>show_history.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

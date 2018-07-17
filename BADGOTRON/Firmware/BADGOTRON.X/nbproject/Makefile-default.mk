@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=badge.c button.c display_init.c flash.c rtc.c servo.c spi.c uart.c main.c sleep.c configbits.c Interruptions.c real_time.c db_users.c periodically_tasks.c display.c nrj.c
+SOURCEFILES_QUOTED_IF_SPACED=badge.c button.c display_init.c flash.c rtc.c servo.c spi.c uart.c main.c sleep.c configbits.c Interruptions.c real_time.c db_users.c periodically_tasks.c display.c nrj.c show_history.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/badge.o ${OBJECTDIR}/button.o ${OBJECTDIR}/display_init.o ${OBJECTDIR}/flash.o ${OBJECTDIR}/rtc.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/real_time.o ${OBJECTDIR}/db_users.o ${OBJECTDIR}/periodically_tasks.o ${OBJECTDIR}/display.o ${OBJECTDIR}/nrj.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/badge.o.d ${OBJECTDIR}/button.o.d ${OBJECTDIR}/display_init.o.d ${OBJECTDIR}/flash.o.d ${OBJECTDIR}/rtc.o.d ${OBJECTDIR}/servo.o.d ${OBJECTDIR}/spi.o.d ${OBJECTDIR}/uart.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/real_time.o.d ${OBJECTDIR}/db_users.o.d ${OBJECTDIR}/periodically_tasks.o.d ${OBJECTDIR}/display.o.d ${OBJECTDIR}/nrj.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/badge.o ${OBJECTDIR}/button.o ${OBJECTDIR}/display_init.o ${OBJECTDIR}/flash.o ${OBJECTDIR}/rtc.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/real_time.o ${OBJECTDIR}/db_users.o ${OBJECTDIR}/periodically_tasks.o ${OBJECTDIR}/display.o ${OBJECTDIR}/nrj.o ${OBJECTDIR}/show_history.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/badge.o.d ${OBJECTDIR}/button.o.d ${OBJECTDIR}/display_init.o.d ${OBJECTDIR}/flash.o.d ${OBJECTDIR}/rtc.o.d ${OBJECTDIR}/servo.o.d ${OBJECTDIR}/spi.o.d ${OBJECTDIR}/uart.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/sleep.o.d ${OBJECTDIR}/configbits.o.d ${OBJECTDIR}/Interruptions.o.d ${OBJECTDIR}/real_time.o.d ${OBJECTDIR}/db_users.o.d ${OBJECTDIR}/periodically_tasks.o.d ${OBJECTDIR}/display.o.d ${OBJECTDIR}/nrj.o.d ${OBJECTDIR}/show_history.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/badge.o ${OBJECTDIR}/button.o ${OBJECTDIR}/display_init.o ${OBJECTDIR}/flash.o ${OBJECTDIR}/rtc.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/real_time.o ${OBJECTDIR}/db_users.o ${OBJECTDIR}/periodically_tasks.o ${OBJECTDIR}/display.o ${OBJECTDIR}/nrj.o
+OBJECTFILES=${OBJECTDIR}/badge.o ${OBJECTDIR}/button.o ${OBJECTDIR}/display_init.o ${OBJECTDIR}/flash.o ${OBJECTDIR}/rtc.o ${OBJECTDIR}/servo.o ${OBJECTDIR}/spi.o ${OBJECTDIR}/uart.o ${OBJECTDIR}/main.o ${OBJECTDIR}/sleep.o ${OBJECTDIR}/configbits.o ${OBJECTDIR}/Interruptions.o ${OBJECTDIR}/real_time.o ${OBJECTDIR}/db_users.o ${OBJECTDIR}/periodically_tasks.o ${OBJECTDIR}/display.o ${OBJECTDIR}/nrj.o ${OBJECTDIR}/show_history.o
 
 # Source Files
-SOURCEFILES=badge.c button.c display_init.c flash.c rtc.c servo.c spi.c uart.c main.c sleep.c configbits.c Interruptions.c real_time.c db_users.c periodically_tasks.c display.c nrj.c
+SOURCEFILES=badge.c button.c display_init.c flash.c rtc.c servo.c spi.c uart.c main.c sleep.c configbits.c Interruptions.c real_time.c db_users.c periodically_tasks.c display.c nrj.c show_history.c
 
 
 CFLAGS=
@@ -196,6 +196,12 @@ ${OBJECTDIR}/nrj.o: nrj.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/nrj.o 
 	@${FIXDEPS} "${OBJECTDIR}/nrj.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/nrj.o.d" -o ${OBJECTDIR}/nrj.o nrj.c   
 	
+${OBJECTDIR}/show_history.o: show_history.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/show_history.o.d 
+	@${RM} ${OBJECTDIR}/show_history.o 
+	@${FIXDEPS} "${OBJECTDIR}/show_history.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_ICD3=1 -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/show_history.o.d" -o ${OBJECTDIR}/show_history.o show_history.c   
+	
 else
 ${OBJECTDIR}/badge.o: badge.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -298,6 +304,12 @@ ${OBJECTDIR}/nrj.o: nrj.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/nrj.o.d 
 	@${RM} ${OBJECTDIR}/nrj.o 
 	@${FIXDEPS} "${OBJECTDIR}/nrj.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/nrj.o.d" -o ${OBJECTDIR}/nrj.o nrj.c   
+	
+${OBJECTDIR}/show_history.o: show_history.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/show_history.o.d 
+	@${RM} ${OBJECTDIR}/show_history.o 
+	@${FIXDEPS} "${OBJECTDIR}/show_history.o.d" $(SILENT) -rsi ${MP_CC_DIR}../  -c ${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/show_history.o.d" -o ${OBJECTDIR}/show_history.o show_history.c   
 	
 endif
 
