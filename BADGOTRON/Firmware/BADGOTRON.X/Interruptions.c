@@ -27,6 +27,7 @@ static void	interrupt_badge(void)
 		{
 			IFS1bits.CNIF = 0;
 			__builtin_enable_interrupts();
+			history_timer_stop();
 			show_history();
 		}
 		else
@@ -79,11 +80,11 @@ static void	interrupt_button(void)
 		display_printstr("     badgez...      ");
 		g_history = 1;
 		g_print_enable = 0;
-		g_button_enable = 0;
-		history_timer_init();
 	}
 	if (g_button_enable == 2)
 		show_history_pagetwo();
+	g_button_enable = 0;
+	history_timer_init();
 }
 
 void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7AUTO) CN_Int(void) // Routine interruptions CN generale ( il convient apres de tester laquelle des pins a genere le flag
@@ -112,5 +113,7 @@ void	__ISR(_TIMER_5_VECTOR, IPL6AUTO) history_timer_Int(void)
 	g_print_enable = 1;
 	g_button_enable = 1;
 	IFS0bits.T5IF = 0;
+	history_timer_stop();
 	__builtin_enable_interrupts();
+	display_clear();
 }

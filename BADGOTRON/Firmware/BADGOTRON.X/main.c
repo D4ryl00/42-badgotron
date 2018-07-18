@@ -109,14 +109,17 @@ int main(int argc, char** argv)
                 WDTCONbits.WDTCLR = 1;
         }
         __builtin_enable_interrupts();
-		rtc_update_time();
-		display_returnhome();
-		print_time();
-		display_printchar('_');
-		print_bin(g_set_time);
-		display_printchar('_');
-		putnbr(get_timestamp());
-		msleep(10);
+		if (g_print_enable)
+		{
+			rtc_update_time();
+			display_returnhome();
+			print_time();
+			display_printchar('_');
+			print_bin(g_set_time);
+			display_printchar('_');
+			putnbr(get_timestamp());
+			msleep(10);
+		}
     }
     return (EXIT_SUCCESS);
 }

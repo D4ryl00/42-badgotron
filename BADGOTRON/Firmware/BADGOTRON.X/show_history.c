@@ -3,12 +3,12 @@
 static void	print_hours(u32 minutes, u8 padding)
 {
 	u8 digits = 1;
-	u32 minutescpy = minutes / 60;
+	u32 hours = minutes / 60;
 
 	display_printstr("   ");
-	while (minutescpy >= 10)
+	while (hours >= 10)
 	{
-		minutescpy = minutescpy / 10;
+		hours /= 10;
 		digits++;
 	}
 	while (digits < padding)
@@ -57,17 +57,8 @@ void		show_history(void)
 		display_printstr("Trimestre ");
 		print_hours(minutes_today + data_user->current_trimester, 4);
 	}
-	//display_clear();
-	msleep(5000);
-		msleep(5000);
-	msleep(5000);
-	msleep(5000);
-	msleep(5000);
-	msleep(5000);
-	msleep(5000);
-
-	g_button_enable = 1;
-
+	history_timer_init();
+	g_print_enable = 0;
 }
 
 void		show_history_pagetwo(void)
@@ -76,7 +67,7 @@ void		show_history_pagetwo(void)
 	u8			checksum;
 	t_data_user	*data_user;
 
-	display_clear();
+	g_print_enable = 1;
 	if (!(checksum = checksum_is_ok()))
 	{
 		display_clear();
@@ -91,7 +82,7 @@ void		show_history_pagetwo(void)
 		display_printstr("ID inconnu.");
 	else
 	{
-		display_printstr("Hier      ");
+		display_printstr("Hier        ");
 		print_hours(data_user->last_day, 2);
 		display_printstr("Mois -1   ");
 		print_hours(data_user->last_month, 4);
@@ -100,7 +91,5 @@ void		show_history_pagetwo(void)
 		display_printstr("Trimes. -1");
 		print_hours(data_user->last_trimester, 4);
 	}
-	msleep(2000);
-	g_button_enable = 1;
-	display_clear();
+	g_print_enable = 0;
 }
