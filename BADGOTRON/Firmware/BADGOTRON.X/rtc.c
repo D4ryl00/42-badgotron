@@ -43,6 +43,41 @@ void rtc_eewrite(u8 addr, u8 data)
 	while (busy());
 }
 
+void	rtc_eeputword(u8 addr, u32 data)
+{
+	u8	tmp = 0;
+	u8	*p = (u8 *)&data;
+	u8	i = -1;
+
+	__builtin_disable_interrupts();
+	write_enable();
+	spi_select_slave(RTC);
+	spi_transfer(RTC_EEWRITE, &tmp);
+	spi_transfer(addr, &tmp);
+	while (++i < 4)
+		spi_transfer(p[i], &tmp);
+	spi_unselect_slave(RTC);
+	__builtin_enable_interrupts();
+	while (busy());
+}
+
+u32	rtc_eereadword(u8 addr)
+{
+	u32	data = 0;
+	u8	i = -1;
+	u8	*p = (u8 *)&data;
+
+	__builtin_disable_interrupts();
+	spi_select_slave(RTC);
+	spi_transfer(RTC_EEREAD, &data);
+	spi_transfer(addr, &data);
+	while (++i < 4)
+		spi_transfer(0,	p + i);
+	spi_unselect_slave(RTC);
+	__builtin_enable_interrupts();
+	return (data);
+}
+
 u8	rtc_eeread(u8 addr)
 {
 	u8	data = 0;
@@ -194,9 +229,9 @@ void init_rtc(u8 test)
 	IEC1bits.CNIE = 1;
 	__builtin_enable_interrupts();
 	// Set alarms
-	write_byte(0x0e, 0x00);
+	write_byte(0x0d, 0x00);
 	// Set day and alarm match
-	write_byte(0x0f, 0x20);
+	write_byte(0x0f, 0x10);
 	// End of init alarms
 	// Configuration bits
 	write_byte(0x08, 0x10);

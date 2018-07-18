@@ -28,6 +28,11 @@ extern "C" {
 #define RTC_PIN_MFP_CN CNENbits.CNEN5
 #define RTC_PIN_MFP_PULLUP CNPUEbits.CNPUE5
 
+#define RTC_TRIMESTER_UPDATE_TS 0
+#define RTC_MONTH_UPDATE_TS 4
+#define RTC_WEEK_UPDATE_TS 8
+#define RTC_DAY_UPDATE_TS 12
+
 t_rtc_time g_rtc_time;
 
 u8		rtc_get_status_register(void);
