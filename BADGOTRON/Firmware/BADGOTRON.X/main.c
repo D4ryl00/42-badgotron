@@ -6,7 +6,6 @@
  */
 
 #include "badgotron.h"
-u8				g_set_time;
 u8				g_display_str[80] = {' '};
 u8				g_print_enable = 1;
 t_flash_page	g_flash_index;
@@ -94,7 +93,6 @@ int main(int argc, char** argv)
     //tmp = rtc_get_id();
     //rtc_eewrite(0x00, 'U');
     //rtc_srwrite(0);
-    g_set_time = 0;
     init_rtc(0);
     init_wiegand();
     button_init();
@@ -113,11 +111,16 @@ int main(int argc, char** argv)
 		{
 			rtc_update_time();
 			display_returnhome();
-			print_time();
-			display_printchar('_');
-			print_bin(g_set_time);
-			display_printchar('_');
+			display_printstr("o-----");
+			print_date();
+			display_printstr("-----o");
+			display_printstr("|    ");
 			putnbr(get_timestamp());
+			display_printstr("    |");
+			display_printstr("|    BADG>OTRON    |");
+			display_printstr("o-----");
+			print_time();
+			display_printstr("-----o");
 			msleep(10);
 		}
     }

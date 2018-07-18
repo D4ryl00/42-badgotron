@@ -206,7 +206,6 @@ void init_rtc(u8 test)
 	{
 		conv_rasp_time(test);
 		rtc_set_time();
-		g_set_time = 1;
 	}
 }
 

@@ -1,13 +1,9 @@
 Général:
-- Gérer le powersave grâce au voltage monitor.
-- Gérer l'historique avec l'appui sur le bouton.
+- Bloquer et afficher un message de démarrage quand attend la raspi
 
 Vu-mètre:
 - Faire la fonction qui calcule le % de rotation en fonction des heures en jour glissants.
 - Gérer la LED bicolore.
-
-Display:
-- Faire un truc beau pour l'affichage
 
 Badge:
 - Mettre la LED en rouge quand occupé (badge en cours ou mise à jour donc ne peut pas badger).

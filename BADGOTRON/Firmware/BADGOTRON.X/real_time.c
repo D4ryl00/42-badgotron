@@ -119,18 +119,6 @@ void	conv_rasp_time(u8 test)
 
 void	print_time(void)
 {
-	display_printchar((g_rtc_time.day >> 4) + '0');
-	display_printchar((g_rtc_time.day & 0x0f) + '0');
-	display_printstr(" ");
-	display_printchar((g_rtc_time.date >> 4) + '0');
-	display_printchar((g_rtc_time.date & 0x0f) + '0');
-	display_printstr("/");
-	display_printchar((g_rtc_time.month >> 4) + '0');
-	display_printchar((g_rtc_time.month & 0x0f) + '0');
-	display_printstr("/");
-	display_printchar((g_rtc_time.year >> 4) + '0');
-	display_printchar((g_rtc_time.year & 0x0f) + '0');
-	display_printstr(" ");
 	display_printchar((g_rtc_time.hour >> 4) + '0');
 	display_printchar((g_rtc_time.hour & 0x0f) + '0');
 	display_printstr(":");
@@ -139,6 +127,44 @@ void	print_time(void)
 	display_printstr(":");
 	display_printchar((g_rtc_time.seconds >> 4) + '0');
 	display_printchar((g_rtc_time.seconds & 0x0f) + '0');
+}
+
+void	print_date(void)
+{
+	display_printchar((g_rtc_time.date >> 4) + '0');
+	display_printchar((g_rtc_time.date & 0x0f) + '0');
+	display_printstr("/");
+	display_printchar((g_rtc_time.month >> 4) + '0');
+	display_printchar((g_rtc_time.month & 0x0f) + '0');
+	display_printstr("/");
+	display_printchar((g_rtc_time.year >> 4) + '0');
+	display_printchar((g_rtc_time.year & 0x0f) + '0');
+}
+
+void	print_hours(u32 minutes, u8 spaces, u8 padding)
+{
+	u8 digits;
+	u32 hours = minutes / 60;
+
+	digits = -1;
+	while (++digits < spaces)
+		display_printstr(" ");
+	digits = 1;
+	while (hours >= 10)
+	{
+		hours /= 10;
+		digits++;
+	}
+	while (digits < padding)
+	{
+		display_printstr(" ");
+		digits++;
+	}
+	putnbr(minutes / 60);
+	display_printstr("h");
+	if (minutes % 60 % 10 == 0)
+		display_printchar('0');
+	putnbr(minutes % 60);
 }
 
 u32	get_timestamp()

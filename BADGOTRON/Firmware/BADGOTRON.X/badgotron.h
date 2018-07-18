@@ -32,7 +32,6 @@ extern "C" {
 /*SERVO*/
 #include "servo.h"
 
-extern u8				g_set_time;
 extern u8				g_display_str[80];
 extern u8				g_print_enable;
 extern t_flash_page		g_flash_index;

@@ -84,16 +84,19 @@ static void	badge_known_user(s16 index_position)
 	if (!g_flash_data.data.user[user_data_position].timestamp)
 		{
 			g_flash_data.data.user[user_data_position].timestamp = get_timestamp();
-			display_printstr("Bienvenue Jennifer");
+			display_printstr("                    ");
+			display_printstr("                    ");
+			display_printstr(" Bienvenue Jennifer ");
 		}
 	else
 	{
-		display_printstr("Au revoir Jennifer  ");
-		putnbr((get_timestamp() - g_flash_data.data.user[user_data_position].timestamp) / 60);
-		display_printstr(" mn.");
+		display_printstr("o------------------o");
+		display_printstr("|Aujourd'hui");
 		db_update_user_out_time(&(g_flash_data.data.user[user_data_position]));
-		putnbr(g_flash_data.data.user[user_data_position].current_day);
-		display_printstr("mn aujourd'hui.");
+		print_hours(g_flash_data.data.user[user_data_position].current_day / 60, 2, 2);
+		display_printstr("|");
+		display_printstr("|Au revoir Jennifer|");
+		display_printstr("o------------------o");
 	}
 	flash_put_multibytes(data_user_page_address, g_flash_data.page, FLASH_PAGE_SIZE);
 }
