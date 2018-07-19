@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 850.4 1133.9" style="enable-background:new 0 0 850.4 1133.9;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#E52620;stroke-width:0.1;}
+	.st1{fill:#010202;}
+	.st2{font-family:'MyriadPro-Regular';}
+	.st3{font-size:12px;}
+	.st4{fill:none;stroke:#E30613;stroke-width:0.1;stroke-miterlimit:10;}
+</style>
+<rect x="16.5" y="785.9" class="st0" width="467.7" height="283.5"/>
+<text transform="matrix(4.489659e-11 1 -1 4.489659e-11 470.0781 791.1468)" class="st1 st2 st3">COTE</text>
+<g>
+	<text transform="matrix(4.489659e-11 1 -1 4.489659e-11 766.5508 26.8793)" class="st1 st2 st3">FOND</text>
+	
+		<rect x="158.3" y="159.4" transform="matrix(4.489724e-11 1 -1 4.489724e-11 944.1703 -140.554)" class="st0" width="768.2" height="484.7"/>
+</g>
+<g>
+	<text transform="matrix(4.489659e-11 1 -1 4.489659e-11 284.252 22.8793)" class="st1 st2 st3">COTE</text>
+	
+		<rect x="-225.8" y="260.1" transform="matrix(4.489635e-11 1 -1 4.489635e-11 560.0759 243.5405)" class="st0" width="768.2" height="283.5"/>
+</g>
+<rect x="484.3" y="785.2" class="st4" width="314.6" height="195.9"/>
+<circle class="st4" cx="503" cy="803.9" r="4.5"/>
+<text transform="matrix(1 0 0 1 492.6157 824.9499)" class="st2 st3">FOND 2 vm</text>
+<polygon class="st4" points="663.4,1074.6 663.4,981.1 484.3,981.1 484.3,1103 654.8,1103 654.8,1074.6 "/>
+<text transform="matrix(4.489659e-11 -1 1 4.489659e-11 498.0266 1097.9331)" class="st2 st3">COTE TROU ELEC vm</text>
+<rect x="663.4" y="981.1" transform="matrix(-1 1.237733e-10 -1.237733e-10 -1 1505.8082 2084.085)" class="st4" width="179.1" height="121.9"/>
+<text transform="matrix(4.489659e-11 -1 1 4.489659e-11 677.8297 1097.5991)" class="st2 st3">COTE vm</text>
+</svg>
