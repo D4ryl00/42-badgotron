@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-#define DB0_MODE TRISDbits.TRISD0
+#define DB0_MODE TRISBbits.TRISB1
 #define DB1_MODE TRISDbits.TRISD1
 #define DB2_MODE TRISDbits.TRISD2
 #define DB3_MODE TRISDbits.TRISD3
@@ -24,7 +24,7 @@ extern "C" {
 #define RS_MODE TRISDbits.TRISD10
 #define RW_MODE TRISDbits.TRISD11
 
-#define DB0_WRITE LATDbits.LATD0
+#define DB0_WRITE LATBbits.LATB1
 #define DB1_WRITE LATDbits.LATD1
 #define DB2_WRITE LATDbits.LATD2
 #define DB3_WRITE LATDbits.LATD3
@@ -36,7 +36,7 @@ extern "C" {
 #define RS_WRITE LATDbits.LATD10
 #define RW_WRITE LATDbits.LATD11
 
-#define DB0_READ PORTDbits.PORTD0
+#define DB0_READ PORTBbits.PORTB1
 #define DB1_READ PORTDbits.PORTD1
 #define DB2_READ PORTDbits.PORTD2
 #define DB3_READ PORTDbits.PORTD3

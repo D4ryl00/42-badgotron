@@ -93,13 +93,35 @@ int main(int argc, char** argv)
     //tmp = rtc_get_id();
     //rtc_eewrite(0x00, 'U');
     //rtc_srwrite(0);
-    init_rtc(0);
+    init_rtc(1);
     init_wiegand();
     button_init();
     NRJ_init();
+	u8	i;
+	u8	j;
+	j = 0;
+	/*while (42)
+	{
+		i = 0;
+		while (i < 100)
+		{
+			j = -1;
+			while (++j < 2)
+				actuate_servo(i);
+			i += 10;
+		}
+		while (i >= 0)
+		{
+			j = -1;
+			while (++j < 2)
+				actuate_servo(i);
+			i -= 10;
+		}
+	}*/
     while (42)
     {
         WDTCONbits.WDTCLR = 1;
+		actuate_servo(j);
         if (!NRJ_PIN_READ)
         {
             __builtin_disable_interrupts();
@@ -107,7 +129,7 @@ int main(int argc, char** argv)
                 WDTCONbits.WDTCLR = 1;
         }
         __builtin_enable_interrupts();
-		if (g_print_enable)
+		/*if (g_print_enable)
 		{
 			rtc_update_time();
 			display_returnhome();
@@ -122,7 +144,7 @@ int main(int argc, char** argv)
 			print_time();
 			display_printstr("-----o");
 			msleep(10);
-		}
+		}*/
     }
     return (EXIT_SUCCESS);
 }

@@ -8,8 +8,8 @@
 #ifndef SERVO_H
 #define	SERVO_H
 
-#define PIN_SERVO_MODE TRISEbits.TRISE0
-#define PIN_SERVO_WRITE LATEbits.LATE0
+#define PIN_SERVO_MODE TRISDbits.TRISD0
+#define PIN_SERVO_WRITE LATDbits.LATD0
 
 #endif	/* SERVO_H */
 
