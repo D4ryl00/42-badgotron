@@ -6,9 +6,8 @@ void	__ISR(_TIMER_1_VECTOR, IPL7AUTO) Servo_PWM(void)
 	IFS0bits.T1IF = 0;
 }
 
-void	init_servo(u8 servo_position_percent)
+void	init_servo(s16 servo_position_percent)
 {
- int cpt = 0;
     /* Initialize Timer1 = 0.01ms */
     T1CONbits.ON = 0;
 	/* Select internal clock */
@@ -34,7 +33,7 @@ void	end_servo(void)
 	PIN_SERVO_WRITE = 0;
 }
 
-void	actuate_servo(u8 servo_position_percent)
+void	actuate_servo(s16 servo_position_percent)
 {
 	int i;
 	
@@ -48,4 +47,9 @@ void	actuate_servo(u8 servo_position_percent)
 	i++;
 	}
 	end_servo();
+}
+
+void	set_pwm(u8 percent)
+{
+	
 }

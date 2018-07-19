@@ -26,7 +26,7 @@ void    msleep(u32 time)
 
 void    wiegand_timer_init(void)
 {
-    /* Initialize Timer3 = 1s */
+    /* Initialize Timer1 = 1s */
     T3CONbits.ON = 0;
     TMR3 = 0;
     T3CONbits.TCKPS = 7; // 1 million per second / 256

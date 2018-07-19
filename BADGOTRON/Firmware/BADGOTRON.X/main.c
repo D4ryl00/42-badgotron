@@ -84,7 +84,7 @@ int main(int argc, char** argv)
     flash_set_block_protection(FLASH_BLOCK_PROTECTED);*/
     //flash_put_byte(0x1002, '?');
     //flash_put_multibytes(0x1000, "Flash OK_", sizeof("Flash OK_") - 1);
-    //flash_chiperase();
+    flash_chiperase();
     /*tmp = flash_get_byte_init(0x1000);
     display_printchar(tmp);
     while ((tmp = flash_get_byte_next()) != 0xff)
@@ -98,7 +98,7 @@ int main(int argc, char** argv)
     button_init();
     NRJ_init();
 	u8	i;
-	u8	j;
+	s16	j;
 	j = 0;
 	/*while (42)
 	{
@@ -121,7 +121,6 @@ int main(int argc, char** argv)
     while (42)
     {
         WDTCONbits.WDTCLR = 1;
-		actuate_servo(j);
         if (!NRJ_PIN_READ)
         {
             __builtin_disable_interrupts();
@@ -129,7 +128,7 @@ int main(int argc, char** argv)
                 WDTCONbits.WDTCLR = 1;
         }
         __builtin_enable_interrupts();
-		/*if (g_print_enable)
+		if (g_print_enable)
 		{
 			rtc_update_time();
 			display_returnhome();
@@ -144,7 +143,7 @@ int main(int argc, char** argv)
 			print_time();
 			display_printstr("-----o");
 			msleep(10);
-		}*/
+		}
     }
     return (EXIT_SUCCESS);
 }
