@@ -162,7 +162,7 @@ void	print_hours(u32 minutes, u8 spaces, u8 padding)
 	}
 	putnbr(minutes / 60);
 	display_printstr("h");
-	if (minutes % 60 % 10 == 0)
+	if ((minutes % 60) < 10)
 		display_printchar('0');
 	putnbr(minutes % 60);
 }

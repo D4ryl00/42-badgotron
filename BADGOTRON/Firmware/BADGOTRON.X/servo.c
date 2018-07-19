@@ -51,5 +51,20 @@ void	actuate_servo(s16 servo_position_percent)
 
 void	set_pwm(u8 percent)
 {
-	
+	OC1CONbits.ON = 0;
+	T3CONbits.ON = 0;
+	IEC0bits.T3IE = 0;
+	IFS0bits.T3IF = 0;
+	OC1CONbits.OCTSEL = 1;
+	T3CONbits.TCKPS = 0b100;
+	TMR3 = 0;
+	PR3 = 50000;
+	/* min: 0.6 ms, neutral: 1,40 ms, max: 2.40 ms */
+	OC1RS = 1500 + 45 * percent;
+	//OC1RS = 375 + 11 * percent;
+	OC1R = OC1RS;
+	OC1CONbits.OCM = 0b110;
+	T3CONbits.ON = 1;
+	OC1CONbits.ON = 1;
+
 }

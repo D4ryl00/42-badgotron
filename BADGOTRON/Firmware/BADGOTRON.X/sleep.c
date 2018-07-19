@@ -27,18 +27,18 @@ void    msleep(u32 time)
 void    wiegand_timer_init(void)
 {
     /* Initialize Timer1 = 1s */
-    T3CONbits.ON = 0;
-    TMR3 = 0;
-    T3CONbits.TCKPS = 7; // 1 million per second / 256
-    PR3 = 39062; // +- 250 ms
-    IFS0bits.T3IF = 0;
-    T3CONbits.ON = 1;
+    T1CONbits.ON = 0;
+    TMR1 = 0;
+    T1CONbits.TCKPS = 7; // 1 million per second / 256
+    PR1 = 39062; // +- 250 ms
+    IFS0bits.T1IF = 0;
+    T1CONbits.ON = 1;
 }
 
 void    wiegand_timer_stop(void)
 {
-    T3CONbits.ON = 0;
-	IFS0bits.T3IF = 0;
+    T1CONbits.ON = 0;
+	IFS0bits.T1IF = 0;
 }
 
 void    history_timer_init(void)
