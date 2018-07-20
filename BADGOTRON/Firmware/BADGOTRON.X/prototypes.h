@@ -21,6 +21,7 @@ void	daily_task(t_index_user *index, t_data_user *data, u8 is_parent);
 void	weekly_task(t_index_user *index, t_data_user *data, u8 is_parent);
 void	monthly_task(t_index_user *index, t_data_user *data, u8 is_parent);
 void	trimesterly_task(t_index_user *index, t_data_user *data, u8 is_parent);
+void	activate_vumeter(u32 timestamp, u16 sliding_days[7]);
 
 #ifdef	__cplusplus
 }

@@ -11,5 +11,8 @@
 #define PIN_SERVO_MODE TRISDbits.TRISD0
 #define PIN_SERVO_WRITE LATDbits.LATD0
 
+#define PWM_MIN_CYCLE 1500
+#define PWM_MAX_PERCENT_CYCLE 44
+
 #endif	/* SERVO_H */
 

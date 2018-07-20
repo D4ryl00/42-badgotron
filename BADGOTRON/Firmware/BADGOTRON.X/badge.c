@@ -93,12 +93,14 @@ static void	badge_known_user(s16 index_position)
 		display_printstr("o------------------o");
 		display_printstr("|Aujourd'hui");
 		db_update_user_out_time(&(g_flash_data.data.user[user_data_position]));
-		print_hours(g_flash_data.data.user[user_data_position].current_day / 60, 2, 2);
+		print_hours(g_flash_data.data.user[user_data_position].current_day, 2, 2);
 		display_printstr("|");
 		display_printstr("|Au revoir Jennifer|");
 		display_printstr("o------------------o");
 	}
 	flash_put_multibytes(data_user_page_address, g_flash_data.page, FLASH_PAGE_SIZE);
+	__builtin_enable_interrupts();
+	activate_vumeter(g_flash_data.data.user[user_data_position].timestamp, g_flash_data.data.user[user_data_position].sliding_days);
 }
 
 static void	badge_unknown_user(u8 *id, u8 checksum)
@@ -146,6 +148,8 @@ void	start_badge(void)
 		badge_known_user(index_position);
 	else
 		badge_unknown_user(id, checksum);
-	msleep(5000);
-	display_clear();
+	//msleep(5000);
+	g_print_enable = 0;
+	history_timer_init();
+	//display_clear();
 }

@@ -22,11 +22,15 @@ void		show_history(void)
 		display_printstr("ID inconnu.");
 	else
 	{
+		activate_vumeter(data_user->timestamp, data_user->sliding_days);
+		msleep(2000);
 		if (data_user->timestamp)
 			minutes_today = ((get_timestamp() - data_user->timestamp) / 60);
 		minutes_today += data_user->current_day;
 		display_printstr("Aujourd'hui ");
 		print_hours(minutes_today, 3, 2);
+		if (!data_user->timestamp)
+			minutes_today = 0;
 		display_printstr("Mois      ");
 		print_hours(minutes_today + data_user->current_month, 3, 4);
 		display_printstr("Semaine    ");
@@ -69,4 +73,24 @@ void		show_history_pagetwo(void)
 		print_hours(data_user->last_trimester, 3, 4);
 	}
 	g_print_enable = 0;
+}
+
+void	activate_vumeter(u32 timestamp, u16 sliding_days[7])
+{
+	u16	total;
+	u8		i;
+
+	total = 0;
+	i = -1;
+	if (timestamp > 1)
+		total = ((get_timestamp() - timestamp) / 60);
+	while (++i < 7)
+		total += sliding_days[i];
+
+	if (total > 100)
+		total = 100;
+	if (total < 51)
+		set_pwm((total * 100 / 50) * 120/180);
+	else
+		set_pwm((12000 / 180) + ((total * 100 - 50) / 50) * (60 / 180));
 }

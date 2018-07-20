@@ -21,7 +21,6 @@ u8				g_button_enable = 1;
 //					set to 2 when already displaying time information relative to the user.
 //						It then triggers page2.
 
-
 void    print_uartbuffer(void)
 {
     display_printstr(g_uart_rx_buf.buffer);
@@ -93,32 +92,11 @@ int main(int argc, char** argv)
     //tmp = rtc_get_id();
     //rtc_eewrite(0x00, 'U');
     //rtc_srwrite(0);
-    init_rtc(0);
+    init_rtc(1);
     init_wiegand();
     button_init();
     NRJ_init();
-	u8	i;
-	s16	j;
-	i = 0;
-	j = 0;
-	/*while (42)
-	{
-		i = 0;
-		while (i < 100)
-		{
-			j = -1;
-			while (++j < 2)
-				actuate_servo(i);
-			i += 10;
-		}
-		while (i >= 0)
-		{
-			j = -1;
-			while (++j < 2)
-				actuate_servo(i);
-			i -= 10;
-		}
-	}*/
+	init_pwm();
     while (42)
     {
         WDTCONbits.WDTCLR = 1;
@@ -128,19 +106,6 @@ int main(int argc, char** argv)
             while (!NRJ_PIN_READ)
                 WDTCONbits.WDTCLR = 1;
         }
-		//set_pwm(i);
-		while (i < 100)
-		{
-			set_pwm(i);
-			i += 5;
-			msleep(100);
-		}
-		while (i > 0) // /!\ '>' not '>='
-		{
-			set_pwm(i);
-			i -= 5;
-			msleep(100);
-		}
         __builtin_enable_interrupts();
 		if (g_print_enable)
 		{

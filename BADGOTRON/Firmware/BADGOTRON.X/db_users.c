@@ -211,7 +211,7 @@ t_data_user	*get_data_user(u8 *id, u8 checksum)
 	u8	data_page;
 	u32	data_page_address;
 	u8	data_position;
-
+	
 	if ((index_position = get_index_position_user(id, checksum)) == -1)
 		return (NULL);
 	data_page = db_get_user_data_page_position(g_flash_index.index.page_number, index_position);
