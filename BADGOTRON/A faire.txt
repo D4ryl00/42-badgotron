@@ -1,10 +1,6 @@
 Général:
 - Bloquer et afficher un message de démarrage quand attend la raspi
 
-Vu-mètre:
-- Faire la fonction qui calcule le % de rotation en fonction des heures en jour glissants.
-- Gérer la LED bicolore.
-
 Badge:
 - Mettre la LED en rouge quand occupé (badge en cours ou mise à jour donc ne peut pas badger).
 

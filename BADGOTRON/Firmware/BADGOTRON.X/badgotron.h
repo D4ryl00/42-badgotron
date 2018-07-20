@@ -26,6 +26,7 @@ extern "C" {
 #include "badge.h"
 #include "button.h"
 #include "NRJ.h"
+#include "led_rg.h"
 
 /* Display */
 #include "display_pin_select.h"

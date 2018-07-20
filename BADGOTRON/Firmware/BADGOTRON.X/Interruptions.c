@@ -123,4 +123,6 @@ void	__ISR(_TIMER_5_VECTOR, IPL6AUTO) history_timer_Int(void)
 	__builtin_enable_interrupts();
 	display_clear();
 	set_pwm(0);
+	set_led_r(0);
+	set_led_g(0);
 }

@@ -97,6 +97,7 @@ int main(int argc, char** argv)
     button_init();
     NRJ_init();
 	init_pwm();
+	init_led_rg();
     while (42)
     {
         WDTCONbits.WDTCLR = 1;

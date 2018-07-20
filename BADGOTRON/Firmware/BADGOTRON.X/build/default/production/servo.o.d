@@ -12,5 +12,6 @@ rtc.h  \
 badge.h  \
 button.h  \
 NRJ.h  \
- display_pin_select.h  \
+ led_rg.h  \
+display_pin_select.h  \
 servo.h 

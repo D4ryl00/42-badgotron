@@ -49,28 +49,26 @@ void	actuate_servo(s16 servo_position_percent)
 	end_servo();
 }
 
-void	init_pwm(u8 percent)
+void	init_pwm()
 {
 	OC1CONbits.ON = 0;
 	T3CONbits.ON = 0;
 	IEC0bits.T3IE = 0;
 	IFS0bits.T3IF = 0;
-	IPC3bits.T3IP = 5;
-	IPC3bits.T3IS = 0;
 	OC1CONbits.OCTSEL = 1;
 	T3CONbits.TCKPS = 0b100;
 	TMR3 = 0;
 	PR3 = 50000;
-	/* min: 0.6 ms, neutral: 1,40 ms, max: 2.40 ms */
-	OC1RS = PWM_MIN_CYCLE + PWM_MAX_PERCENT_CYCLE * percent;
+	OC1RS = 0;
 	OC1R = OC1RS;
 	OC1CONbits.OCM = 0b110;
-	IEC0bits.T3IE = 0;
 	T3CONbits.ON = 1;
 	OC1CONbits.ON = 1;
 }
 
 void	set_pwm(u8 percent)
 {
+	/* min: 0.6 ms, neutral: 1,40 ms, max: 2.40 ms */
 	OC1RS = PWM_MIN_CYCLE + PWM_MAX_PERCENT_CYCLE * percent;
+	set_led_rg(percent);
 }

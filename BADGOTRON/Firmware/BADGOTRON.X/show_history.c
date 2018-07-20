@@ -23,7 +23,6 @@ void		show_history(void)
 	else
 	{
 		activate_vumeter(data_user->timestamp, data_user->sliding_days);
-		msleep(2000);
 		if (data_user->timestamp)
 			minutes_today = ((get_timestamp() - data_user->timestamp) / 60);
 		minutes_today += data_user->current_day;
@@ -92,5 +91,5 @@ void	activate_vumeter(u32 timestamp, u16 sliding_days[7])
 	if (total < 51)
 		set_pwm((total * 100 / 50) * 120/180);
 	else
-		set_pwm((12000 / 180) + ((total * 100 - 50) / 50) * (60 / 180));
+		set_pwm((12000 / 180) + (((total - 50) / 50) * 60 * 100) / 180);
 }
