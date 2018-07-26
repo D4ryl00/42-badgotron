@@ -83,7 +83,7 @@ int main(int argc, char** argv)
     flash_set_block_protection(FLASH_BLOCK_PROTECTED);*/
     //flash_put_byte(0x1002, '?');
     //flash_put_multibytes(0x1000, "Flash OK_", sizeof("Flash OK_") - 1);
-    //flash_chiperase();
+    // flash_chiperase();
     /*tmp = flash_get_byte_init(0x1000);
     display_printchar(tmp);
     while ((tmp = flash_get_byte_next()) != 0xff)
@@ -92,7 +92,7 @@ int main(int argc, char** argv)
     //tmp = rtc_get_id();
     //rtc_eewrite(0x00, 'U');
     //rtc_srwrite(0);
-    init_rtc(1);
+    init_rtc(0);
     init_wiegand();
     button_init();
     NRJ_init();
@@ -110,6 +110,7 @@ int main(int argc, char** argv)
         __builtin_enable_interrupts();
 		if (g_print_enable)
 		{
+			WDTCONbits.WDTCLR = 1;
 			rtc_update_time();
 			display_returnhome();
 			display_printstr("o-----");

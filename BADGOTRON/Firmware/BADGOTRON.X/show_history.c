@@ -85,7 +85,7 @@ void	activate_vumeter(u32 timestamp, u16 sliding_days[7])
 		total = ((get_timestamp() - timestamp) / 60);
 	while (++i < 7)
 		total += sliding_days[i];
-
+	total = total / 60;
 	if (total > 100)
 		total = 100;
 	if (total < 51)

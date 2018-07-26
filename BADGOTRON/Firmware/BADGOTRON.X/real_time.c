@@ -4,12 +4,12 @@ void	conv_rasp_time(u8 test)
 {
 	if (test)
 	{
-		g_rtc_time.seconds = 0x01;
+		g_rtc_time.seconds = 0x51;
 		g_rtc_time.minutes = 0x02;
-		g_rtc_time.hour = 0x01;
+		g_rtc_time.hour = 0x08;
 		g_rtc_time.day = 0x07;
-		g_rtc_time.date = 0x10;
-		g_rtc_time.month = 0x09;
+		g_rtc_time.date = 0x31;
+		g_rtc_time.month = 0x07;
 		g_rtc_time.year = 0x18;
 		g_rtc_time.dst = 1;
 	}
