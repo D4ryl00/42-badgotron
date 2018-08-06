@@ -19,18 +19,16 @@ extern "C" {
 #include "struct.h"
 #include "prototypes.h"
 #include "macros.h"
-/*#include "uart.h"
+
+#include "display_pin_select.h"
+//#include "uart.h"
 #include "spi.h"
 #include "flash.h"
-#include "rtc.h"
-#include "badge.h"
-#include "button.h"
-#include "NRJ.h"
-#include "led_rg.h"*/
-
-/* Display */
-#include "display_pin_select.h"
-/*SERVO*/
+//#include "rtc.h"
+//#include "badge.h"
+//#include "button.h"
+//#include "NRJ.h"
+//#include "led_rg.h"
 //#include "servo.h"
 
 extern u8				g_display_str[80];

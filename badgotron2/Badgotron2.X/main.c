@@ -68,14 +68,38 @@ void	print_badge(u8 *id)
     }
 }
 
+void	set_pps_pins(void)
+{
+	// Disable the protection
+	//CFGCONbits.IOLOCK = 0;
+
+	// SPI
+	SDI2R = 0b0000; // PIN 30 (RPA2)
+	ANSELAbits.ANSA1 = 0; // Disable the analog mode for AN1.
+	RPA1R = 0b0100; // PIN 20 (RPA1)
+
+	// UART
+	ANSELBbits.ANSB13 = 0; // Disable the analog mode for AN11.
+	U1RXR = 0b0011; // PIN 11 (RPB13)
+	RPC5R = 0b0001; // PIN 38 (RPC5)
+	
+	// PWM
+	//ANSELCbits.ANSC0 = 0; // Disable the analog mode for AN6.
+	//RPC0R = 0b0101; // PIN 25 (RPC0)
+
+	// Enable the protection
+	CFGCONbits.IOLOCK = 1;
+}
+
 int main(int argc, char** argv)
 {
+	u8	tmp;
     INTCONSET = _INTCON_MVEC_MASK;
     __builtin_enable_interrupts();
+	set_pps_pins();
     display_init();
-	display_printstr("Hello World!!!");
     //init_uart();
-    //init_spi();
+    init_spi();
     /*flash_set_block_protection(FLASH_BLOCK_UNPROTECTED);
     flash_4k_erase(0x1000);
     flash_write(0x1000, 'A');
@@ -83,13 +107,13 @@ int main(int argc, char** argv)
     flash_write(0x1002, '!');
     flash_set_block_protection(FLASH_BLOCK_PROTECTED);*/
     //flash_put_byte(0x1002, '?');
-    //flash_put_multibytes(0x1000, "Flash OK_", sizeof("Flash OK_") - 1);
+    flash_put_multibytes(0x1000, "Flash OK_", sizeof("Flash OK_") - 1);
     // flash_chiperase();
-    /*tmp = flash_get_byte_init(0x1000);
+    tmp = flash_get_byte_init(0x1000);
     display_printchar(tmp);
     while ((tmp = flash_get_byte_next()) != 0xff)
         display_printchar(tmp);
-    flash_get_byte_end();*/
+    flash_get_byte_end();
     //tmp = rtc_get_id();
     //rtc_eewrite(0x00, 'U');
     //rtc_srwrite(0);

@@ -22,6 +22,14 @@
         <itemPath>display_init.c</itemPath>
         <itemPath>display_pin_select.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f3" displayName="Flash" projectFiles="true">
+        <itemPath>flash.h</itemPath>
+        <itemPath>flash.c</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="SPI" projectFiles="true">
+        <itemPath>spi.c</itemPath>
+        <itemPath>spi.h</itemPath>
+      </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>configbits.c</itemPath>
       <itemPath>sleep.c</itemPath>
@@ -195,6 +203,7 @@
         <property key="UART1" value="true"/>
         <property key="UART2" value="true"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="false"/>

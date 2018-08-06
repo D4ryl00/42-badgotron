@@ -5,4 +5,6 @@ badgotron.h  \
 struct.h  \
 macros.h  \
 prototypes.h  \
-display_pin_select.h 
+display_pin_select.h  \
+spi.h  \
+ flash.h 

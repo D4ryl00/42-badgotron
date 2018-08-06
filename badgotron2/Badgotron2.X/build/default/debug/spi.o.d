@@ -1,10 +1,10 @@
-build/default/debug/display.o:  \
-display.c  \
+build/default/debug/spi.o:  \
+spi.c  \
 badgotron.h  \
 types.h  \
 struct.h  \
- macros.h  \
-prototypes.h  \
+macros.h  \
+ prototypes.h  \
 display_pin_select.h  \
 spi.h  \
 flash.h 

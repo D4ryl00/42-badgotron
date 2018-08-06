@@ -1,9 +1,9 @@
-build/default/production/display.o:  \
-display.c  \
+build/default/debug/flash.o:  \
+flash.c  \
 badgotron.h  \
 types.h  \
- struct.h  \
-macros.h  \
+struct.h  \
+ macros.h  \
 prototypes.h  \
 display_pin_select.h  \
 spi.h  \

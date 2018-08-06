@@ -99,13 +99,11 @@ void	display_printchar(u8 d)
 	t = 2;
 	while (t--);
 	E_WRITE = 1;
-	t = 4;
-	while (t--);
 	set_data_pins(d);
-	t = 4;
+	t = 50;
 	while (t--);
 	E_WRITE = 0;
-	t = 12;
+	t = 42;
 	while (t--);
 }
 
