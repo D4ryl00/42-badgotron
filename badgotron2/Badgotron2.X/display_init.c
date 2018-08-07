@@ -103,7 +103,7 @@ void	display_printchar(u8 d)
 	t = 50;
 	while (t--);
 	E_WRITE = 0;
-	t = 42;
+	t = 52;
 	while (t--);
 }
 

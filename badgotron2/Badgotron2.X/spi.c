@@ -4,6 +4,7 @@ void	init_spi(void)
 {
 	u32	rData;
 
+	PIN_FLASH_ANALOG = 0;
 	PIN_FLASH_MODE = 0;
 	PIN_FLASH_WRITE = 1;
 	PIN_RTC_MODE = 0;
@@ -19,6 +20,10 @@ void	init_spi(void)
 	rData = SPI2BUF;
 	/* Set Baud Rate = PBCLK / 2 */
 	SPI2BRG = 3;
+	/* Standard Mode */
+	SPI2CONbits.ENHBUF = 0;
+	/* Disable Slave Select */
+	SPI2CONbits.MSSEN = 0;
 	/* clear the SPIROV bit */
 	SPI2STATbits.SPIROV = 0;
 	/* Set settings */

@@ -84,8 +84,14 @@ void	set_pps_pins(void)
 	RPC5R = 0b0001; // PIN 38 (RPC5)
 	
 	// PWM
-	//ANSELCbits.ANSC0 = 0; // Disable the analog mode for AN6.
-	//RPC0R = 0b0101; // PIN 25 (RPC0)
+	ANSELCbits.ANSC0 = 0; // Disable the analog mode for AN6.
+	RPC0R = 0b0101; // PIN 25 (RPC0)
+
+	// LED_RG
+	ANSELBbits.ANSB2 = 0;
+	ANSELCbits.ANSC2 = 0;
+	RPB2R = 0b0101;
+	RPC2R = 0b0101;
 
 	// Enable the protection
 	CFGCONbits.IOLOCK = 1;
@@ -107,22 +113,22 @@ int main(int argc, char** argv)
     flash_write(0x1002, '!');
     flash_set_block_protection(FLASH_BLOCK_PROTECTED);*/
     //flash_put_byte(0x1002, '?');
-    flash_put_multibytes(0x1000, "Flash OK_", sizeof("Flash OK_") - 1);
-    // flash_chiperase();
-    tmp = flash_get_byte_init(0x1000);
+    //flash_put_multibytes(0x1000, "Flash OK_", sizeof("Flash OK_") - 1);
+    //flash_chiperase();
+    /*tmp = flash_get_byte_init(0x1000);
     display_printchar(tmp);
     while ((tmp = flash_get_byte_next()) != 0xff)
         display_printchar(tmp);
-    flash_get_byte_end();
+    flash_get_byte_end();*/
     //tmp = rtc_get_id();
     //rtc_eewrite(0x00, 'U');
     //rtc_srwrite(0);
-    /*init_rtc(0);
+    init_rtc(1);
     init_wiegand();
     button_init();
-    NRJ_init();
+    //NRJ_init();
 	init_pwm();
-	init_led_rg();*/
+	init_led_rg();
     while (42)
     {
         WDTCONbits.WDTCLR = 1;
@@ -132,7 +138,7 @@ int main(int argc, char** argv)
             while (!NRJ_PIN_READ)
                 WDTCONbits.WDTCLR = 1;
         }
-        __builtin_enable_interrupts();
+        __builtin_enable_interrupts();*/
 		if (g_print_enable)
 		{
 			WDTCONbits.WDTCLR = 1;
@@ -149,7 +155,7 @@ int main(int argc, char** argv)
 			print_time();
 			display_printstr("-----o");
 			msleep(10);
-		}*/
+		}
     }
     return (EXIT_SUCCESS);
 }

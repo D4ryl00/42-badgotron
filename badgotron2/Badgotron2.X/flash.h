@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-#define FLASH_PIN_SO PORTAbits.RA1
+#define FLASH_PIN_SO PORTAbits.RA2
 
 #define FLASH_BLOCK_UNPROTECTED 0
 #define FLASH_BLOCK_PROTECTED 0b10111100
@@ -33,7 +33,7 @@ extern "C" {
 #define FLASH_WRITE_STATUS_REGISTER 0x01
 #define FLASH_BP_SELECTION 0x00
 
-u8		flash_get_id(void);
+u16		flash_get_id(void);
 void	flash_set_block_protection(u8 code);
 void	flash_4k_erase(u32 addr);
 void	flash_write(u32 addr, u8 data);

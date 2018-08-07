@@ -91,18 +91,23 @@ static void	disable_hw_eow_detection(void)
 	spi_unselect_slave(FLASH);
 }
 
-u8		flash_get_id(void)
+u16		flash_get_id(void)
 {
+	u16	res;
 	u8	data;
 
+	res = 0;
 	__builtin_disable_interrupts();
 	spi_select_slave(FLASH);
 	spi_transfer(FLASH_READ_ID, &data);
 	put_addr(0);
 	spi_transfer(0, &data);
+	res = data << 8;
+	spi_transfer(0, &data);
+	res |= data;
 	spi_unselect_slave(FLASH);
 	__builtin_enable_interrupts();
-	return (data);
+	return (res);
 }
 
 void	flash_set_block_protection(u8 code)

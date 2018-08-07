@@ -15,6 +15,7 @@ extern "C" {
 #define SELECTED 0
 #define UNSELECTED 1
 
+#define PIN_FLASH_ANALOG ANSELAbits.ANSA0
 #define PIN_FLASH_MODE TRISAbits.TRISA0
 #define PIN_FLASH_WRITE LATAbits.LATA0
 
