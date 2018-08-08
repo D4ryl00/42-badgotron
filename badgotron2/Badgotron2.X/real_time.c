@@ -1,8 +1,17 @@
 #include "badgotron.h"
 
-void	conv_rasp_time(u8 test)
+s8	test_receive(void)
 {
-	if (test)
+	if ((g_uart_rx_buf.buffer[0] >= '0' && g_uart_rx_buf.buffer[0] <= '9')
+			&& (g_uart_rx_buf.buffer[1] >= '0' && g_uart_rx_buf.buffer[1] <= '9'))
+		return (1);
+	return (0);
+}
+
+u8	conv_rasp_time(u8 init, u8 test, u8 sync)
+{
+	u32	i;
+	if (test && !sync)
 	{
 		g_rtc_time.seconds = 0x51;
 		g_rtc_time.minutes = 0x02;
@@ -16,12 +25,19 @@ void	conv_rasp_time(u8 test)
 	else
 	{
 		// seconds
-		/*g_rtc_time.seconds = 0;
+		g_rtc_time.seconds = 0;
 		while (g_uart_rx_buf.index < 2)
 		{
 			uart_putstr("time_second?\n");
-			while (!g_uart_rx_buf.index);
-			if (g_uart_rx_buf.index < 2)
+			i = 1000000;
+			while (!g_uart_rx_buf.index && i)
+			{
+				i--;
+			}
+			if (!i && !init)
+				return ;
+			// test if we received '?' -> error
+			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
 		g_rtc_time.seconds = g_uart_rx_buf.buffer[1] - '0';
@@ -33,8 +49,14 @@ void	conv_rasp_time(u8 test)
 		while (g_uart_rx_buf.index < 2)
 		{
 			uart_putstr("time_minute?\n");
-			while (!g_uart_rx_buf.index);
-			if (g_uart_rx_buf.index < 2)
+			i = 1000000;
+			while (!g_uart_rx_buf.index && i)
+			{
+				i--;
+			}
+			if (!i && !init)
+				return ;
+			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
 		g_rtc_time.minutes = g_uart_rx_buf.buffer[1] - '0';
@@ -46,8 +68,14 @@ void	conv_rasp_time(u8 test)
 		while (g_uart_rx_buf.index < 2)
 		{
 			uart_putstr("time_hour?\n");
-			while (!g_uart_rx_buf.index);
-			if (g_uart_rx_buf.index < 2)
+			i = 1000000;
+			while (!g_uart_rx_buf.index && i)
+			{
+				i--;
+			}
+			if (!i && !init)
+				return ;
+			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
 		g_rtc_time.hour = g_uart_rx_buf.buffer[1] - '0';
@@ -59,8 +87,14 @@ void	conv_rasp_time(u8 test)
 		while (g_uart_rx_buf.index < 2)
 		{
 			uart_putstr("time_wday?\n");
-			while (!g_uart_rx_buf.index);
-			if (g_uart_rx_buf.index < 2)
+			i = 1000000;
+			while (!g_uart_rx_buf.index && i)
+			{
+				i--;
+			}
+			if (!i && !init)
+				return ;
+			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
 		g_rtc_time.day = g_uart_rx_buf.buffer[1] - '0';
@@ -72,8 +106,14 @@ void	conv_rasp_time(u8 test)
 		while (g_uart_rx_buf.index < 2)
 		{
 			uart_putstr("time_day?\n");
-			while (!g_uart_rx_buf.index);
-			if (g_uart_rx_buf.index < 2)
+			i = 1000000;
+			while (!g_uart_rx_buf.index && i)
+			{
+				i--;
+			}
+			if (!i && !init)
+				return ;
+			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
 		g_rtc_time.date = g_uart_rx_buf.buffer[1] - '0';
@@ -85,8 +125,14 @@ void	conv_rasp_time(u8 test)
 		while (g_uart_rx_buf.index < 2)
 		{
 			uart_putstr("time_month?\n");
-			while (!g_uart_rx_buf.index);
-			if (g_uart_rx_buf.index < 2)
+			i = 1000000;
+			while (!g_uart_rx_buf.index && i)
+			{
+				i--;
+			}
+			if (!i && !init)
+				return ;
+			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
 		g_rtc_time.month = g_uart_rx_buf.buffer[1] - '0';
@@ -98,8 +144,14 @@ void	conv_rasp_time(u8 test)
 		while (g_uart_rx_buf.index < 2)
 		{
 			uart_putstr("time_year?\n");
-			while (!g_uart_rx_buf.index);
-			if (g_uart_rx_buf.index < 2)
+			i = 1000000;
+			while (!g_uart_rx_buf.index && i)
+			{
+				i--;
+			}
+			if (!i && !init)
+				return ;
+			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
 		g_rtc_time.year = g_uart_rx_buf.buffer[1] - '0';
@@ -109,11 +161,17 @@ void	conv_rasp_time(u8 test)
 		while (g_uart_rx_buf.index < 2)
 		{
 			uart_putstr("time_dst?\n");
-			while (!g_uart_rx_buf.index);
-			if (g_uart_rx_buf.index < 2)
+			i = 1000000;
+			while (!g_uart_rx_buf.index && i)
+			{
+				i--;
+			}
+			if (!i && !init)
+				return ;
+			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
-		g_rtc_time.dst = g_uart_rx_buf.buffer[1] - '0';*/
+		g_rtc_time.dst = g_uart_rx_buf.buffer[1] - '0';
 	}
 }
 

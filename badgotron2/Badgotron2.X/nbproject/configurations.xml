@@ -38,6 +38,10 @@
         <itemPath>led_rg.c</itemPath>
         <itemPath>led_rg.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f10" displayName="NRJ" projectFiles="true">
+        <itemPath>nrj.c</itemPath>
+        <itemPath>nrj.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f4" displayName="RTC" projectFiles="true">
         <itemPath>rtc.c</itemPath>
         <itemPath>rtc.h</itemPath>
@@ -49,6 +53,10 @@
       <logicalFolder name="f2" displayName="SPI" projectFiles="true">
         <itemPath>spi.c</itemPath>
         <itemPath>spi.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f9" displayName="UART" projectFiles="true">
+        <itemPath>uart.c</itemPath>
+        <itemPath>uart.h</itemPath>
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>configbits.c</itemPath>

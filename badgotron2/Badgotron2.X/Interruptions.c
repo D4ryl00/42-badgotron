@@ -110,11 +110,11 @@ void	__ISR(_CHANGE_NOTICE_VECTOR, IPL7AUTO) CN_Int(void) // Routine interruption
 	__builtin_enable_interrupts();
 }
 
-/*void	__ISR(_UART_1_VECTOR, IPL7AUTO) Int_UART1_RX(void)
+void	__ISR(_UART_1_VECTOR, IPL7AUTO) Int_UART1_RX(void)
 {
 	uart_getstr();
-	IFS0bits.U1RXIF = 0;
-}*/
+	IFS1bits.U1RXIF = 0;
+}
 
 void	__ISR(_TIMER_5_VECTOR, IPL6AUTO) history_timer_Int(void)
 {
