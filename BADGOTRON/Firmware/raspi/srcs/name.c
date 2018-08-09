@@ -12,6 +12,20 @@
 
 #include "raspi.h"
 
+int		checkid(char *id)
+{
+	int i;
+
+	i = 0;
+	while (id[i])
+	{
+		if (!(id[i] > 47 && id[i] < 58))
+			return (1);
+			i++;
+	}
+	return (0);
+}
+
 char	*whatsmyname(char *id)
 {
 	char	*name;

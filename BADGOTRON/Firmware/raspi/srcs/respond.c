@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:38:56 by amordret          #+#    #+#             */
-/*   Updated: 2018/07/10 13:44:40 by amordret         ###   ########.fr       */
+/*   Updated: 2018/08/09 17:04:52 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,27 @@ void	respond(char *readbuffer, int fd)
 			return ;
 		else
 			return (respond_wtf(fd));
+	else if (ft_strequ(prefix, "name"))
+	{
+		if (respond_name(readbuffer, fd))
+			return ;
+		else
+			return (respond_wtf(fd));
+	}
 	else
 		return (respond_wtf(fd));
+}
+
+int		respond_name(char *readbuffer, int fd)
+{
+	char	*name;
+
+	if (checkid(respond_getsuffix(readbuffer)))
+		return (0);
+	name = whatsmyname(respond_getsuffix(readbuffer));
+	ft_putendl_fd(name, fd);
+	free(name);
+	return (1);
 }
 
 int		respond_time(char *readbuffer, int fd)
@@ -35,7 +54,6 @@ int		respond_time(char *readbuffer, int fd)
 	{
 		ft_putchar_fd('0', fd);
 		ft_putnbr_fd(now.joursem, fd);
-		ft_putnbr(now.joursem);
 		ft_putchar_fd('\n', fd);
 		return (1) ;
 	}

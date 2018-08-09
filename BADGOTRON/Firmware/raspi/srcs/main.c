@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 11:29:48 by amordret          #+#    #+#             */
-/*   Updated: 2018/08/09 16:29:53 by amordret         ###   ########.fr       */
+/*   Updated: 2018/08/09 17:06:33 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,33 @@
 
 int		main(void)
 {
-	//char	*readbuffer;
-	//int		fd;
-	char	*test;
-	char	*test2;
+	char	*readbuffer;
+	int		fd;
 
-	/*fd = open_uart();
+	/*		DEBUT PROD !!!!
+	
+	fd = open_uart();
 	while (42)
 	{
 		readbuffer = read_uart(fd);
 		ft_putendl(readbuffer);
 		respond(readbuffer, fd);
 		ft_putstr_fd("\n", fd);
-	}*/
-	test = ft_strdup("23");
-	test2 = whatsmyname(test);
-	ft_putendl(test2);
-	free(test2);
-	//close(fd);
+	}
+	close(fd);
+	return (0);
+			FIN PROD
+	*/
+	
+	
+	// debug a partir dici
+	fd = 1;
+	readbuffer = ft_strdup("name_32409234");
+	respond(readbuffer, fd);
+	free(readbuffer);
+	readbuffer = ft_strdup("time_wday?");
+	respond(readbuffer, fd);
+
+	// A REMETTRE EN PROD
 	return (0);
 }

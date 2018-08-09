@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 11:30:12 by amordret          #+#    #+#             */
-/*   Updated: 2018/08/09 16:27:33 by amordret         ###   ########.fr       */
+/*   Updated: 2018/08/09 17:01:49 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,12 @@ int					open_uart(void);
 char				*read_uart(int fd);
 void				get_temps(t_temps *now);
 char				*respond_getprefix(char *readbuffer);
+char				*respond_getsuffix(char *readbuffer);
 void				respond(char *readbuffer, int fd);
 int					respond_time(char *readbuffer, int fd);
+int					respond_name(char *readbuffer, int fd);
 void				respond_wtf(int fd);
+int					checkid(char *id);
 char				*whatsmyname(char *id);
 
 #endif
