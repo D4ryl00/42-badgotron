@@ -25,6 +25,7 @@ time.c\
 misctools.c\
 respond.c\
 uart.c\
+name.c\
 
 FLAGS = -Wall -Wextra -Werror
 

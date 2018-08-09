@@ -6,7 +6,7 @@
 /*   By: amordret <amordret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 11:41:14 by amordret          #+#    #+#             */
-/*   Updated: 2018/05/30 16:20:31 by amordret         ###   ########.fr       */
+/*   Updated: 2018/08/09 16:02:41 by amordret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,49 @@ void	ft_putstr(char *str)
 	}
 }
 
+int		ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strdup(char *str)
+{
+	int		i;
+	int		max;
+	char	*out;
+
+	i = 0;
+	max = ft_strlen(str);
+	out = malloc(max);
+	while (i < max)
+	{
+		out[i] = str[i];
+		i++;
+	}
+	out[i] = '\0';
+	return (out);
+}
+
 void	ft_putendl(char *str)
 {
 	ft_putstr(str);
 	ft_putchar('\n');
+}
+
+void	ft_strncpy(char *dest, char *src, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (src[i] && i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
 }
