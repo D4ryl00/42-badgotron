@@ -2,13 +2,18 @@
 
 t_wiegand_buf	g_wiegand_buf;
 
-void	init_wiegand(void)
+void	init_badge(void)
 {
 	u8	tmp;
 	
 	// Init buffer
 	g_wiegand_buf.index = 0;
 	__builtin_disable_interrupts(); // Desativer les interrupts partout
+
+	BADGE_LED_R_MODE = PIN_MODE_OUTPUT;
+	BADGE_LED_G_MODE = PIN_MODE_OUTPUT;
+	BADGE_LED_R_WRITE = 1;
+	BADGE_LED_G_WRITE = 0;
 
 	WIEGAND_DATA0_MODE = PIN_MODE_INPUT;
 	WIEGAND_DATA1_MODE = PIN_MODE_INPUT;

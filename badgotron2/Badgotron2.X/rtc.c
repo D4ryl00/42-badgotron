@@ -160,6 +160,7 @@ void	rtc_set_time(void)
 	write_byte(0x01, 0x80 | g_rtc_time.seconds);
 	// DST value (Summer time)
 	write_byte(0x20, g_rtc_time.dst);
+	rtc_eeputword(RTC_LAST_TIMESTAMP, get_timestamp());
 }
 
 u8  rtc_get_id(void)
@@ -209,6 +210,22 @@ u8	rtc_oscillator_status(void)
 	//return (read_byte(0x01) & 0x80);
 }
 
+void	init_timestamps(void)
+{
+	u32	res;
+
+	if ((res = rtc_eereadword(RTC_TRIMESTER_UPDATE_TS)) == 0xffffffff)
+		rtc_eeputword(RTC_TRIMESTER_UPDATE_TS, get_timestamp());
+	if ((res = rtc_eereadword(RTC_MONTH_UPDATE_TS)) == 0xffffffff)
+		rtc_eeputword(RTC_MONTH_UPDATE_TS, get_timestamp());
+	if ((res = rtc_eereadword(RTC_WEEK_UPDATE_TS)) == 0xffffffff)
+		rtc_eeputword(RTC_WEEK_UPDATE_TS, get_timestamp());
+	if ((res = rtc_eereadword(RTC_DAY_UPDATE_TS)) == 0xffffffff)
+		rtc_eeputword(RTC_DAY_UPDATE_TS, get_timestamp());
+	if ((res = rtc_eereadword(RTC_LAST_TIMESTAMP)) == 0xffffffff)
+		rtc_eeputword(RTC_LAST_TIMESTAMP, get_timestamp());
+}
+
 void init_rtc(u8 init, u8 test, u8 sync)
 {
 	u8	tmp;
@@ -227,9 +244,9 @@ void init_rtc(u8 init, u8 test, u8 sync)
 	IFS1bits.CNAIF = 0;
 	IEC1bits.CNAIE = 1;
 	__builtin_enable_interrupts();
-	// Set alarms
+	// Set alarms every hours
 	write_byte(0x0d, 0x00);
-	// Set day and alarm match
+	// Set no day and set alarm match for minutes
 	write_byte(0x0f, 0x10);
 	// End of init alarms
 	// Configuration bits
@@ -238,9 +255,10 @@ void init_rtc(u8 init, u8 test, u8 sync)
 	write_byte(0x09, 0x00);
 	if (!is_on_time() || test || sync)
 	{
-		if (conv_rasp_time(init, test, sync))
-			rtc_set_time();
+		while (!conv_rasp_time(init, test, sync));
+		rtc_set_time();
 	}
+	init_timestamps();
 }
 
 void	rtc_disable_alarm_flag(void)

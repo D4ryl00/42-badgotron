@@ -11,6 +11,8 @@ s8	test_receive(void)
 u8	conv_rasp_time(u8 init, u8 test, u8 sync)
 {
 	u32	i;
+	u32	old_ts;
+
 	if (test && !sync)
 	{
 		g_rtc_time.seconds = 0x51;
@@ -24,6 +26,10 @@ u8	conv_rasp_time(u8 init, u8 test, u8 sync)
 	}
 	else
 	{
+		if (rtc_eereadword(RTC_LAST_TIMESTAMP) == 0xffffffff)
+			old_ts = 1533772800;
+		else
+			old_ts = rtc_eereadword(RTC_LAST_TIMESTAMP);
 		// seconds
 		g_rtc_time.seconds = 0;
 		while (g_uart_rx_buf.index < 2)
@@ -35,7 +41,7 @@ u8	conv_rasp_time(u8 init, u8 test, u8 sync)
 				i--;
 			}
 			if (!i && !init)
-				return ;
+				return (0);
 			// test if we received '?' -> error
 			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
@@ -55,7 +61,7 @@ u8	conv_rasp_time(u8 init, u8 test, u8 sync)
 				i--;
 			}
 			if (!i && !init)
-				return ;
+				return (0);
 			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
@@ -74,7 +80,7 @@ u8	conv_rasp_time(u8 init, u8 test, u8 sync)
 				i--;
 			}
 			if (!i && !init)
-				return ;
+				return (0);
 			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
@@ -93,7 +99,7 @@ u8	conv_rasp_time(u8 init, u8 test, u8 sync)
 				i--;
 			}
 			if (!i && !init)
-				return ;
+				return (0);
 			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
@@ -112,7 +118,7 @@ u8	conv_rasp_time(u8 init, u8 test, u8 sync)
 				i--;
 			}
 			if (!i && !init)
-				return ;
+				return (0);
 			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
@@ -131,7 +137,7 @@ u8	conv_rasp_time(u8 init, u8 test, u8 sync)
 				i--;
 			}
 			if (!i && !init)
-				return ;
+				return (0);
 			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
@@ -150,7 +156,7 @@ u8	conv_rasp_time(u8 init, u8 test, u8 sync)
 				i--;
 			}
 			if (!i && !init)
-				return ;
+				return (0);
 			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
@@ -167,12 +173,15 @@ u8	conv_rasp_time(u8 init, u8 test, u8 sync)
 				i--;
 			}
 			if (!i && !init)
-				return ;
+				return (0);
 			if (g_uart_rx_buf.index < 2 || !test_receive())
 				uart_clear_buffer();
 		}
 		g_rtc_time.dst = g_uart_rx_buf.buffer[1] - '0';
+		if (get_timestamp() < 1533772800 || (s32)(old_ts - get_timestamp()) > 3600)
+			return (0);
 	}
+	return (1);
 }
 
 void	print_time(void)
@@ -225,7 +234,7 @@ void	print_hours(u32 minutes, u8 spaces, u8 padding)
 	putnbr(minutes % 60);
 }
 
-u32	get_timestamp()
+u32	get_timestamp(void)
 {
 	t_rtc_time	time;
 	u32			timestamp;

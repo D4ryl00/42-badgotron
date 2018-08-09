@@ -20,6 +20,14 @@ extern "C" {
 #define WIEGAND_DATA1_MODE TRISCbits.TRISC3
 #define WIEGAND_DATA1_CN CNENCbits.CNIEC3
 
+#define BADGE_LED_R_MODE TRISBbits.TRISB4
+#define BADGE_LED_R_DATA PORTBbits.RB4
+#define BADGE_LED_R_WRITE LATBbits.LATB4
+
+#define BADGE_LED_G_MODE TRISAbits.TRISA4
+#define BADGE_LED_G_DATA PORTAbits.RA4
+#define BADGE_LED_G_WRITE LATAbits.LATA4
+
 typedef struct	s_wiegand_buf
 {
     u8			index;

@@ -26,11 +26,19 @@ void	uart_putstr(u8 *string)
 void	uart_getstr(void)
 {
 	u8	c;
+	u32	i;
 
 	c = '0';
 	while (c != '\n')
 	{
-		while (!U1STAbits.URXDA);
+		i = 1000000;
+		while (!U1STAbits.URXDA && i)
+			i--;
+		if (!i)
+		{
+			uart_clear_buffer();
+			return ;
+		}
 		c = U1RXREG & 0xFF;
 		if (c == '\n')
 			break ;

@@ -24,6 +24,7 @@ void	daily_task(t_index_user *index, t_data_user *data, u8 is_parent)
 	shift_sliding_days(data);
 	data->last_day = data->current_day;
 	data->current_day = 0;
+	rtc_eeputword(RTC_DAY_UPDATE_TS, get_timestamp());
 }
 
 void	weekly_task(t_index_user *index, t_data_user *data, u8 is_parent)
@@ -33,6 +34,7 @@ void	weekly_task(t_index_user *index, t_data_user *data, u8 is_parent)
 		daily_task(index, data, 0);
 	data->last_week = data->current_week;
 	data->current_week = 0;
+	rtc_eeputword(RTC_WEEK_UPDATE_TS, get_timestamp());
 }
 
 void	monthly_task(t_index_user *index, t_data_user *data, u8 is_parent)
@@ -47,6 +49,7 @@ void	monthly_task(t_index_user *index, t_data_user *data, u8 is_parent)
 	}
 	data->last_month = data->current_month;
 	data->current_month = 0;
+	rtc_eeputword(RTC_MONTH_UPDATE_TS, get_timestamp());
 }
 
 void	trimesterly_task(t_index_user *index, t_data_user *data, u8 is_parent)
@@ -65,4 +68,5 @@ void	trimesterly_task(t_index_user *index, t_data_user *data, u8 is_parent)
 		index->inactive = 1;
 	data->last_trimester = data->current_trimester;
 	data->current_trimester = 0;
+	rtc_eeputword(RTC_TRIMESTER_UPDATE_TS, get_timestamp());
 }

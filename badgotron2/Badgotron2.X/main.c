@@ -99,11 +99,16 @@ void	set_pps_pins(void)
 
 int main(int argc, char** argv)
 {
-	u8	tmp;
+	u8	need_update_time;
+
+	need_update_time = 1;
     INTCONSET = _INTCON_MVEC_MASK;
     __builtin_enable_interrupts();
 	set_pps_pins();
     display_init();
+	display_printstr("                    ");
+	display_printstr("                    ");
+	display_printstr("   Initialisation   ");
     init_uart();
     init_spi();
     /*flash_set_block_protection(FLASH_BLOCK_UNPROTECTED);
@@ -123,8 +128,8 @@ int main(int argc, char** argv)
     //tmp = rtc_get_id();
     //rtc_eewrite(0x00, 'U');
     //rtc_srwrite(0);
-    init_rtc(1, 0, 0);
-    init_wiegand();
+    init_rtc(1, 0, 1);
+    init_badge();
     button_init();
     NRJ_init();
 	init_pwm();
@@ -139,6 +144,16 @@ int main(int argc, char** argv)
                 WDTCONbits.WDTCLR = 1;
         }
         __builtin_enable_interrupts();
+		if (g_rtc_time.hour != 0x00 && g_rtc_time.minutes == 0x02 && !g_rtc_time.seconds && need_update_time)
+		{
+			if (conv_rasp_time(0, 0, 1))
+				rtc_set_time();
+			else
+				rtc_update_time();
+			need_update_time = 0;
+		}
+		if (g_rtc_time.minutes == 0x03 && !g_rtc_time.seconds && !need_update_time)
+			need_update_time = 1;
 		if (g_print_enable)
 		{
 			WDTCONbits.WDTCLR = 1;

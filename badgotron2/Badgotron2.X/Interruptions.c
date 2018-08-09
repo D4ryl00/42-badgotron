@@ -39,39 +39,38 @@ static void	interrupt_badge(void)
 
 static void	interrupt_rtc(void)
 {
-	rtc_update_time();
 	display_clear();
 	display_printstr("    Maintenance     ");
-	if (!g_rtc_time.minutes && !g_rtc_time.hour	&& g_rtc_time.date == 0x01
+	rtc_update_time();
+	if ((!g_rtc_time.minutes && !g_rtc_time.hour	&& g_rtc_time.date == 0x01
 			&& ((g_rtc_time.month == 0x01) || (g_rtc_time.month == 0x04)
 			|| (g_rtc_time.month == 0x07) || (g_rtc_time.month == 0x10))
-			|| (get_timestamp() - rtc_eereadword(RTC_TRIMESTER_UPDATE_TS) > (56246400 + 3600)))
+			&& (get_timestamp() - rtc_eereadword(RTC_TRIMESTER_UPDATE_TS) < (7689600 - 3600)))
+			|| (get_timestamp() - rtc_eereadword(RTC_TRIMESTER_UPDATE_TS) > (7948800 + 3600)))
 	{
 		display_printstr("     Trimestre      ");
 		db_foreach(&trimesterly_task);
-		rtc_eeputword(RTC_TRIMESTER_UPDATE_TS, get_timestamp());
 	}
-	else if ((!g_rtc_time.minutes && !g_rtc_time.hour
-			&& g_rtc_time.date == 0x01)
-			|| (get_timestamp() - rtc_eereadword(RTC_MONTH_UPDATE_TS) > (18748800 + 3600)))
+	else if (((!g_rtc_time.minutes && !g_rtc_time.hour && g_rtc_time.date == 0x01)
+			&& (get_timestamp() - rtc_eereadword(RTC_MONTH_UPDATE_TS) < (2419200 - 3600)))
+			|| (get_timestamp() - rtc_eereadword(RTC_MONTH_UPDATE_TS) > (2678400 + 3600)))
 	{
 		display_printstr("        Mois        ");
 		db_foreach(&monthly_task);
-		rtc_eeputword(RTC_MONTH_UPDATE_TS, get_timestamp());
 	}
-	else if ((!g_rtc_time.minutes && !g_rtc_time.hour && g_rtc_time.day == 0x01)
+	else if (((!g_rtc_time.minutes && !g_rtc_time.hour && g_rtc_time.day == 0x01)
+			&& (get_timestamp() - rtc_eereadword(RTC_WEEK_UPDATE_TS) < (604800 - 3600)))
 			|| (get_timestamp() - rtc_eereadword(RTC_WEEK_UPDATE_TS) > (604800 + 3600)))
 	{
 		display_printstr("      Semaine       ");
 		db_foreach(&weekly_task);
-		rtc_eeputword(RTC_WEEK_UPDATE_TS, get_timestamp());
 	}
-	else if ((!g_rtc_time.minutes && !g_rtc_time.hour)
+	else if (((!g_rtc_time.minutes && !g_rtc_time.hour)
+			&& (get_timestamp() - rtc_eereadword(RTC_DAY_UPDATE_TS) < (86400 - 3600)))
 			|| (get_timestamp() - rtc_eereadword(RTC_DAY_UPDATE_TS) > (86400 + 3600)))
 	{
 		display_printstr("        Jour        ");
 		db_foreach(&daily_task);
-		rtc_eeputword(RTC_DAY_UPDATE_TS, get_timestamp());
 	}
 	display_clear();
 	// Disable RTC flag

@@ -31,6 +31,7 @@ extern "C" {
 #define RTC_MONTH_UPDATE_TS 4
 #define RTC_WEEK_UPDATE_TS 8
 #define RTC_DAY_UPDATE_TS 12
+#define RTC_LAST_TIMESTAMP 16
 
 t_rtc_time g_rtc_time;
 
