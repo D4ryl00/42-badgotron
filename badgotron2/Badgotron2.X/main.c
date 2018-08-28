@@ -134,6 +134,9 @@ int main(int argc, char** argv)
     NRJ_init();
 	init_pwm();
 	init_led_rg();
+	set_pwm(100);
+	msleep(500);
+	set_pwm(0);
     while (42)
     {
         WDTCONbits.WDTCLR = 1;

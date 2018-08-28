@@ -20,7 +20,7 @@ void	init_pwm()
 void	set_pwm(u8 percent)
 {
 	/* min: 0.6 ms, neutral: 1,40 ms, max: 2.40 ms */
-	OC1RS = PWM_MIN_CYCLE + PWM_MAX_PERCENT_CYCLE * percent;
+	OC1RS = PWM_MIN_CYCLE + PWM_MAX_PERCENT_CYCLE * (100 - percent - 3);
 	percent = 0;
 	/*if (percent < 60 && percent > 30)
 		set_led_rg(percent + 40);

@@ -80,6 +80,7 @@ void	convert_format_id(u8 *dest, u8 *src)
 static void	badge_known_user(s16 index_position)
 {
 	u32	data_user_page_address;
+	u32	i;
 	u8	user_data_position;
 
 	g_flash_index.index.user[index_position].inactive = 0;
@@ -93,6 +94,27 @@ static void	badge_known_user(s16 index_position)
 			display_printstr("                    ");
 			display_printstr("                    ");
 			display_printstr(" Bienvenue Jennifer ");
+			// MERDIER A PARTIR DICI
+			/*msleep(1000);
+			display_clear();
+			uart_clear_buffer();
+			while (g_uart_rx_buf.index < 2)
+			{
+			uart_putstr("name_1234567\n");
+			i = 1000000;
+			while (!g_uart_rx_buf.index && i)
+			{
+				i--;
+			}
+			//if (!i)
+			//	break ;
+			if (g_uart_rx_buf.index < 2)
+				uart_clear_buffer();
+			}
+			display_printchar(g_uart_rx_buf.buffer[0]);
+			display_printchar(g_uart_rx_buf.buffer[1]);
+			uart_clear_buffer();
+			// FIN MERDIER*/
 		}
 	else
 	{
