@@ -94,25 +94,33 @@ static void	badge_known_user(s16 index_position)
 			display_printstr("                    ");
 			display_printstr("                    ");
 			display_printstr(" Bienvenue Jennifer ");
-			// MERDIER A PARTIR DICI
-			/*msleep(1000);
+			//MERDIER A PARTIR DICI
+			/*
+			msleep(1000);
 			display_clear();
 			uart_clear_buffer();
-			while (g_uart_rx_buf.index < 2)
-			{
-			uart_putstr("name_1234567\n");
+			//while (g_uart_rx_buf.index < 2)
+			//{
+			uart_putstr("name_0F03B01BCB");
 			i = 1000000;
 			while (!g_uart_rx_buf.index && i)
 			{
 				i--;
 			}
+			msleep(1000);
 			//if (!i)
 			//	break ;
 			if (g_uart_rx_buf.index < 2)
 				uart_clear_buffer();
-			}
+			//}
 			display_printchar(g_uart_rx_buf.buffer[0]);
 			display_printchar(g_uart_rx_buf.buffer[1]);
+			display_printchar(g_uart_rx_buf.buffer[2]);
+			display_printchar(g_uart_rx_buf.buffer[3]);
+				display_printchar(g_uart_rx_buf.buffer[4]);
+			display_printchar(g_uart_rx_buf.buffer[5]);
+			display_printchar(g_uart_rx_buf.buffer[6]);
+			display_printchar(g_uart_rx_buf.buffer[7]);
 			uart_clear_buffer();
 			// FIN MERDIER*/
 		}

@@ -229,6 +229,7 @@ void	init_timestamps(void)
 void init_rtc(u8 init, u8 test, u8 sync)
 {
 	u8	tmp;
+	u8	raspibootwait = 1; // 90
 
 	// Init pin for alarms
 	__builtin_disable_interrupts(); // Desativer les interrupts partout
@@ -255,6 +256,11 @@ void init_rtc(u8 init, u8 test, u8 sync)
 	write_byte(0x09, 0x00);
 	if (!is_on_time() || test || sync)
 	{
+		while (raspibootwait > 0)
+		{
+			msleep(1000);
+			raspibootwait--;
+		}
 		while (!conv_rasp_time(init, test, sync));
 		rtc_set_time();
 	}
