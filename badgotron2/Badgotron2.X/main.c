@@ -21,6 +21,16 @@ u8				g_button_enable = 1;
 //					set to 2 when already displaying time information relative to the user.
 //						It then triggers page2.
 
+u32		ft_strlen(u8 *s)
+{
+	u32	len;
+
+	len = 0;
+	while (*s++)
+		len++;
+	return (len);
+}
+
 void    print_uartbuffer(void)
 {
     display_printstr(g_uart_rx_buf.buffer);
@@ -128,8 +138,8 @@ int main(int argc, char** argv)
     //tmp = rtc_get_id();
     //rtc_eewrite(0x00, 'U');
     //rtc_srwrite(0);
+	init_badge();
     init_rtc(1, 0, 1); // 101
-    init_badge();
     button_init();
     NRJ_init();
 	init_pwm();
@@ -137,8 +147,11 @@ int main(int argc, char** argv)
 	set_pwm(100);
 	msleep(500);
 	set_pwm(0);
+	int i = 50;
     while (42)
     {
+		BADGE_LED_R_WRITE = 0;
+		BADGE_LED_G_WRITE = 0;
         WDTCONbits.WDTCLR = 1;
         if (!NRJ_PIN_READ)
         {

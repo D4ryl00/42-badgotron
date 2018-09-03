@@ -19,6 +19,8 @@ static void	interrupt_badge(void)
 			g_wiegand_buf.buffer[g_wiegand_buf.index++] = 1;
 		while (!WIEGAND_TIMER_FLAG && !WIEGAND_DATA0_DATA || !WIEGAND_DATA1_DATA);
 	}
+	BADGE_LED_R_WRITE = 0;
+	BADGE_LED_G_WRITE = 1;
 	if (g_wiegand_buf.index == 44 && WIEGAND_DATA0_DATA && WIEGAND_DATA1_DATA)
 	{
 		g_print_enable = 1;

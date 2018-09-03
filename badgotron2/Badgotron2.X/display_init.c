@@ -113,11 +113,10 @@ void	display_returnhome(void)
 	msleep(2);
 }
 
-void    display_printstr(u8 str[])
+void    display_printstr(u8 *str)
 {
-	int i = 0;
-	while (str[i])
-		display_printchar(str[i++]);
+	while (*str)
+		display_printchar(*str++);
 }
 
 void	display_print()

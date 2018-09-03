@@ -77,10 +77,43 @@ void	convert_format_id(u8 *dest, u8 *src)
 			dest[i / 8] |= src[i] << (7 - (i % 8));
 }
 
+static void	uart_put_hexa_id(u8 id[5])
+{
+	u8	i;
+	u8	hex[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B' , 'C', 'D', 'E', 'F' };
+
+	i = -1;
+	while (++i < 5)
+	{
+		uart_putchar(hex[id[i] / 16]);
+		uart_putchar(hex[id[i] % 16]);
+	}
+}
+
+static void	print_firstname(s16 index_position, u8 len_display)
+{
+	u32	i;
+
+	uart_clear_buffer();
+	uart_putstr("name_");
+	uart_put_hexa_id(g_flash_index.index.user[index_position].id);
+	uart_putchar('\n');
+	i = 5000000;
+	while (!IFS1bits.U1RXIF && i)
+		i--;
+	if (IFS1bits.U1RXIF)
+		uart_getstr();
+	IFS1bits.U1RXIF = 0;
+	if (i && g_uart_rx_buf.index > 2)
+		display_center_printstr(g_uart_rx_buf.buffer, len_display);
+	else
+		display_center_printstr("   ", len_display);
+	uart_clear_buffer();
+}
+
 static void	badge_known_user(s16 index_position)
 {
 	u32	data_user_page_address;
-	u32	i;
 	u8	user_data_position;
 
 	g_flash_index.index.user[index_position].inactive = 0;
@@ -88,51 +121,35 @@ static void	badge_known_user(s16 index_position)
 	data_user_page_address = db_get_user_data_page_address(g_flash_index.index.page_number, index_position);
 	user_data_position = db_get_user_data_position(g_flash_index.index.page_number, index_position);
 	db_get_data_page(data_user_page_address);
+	display_clear();
 	if (!g_flash_data.data.user[user_data_position].timestamp)
 		{
 			g_flash_data.data.user[user_data_position].timestamp = get_timestamp();
-			display_printstr("                    ");
-			display_printstr("                    ");
-			display_printstr(" Bienvenue Jennifer ");
-			//MERDIER A PARTIR DICI
-			/*
-			msleep(1000);
-			display_clear();
-			uart_clear_buffer();
-			//while (g_uart_rx_buf.index < 2)
-			//{
-			uart_putstr("name_0F03B01BCB");
-			i = 1000000;
-			while (!g_uart_rx_buf.index && i)
-			{
-				i--;
-			}
-			msleep(1000);
-			//if (!i)
-			//	break ;
-			if (g_uart_rx_buf.index < 2)
-				uart_clear_buffer();
-			//}
-			display_printchar(g_uart_rx_buf.buffer[0]);
-			display_printchar(g_uart_rx_buf.buffer[1]);
-			display_printchar(g_uart_rx_buf.buffer[2]);
-			display_printchar(g_uart_rx_buf.buffer[3]);
-				display_printchar(g_uart_rx_buf.buffer[4]);
-			display_printchar(g_uart_rx_buf.buffer[5]);
-			display_printchar(g_uart_rx_buf.buffer[6]);
-			display_printchar(g_uart_rx_buf.buffer[7]);
-			uart_clear_buffer();
-			// FIN MERDIER*/
+			display_printstr("o------------------o");
+			display_printstr("|");
+			print_firstname(index_position, 18);
+			display_printstr("|");
+			display_printstr("|    Bienvenue     |");
+			display_printstr("o------------------o");
 		}
 	else
 	{
 		display_printstr("o------------------o");
+		display_printstr("|");
+		print_firstname(index_position, 18);
+		display_printstr("|");
+		display_printstr("|     Au revoir    |");
+		display_printstr("o------------------o");
+		msleep(1000);
+		display_printstr("o------------------o");
+		display_printstr("|Semaine    ");
+		print_hours(g_flash_data.data.user[user_data_position].current_week, 2, 2);
+		display_printstr("|");
 		display_printstr("|Aujourd'hui");
-		db_update_user_out_time(&(g_flash_data.data.user[user_data_position]));
 		print_hours(g_flash_data.data.user[user_data_position].current_day, 2, 2);
 		display_printstr("|");
-		display_printstr("|Au revoir Jennifer|");
 		display_printstr("o------------------o");
+		db_update_user_out_time(&(g_flash_data.data.user[user_data_position]));
 	}
 	flash_put_multibytes(data_user_page_address, g_flash_data.page, FLASH_PAGE_SIZE);
 	__builtin_enable_interrupts();
@@ -161,7 +178,12 @@ static void	badge_unknown_user(u8 *id, u8 checksum)
 	init_user_data(&(g_flash_data.data.user[user_data_position]));
 	g_flash_data.data.user[user_data_position].timestamp = get_timestamp();
 	flash_put_multibytes(data_user_page_address, g_flash_data.page, FLASH_PAGE_SIZE);
-	display_printstr("Bienvenue exInconnu");
+	display_printstr("o------------------o");
+	display_printstr("|");
+	print_firstname(index_position, 18);
+	display_printstr("|");
+	display_printstr("|    Bienvenue     |");
+	display_printstr("o------------------o");
 }
 
 void	start_badge(void)

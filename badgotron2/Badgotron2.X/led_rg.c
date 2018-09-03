@@ -38,7 +38,5 @@ void	set_led_g(u8 percent)
 void	set_led_rg(u8 percent)
 {
 	set_led_g(percent);
-	set_led_g(100);
-	set_led_r(100);
 	set_led_r(100 - percent);
 }

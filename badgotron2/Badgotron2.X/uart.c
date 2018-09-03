@@ -7,7 +7,7 @@ void	uart_addcharbuffer(u8 c)
 
 void	uart_addnullbuffer(void)
 {
-    g_uart_rx_buf.buffer[g_uart_rx_buf.index + 1] = '\0';
+    g_uart_rx_buf.buffer[g_uart_rx_buf.index] = '\0';
 }
 
 void    uart_clear_buffer(void)
@@ -15,14 +15,18 @@ void    uart_clear_buffer(void)
     g_uart_rx_buf.index = 0;
 }
 
+void	uart_putchar(u8 c)
+{
+	while (U1STAbits.UTXBF);
+	U1TXREG = c;
+}
+
 void	uart_putstr(u8 *string)
 {
 	while (*string)
-	{
-		while (U1STAbits.UTXBF);
-		U1TXREG = *string++;
-	}
+		uart_putchar(*string++);
 }
+
 void	uart_getstr(void)
 {
 	u8	c;
