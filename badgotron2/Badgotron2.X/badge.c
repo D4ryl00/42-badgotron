@@ -134,6 +134,7 @@ static void	badge_known_user(s16 index_position)
 		}
 	else
 	{
+		db_update_user_out_time(&(g_flash_data.data.user[user_data_position]));
 		display_printstr("o------------------o");
 		display_printstr("|");
 		print_firstname(index_position, 18);
@@ -142,14 +143,13 @@ static void	badge_known_user(s16 index_position)
 		display_printstr("o------------------o");
 		msleep(1000);
 		display_printstr("o------------------o");
-		display_printstr("|Semaine    ");
-		print_hours(g_flash_data.data.user[user_data_position].current_week, 2, 2);
+		display_printstr("|Trimestre  ");
+		print_hours(g_flash_data.data.user[user_data_position].current_trimester, 2, 3);
 		display_printstr("|");
 		display_printstr("|Aujourd'hui");
 		print_hours(g_flash_data.data.user[user_data_position].current_day, 2, 2);
 		display_printstr("|");
 		display_printstr("o------------------o");
-		db_update_user_out_time(&(g_flash_data.data.user[user_data_position]));
 	}
 	flash_put_multibytes(data_user_page_address, g_flash_data.page, FLASH_PAGE_SIZE);
 	__builtin_enable_interrupts();
