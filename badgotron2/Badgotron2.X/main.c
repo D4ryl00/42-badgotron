@@ -139,7 +139,7 @@ int main(int argc, char** argv)
     //rtc_eewrite(0x00, 'U');
     //rtc_srwrite(0);
 	init_badge();
-    init_rtc(1, 0, 1); // 101
+    init_rtc(1, 0, 0);
     button_init();
     NRJ_init();
 	init_pwm();
